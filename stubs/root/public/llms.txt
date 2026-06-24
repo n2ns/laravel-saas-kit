@@ -1,0 +1,13 @@
+# SaaS Starter
+
+SaaS Starter is a Laravel product-site template extracted from the current main-site implementation.
+
+## Included capabilities
+
+- Google web login and Google ID token API login
+- OAuth access tokens, refresh tokens, device sessions, and session revocation
+- Stripe Checkout, webhooks, subscriptions, orders, and customer portal
+- Product catalog, product pages, pricing pages, blog posts, product articles, and SEO routes
+- Filament admin resources for users, sessions, products, plans, subscriptions, orders, blog posts, product articles, API keys, and analytics
+
+Product-specific business logic should be added by the product site after copying this template.

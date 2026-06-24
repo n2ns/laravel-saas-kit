@@ -1,0 +1,22 @@
+/* ==========================================================================
+   Base Typography — UIpro Tech Startup
+   Heading: Space Grotesk | Body: DM Sans
+   ========================================================================== */
+
+:root {
+   /* Font Stacks */
+   --font-family-heading: 'Space Grotesk', 'DM Sans', sans-serif;
+   --font-family-body: 'DM Sans', system-ui, sans-serif;
+
+   /* Type Scale */
+   --font-size-h1: 48px;
+   --line-height-h1: 1.1;
+   --font-size-h2: 24px;
+   --line-height-h2: 1.3;
+   --font-size-h3: 18px;
+   --line-height-h3: 1.4;
+   --font-size-body: 16px;
+   --line-height-body: 1.6;
+   --font-size-small: 14px;
+   --line-height-small: 1.5;
+}

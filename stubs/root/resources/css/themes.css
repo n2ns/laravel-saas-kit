@@ -1,0 +1,95 @@
+/* 
+  --------------------------------------------------------------------------
+  Global Tier Colors
+  --------------------------------------------------------------------------
+*/
+:root {
+    --tier-pro: var(--color-amber-500);
+    --tier-pro-glow: rgba(245, 158, 11, 0.3);
+    --tier-pro-muted: rgba(245, 158, 11, 0.1);
+
+    --color-neon-purple: #8b5cf6;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+@layer utilities {
+    .scrollbar-thin {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    }
+}
+
+/*
+  --------------------------------------------------------------------------
+  Product Type Brand Themes
+  --------------------------------------------------------------------------
+*/
+
+.type-mcp {
+    --brand-primary: var(--color-emerald-500);
+    --brand-muted: rgba(16, 185, 129, 0.1);
+    --brand-border: rgba(16, 185, 129, 0.2);
+    --brand-glow: rgba(16, 185, 129, 0.15);
+}
+
+.type-vscode {
+    --brand-primary: var(--color-blue-500);
+    --brand-muted: rgba(59, 130, 246, 0.1);
+    --brand-border: rgba(59, 130, 246, 0.2);
+    --brand-glow: rgba(59, 130, 246, 0.15);
+}
+
+.type-chrome,
+.type-web {
+    --brand-primary: var(--color-cyan-500);
+    --brand-muted: rgba(6, 182, 212, 0.1);
+    --brand-border: rgba(6, 182, 212, 0.2);
+    --brand-glow: rgba(6, 182, 212, 0.15);
+}
+
+.type-starter {
+    --brand-primary: var(--color-blue-500);
+    --brand-muted: rgba(59, 130, 246, 0.1);
+    --brand-border: rgba(59, 130, 246, 0.2);
+    --brand-glow: rgba(59, 130, 246, 0.15);
+}
+
+.type-ide {
+    --brand-primary: var(--color-primary-500);
+    --brand-muted: color-mix(in srgb, var(--color-primary-500), transparent 90%);
+    --brand-border: color-mix(in srgb, var(--color-primary-500), transparent 80%);
+    --brand-glow: color-mix(in srgb, var(--color-primary-500), transparent 85%);
+}
+
+.type-jetbrains {
+    --brand-primary: var(--color-amber-500);
+    --brand-muted: rgba(245, 158, 11, 0.1);
+    --brand-border: rgba(245, 158, 11, 0.2);
+    --brand-glow: rgba(245, 158, 11, 0.15);
+}
+
+.type-server,
+.type-desktop {
+    --brand-primary: var(--color-slate-400);
+    --brand-muted: rgba(148, 163, 184, 0.1);
+    --brand-border: rgba(148, 163, 184, 0.2);
+    --brand-glow: rgba(148, 163, 184, 0.1);
+}
+
+.type-mobile {
+    --brand-primary: var(--color-rose-500);
+    --brand-muted: rgba(244, 63, 94, 0.1);
+    --brand-border: rgba(244, 63, 94, 0.2);
+    --brand-glow: rgba(244, 63, 94, 0.15);
+}
+
+/* Specific Product Overrides */
+.type-image-refinery {
+    --brand-primary: var(--color-rose-500);
+    --brand-muted: rgba(244, 63, 94, 0.1);
+    --brand-border: rgba(244, 63, 94, 0.2);
+    --brand-glow: rgba(244, 63, 94, 0.15);
+}

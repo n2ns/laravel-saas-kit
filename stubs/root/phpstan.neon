@@ -1,0 +1,13 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 1
+    paths:
+        - app/
+    excludePaths:
+        - app/Providers/Filament/
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # Filament v4 dynamic methods
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::(make|schema|columns|filters)\(\)#'

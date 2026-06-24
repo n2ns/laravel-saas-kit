@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
+        <testsuite name="Architecture">
+            <directory>tests/Architecture</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>app</directory>
+        </include>
+    </source>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="APP_MAINTENANCE_DRIVER" value="file"/>
+        <env name="BCRYPT_ROUNDS" value="4"/>
+        <env name="CACHE_STORE" value="array"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
+        <env name="MAIL_MAILER" value="array"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="PULSE_ENABLED" value="false"/>
+        <env name="TELESCOPE_ENABLED" value="false"/>
+        <env name="NIGHTWATCH_ENABLED" value="false"/>
+        <env name="JWT_SECRET" value="testing_secret_key_at_least_32_chars_long"/>
+        <env name="PASSPORT_STORAGE_DISK" value="local"/>
+        <env name="STRIPE_SECRET" value="sk_test_dummy"/>
+        <env name="STRIPE_WEBHOOK_SECRET" value="whsec_dummy"/>
+        <env name="STARTER_STRIPE_PRODUCT_ID" value="prod_test_starter"/>
+        <env name="STARTER_PLUS_MONTHLY_STRIPE_PRICE_ID" value="price_test_starter_plus_monthly"/>
+        <env name="STARTER_CREDITS_10_STRIPE_PRICE_ID" value="price_test_starter_credits_10"/>
+    </php>
+</phpunit>

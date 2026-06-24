@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  package:
+    name: Package checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: dom, mbstring, pdo_sqlite
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Install package dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Check PHP syntax
+        run: find src tests stubs/root -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Run package tests
+        run: ./vendor/bin/phpunit
+
+  smoke:
+    name: Laravel install smoke
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          path: laravel-saas-kit
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: dom, mbstring, pdo_sqlite, sqlite3
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+
+      - name: Create Laravel 12 app
+        run: composer create-project laravel/laravel:^12.0 smoke
+
+      - name: Install kit from local path
+        working-directory: smoke
+        run: |
+          composer config repositories.laravel-saas-kit path ../laravel-saas-kit
+          composer require n2ns/laravel-saas-kit:*@dev --no-interaction
+
+      - name: Install kit files
+        working-directory: smoke
+        run: php artisan saas-kit:install --force
+
+      - name: Verify backend
+        working-directory: smoke
+        run: |
+          test -f .env.example
+          test -f .env.testing
+          cp .env.example .env
+          php artisan key:generate
+          touch database/database.sqlite
+          php artisan migrate:fresh --force
+          php artisan passport:keys --force
+          php artisan route:list --except-vendor
+          php artisan about
+          composer test
+          php scripts/lint-php.php
+
+      - name: Verify frontend build
+        working-directory: smoke
+        run: |
+          npm ci
+          npm run build

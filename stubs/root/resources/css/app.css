@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+@source "../../resources/views/**/*.blade.php";
+@plugin "@tailwindcss/typography";
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* ==========================================================================
+   CSS Module Imports (Stripe-Inspired Design System)
+   ========================================================================== */
+@import "./base/typography.css";
+@import "./themes.css";
+
+/* 
+  --------------------------------------------------------------------------
+  Theme Configuration (Tailwind v4)
+  --------------------------------------------------------------------------
+*/
+@theme {
+    /* Fonts — UIpro Tech Startup: Space Grotesk (headings) + DM Sans (body) */
+    --font-sans: 'DM Sans', system-ui, sans-serif;
+    --font-heading: 'Space Grotesk', 'DM Sans', sans-serif;
+
+    /* Custom Colors: Slate Extension */
+    --color-slate-850: #151e2e;
+
+    /* --- Semantic Color System --- */
+    --color-bg-body: #0a0e27;
+    --color-bg-surface: #0d1130;
+    --color-bg-card: rgba(255, 255, 255, 0.08);
+
+    --color-text-primary: #f1f5f9;
+    --color-text-secondary: var(--color-slate-300);
+    --color-text-tertiary: var(--color-slate-400);
+    --color-text-brand: var(--color-primary-400);
+
+    --color-border-default: rgba(255, 255, 255, 0.1);
+    --color-border-hover: rgba(59, 130, 246, 0.5);
+
+    /* Primary Brand — UIpro Developer Tool: Blue #3B82F6 */
+    --color-primary-50:  #eff6ff;
+    --color-primary-100: #dbeafe;
+    --color-primary-200: #bfdbfe;
+    --color-primary-300: #93c5fd;
+    --color-primary-400: #60a5fa;
+    --color-primary-500: #3b82f6;
+    --color-primary-600: #2563eb;
+    --color-primary-700: #1d4ed8;
+    --color-primary-800: #1e40af;
+    --color-primary-900: #1e3a8a;
+    --color-primary-950: #172554;
+
+    /* Neon Accents */
+    --color-neon-cyan: #06b6d4;
+    --color-neon-purple: #8b5cf6;
+
+    /* Custom Animations */
+    --animate-fade-in: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Prose Variables for Typography Plugin */
+    --color-prose-body: var(--color-slate-400);
+    --color-prose-headings: var(--color-white);
+    --color-prose-links: var(--color-primary-400);
+    --color-prose-bold: var(--color-white);
+    --color-prose-counters: var(--color-slate-400);
+    --color-prose-bullets: var(--color-slate-600);
+    --color-prose-hr: var(--color-slate-800);
+    --color-prose-quotes: var(--color-slate-200);
+    --color-prose-quote-borders: var(--color-primary-800);
+    --color-prose-th-borders: var(--color-slate-800);
+    --color-prose-td-borders: var(--color-slate-800);
+}
+
+/*
+  --------------------------------------------------------------------------
+  Custom Utilities & Components
+  --------------------------------------------------------------------------
+*/
+@layer utilities {
+
+    /* Section Spacing */
+    .section-padding {
+        @apply py-6 md:py-10;
+    }
+
+    .section-padding-compact {
+        @apply py-4 md:py-8;
+    }
+
+    /* Text Effects */
+    .text-shadow {
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .text-glow {
+        text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-neon-cyan;
+    }
+
+    /* Glassmorphism Cards */
+    .glass-card,
+    .bento-item {
+        @apply bg-slate-900/40 backdrop-blur-xl border border-white/10 shadow-2xl;
+        transition: all 0.3s ease;
+    }
+
+    .glass-card:hover,
+    .bento-item:hover {
+        @apply border-primary-500/50 bg-slate-800/60 -translate-y-1;
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+    }
+
+    /* Bento Grid Layouts */
+    .bento-grid {
+        @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+    }
+
+    .bento-item {
+        @apply rounded-3xl p-8 flex flex-col relative overflow-hidden;
+    }
+
+    /* Form Inputs */
+    .input-dark {
+        @apply w-full bg-slate-950/50 border border-white/10 rounded-lg px-4 py-3 text-slate-100 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors placeholder-slate-500;
+    }
+
+    /* =========================================================
+       Heading Font — Space Grotesk (UIpro Tech Startup)
+       ========================================================= */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-heading);
+    }
+
+    /* =========================================================
+       Project Design Utilities
+       ========================================================= */
+
+    /* Dot Grid Background */
+    .bg-dot-grid {
+        background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 28px 28px;
+    }
+
+    /* Unified Surface Card — UIpro Glassmorphism */
+    .ui-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        border-radius: 16px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .ui-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(59, 130, 246, 0.25);
+    }
+    .ui-card-lift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Section spacing standards */
+    .section-xl { @apply py-24 md:py-32; }
+    .section-lg { @apply py-16 md:py-24; }
+    .section-md { @apply py-10 md:py-16; }
+
+    /* Section label (small uppercase label above titles) */
+    .section-label {
+        @apply text-[11px] font-semibold text-slate-500 uppercase tracking-[0.15em] mb-3;
+    }
+
+    /* Dividers */
+    .ui-divider { @apply border-t border-white/[0.08]; }
+
+    /* Button System */
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-white text-slate-950 hover:bg-slate-100 transition-all duration-150 select-none whitespace-nowrap;
+    }
+    .btn-brand {
+        @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-primary-600 text-white hover:bg-primary-500 transition-all duration-150 select-none whitespace-nowrap;
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25);
+    }
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-white/5 border border-white/10 text-slate-200 hover:bg-white/10 hover:text-white hover:border-white/20 transition-all duration-150 select-none whitespace-nowrap;
+    }
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-150 select-none whitespace-nowrap;
+    }
+
+    /* Badge System */
+    .ui-badge-neutral { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-white/5 border border-white/10 text-slate-400; }
+    .ui-badge-brand   { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-primary-500/10 border border-primary-500/20 text-primary-400; }
+    .ui-badge-success { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400; }
+    .ui-badge-warning { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-500/10 border border-amber-500/20 text-amber-400; }
+    .ui-badge-info    { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-blue-500/10 border border-blue-500/20 text-blue-400; }
+    .ui-badge-cyan    { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-cyan-500/10 border border-cyan-500/20 text-cyan-400; }
+}
+
+/* 
+  --------------------------------------------------------------------------
+  Animations
+  --------------------------------------------------------------------------
+*/
+@keyframes blob {
+    0% {
+        transform: translate(0px, 0px) scale(1);
+    }
+
+    33% {
+        transform: translate(30px, -50px) scale(1.1);
+    }
+
+    66% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+
+    100% {
+        transform: translate(0px, 0px) scale(1);
+    }
+}
+
+.animate-blob {
+    animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+    animation-delay: 4s;
+}
+
+/* Infinite Scroll Marquee Animation */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-scroll-left {
+    animation: scroll-left 45s linear infinite;
+}
+
+/* Pause animation on hover */
+.marquee-container:hover .animate-scroll-left {
+    animation-play-state: paused;
+}
+
+/* Marquee fade masks */
+.marquee-mask {
+    mask-image: linear-gradient(to right,
+            transparent 0%,
+            black 10%,
+            black 90%,
+            transparent 100%);
+    -webkit-mask-image: linear-gradient(to right,
+            transparent 0%,
+            black 10%,
+            black 90%,
+            transparent 100%);
+}
+
+/* 
+  --------------------------------------------------------------------------
+  Global Styles
+  --------------------------------------------------------------------------
+*/
+body {
+    @apply bg-slate-950 text-slate-100;
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" role="img" aria-labelledby="title desc">
+  <title id="title">Team member placeholder</title>
+  <desc id="desc">Abstract placeholder portrait for SaaS Starter templates.</desc>
+  <defs>
+    <linearGradient id="bg" x1="1" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="0.5" stop-color="#312e81"/>
+      <stop offset="1" stop-color="#0369a1"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="55%" cy="35%" r="62%">
+      <stop offset="0" stop-color="#c4b5fd" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#c4b5fd" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="960" height="720" fill="url(#bg)"/>
+  <rect width="960" height="720" fill="url(#glow)"/>
+  <circle cx="480" cy="270" r="104" fill="#ede9fe" opacity="0.92"/>
+  <path d="M275 626c30-119 107-190 205-190s175 71 205 190" fill="#ede9fe" opacity="0.9"/>
+  <path d="M125 600c105-74 222-111 355-111s250 37 355 111" fill="none" stroke="#a5b4fc" stroke-width="3" opacity="0.35"/>
+  <path d="M182 126h596" stroke="#f8fafc" stroke-width="2" opacity="0.14"/>
+  <path d="M220 170h520" stroke="#f8fafc" stroke-width="2" opacity="0.1"/>
+</svg>

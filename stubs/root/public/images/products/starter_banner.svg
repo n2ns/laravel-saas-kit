@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Starter product banner</title>
+  <desc id="desc">A generic SaaS product template banner.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="0.55" stop-color="#1e3a8a"/>
+      <stop offset="1" stop-color="#0f766e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect x="96" y="96" width="1008" height="483" rx="34" fill="rgba(15,23,42,0.62)" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+  <rect x="150" y="150" width="160" height="160" rx="32" fill="#2563eb"/>
+  <path d="M190 216h86v22h-86v-22Zm0 52h62v22h-62v-22Z" fill="#fff"/>
+  <text x="354" y="241" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="800">Starter Product</text>
+  <text x="358" y="315" fill="#cbd5e1" font-family="Inter, Arial, sans-serif" font-size="30">Authentication, billing, content, and admin workflows</text>
+  <g fill="none" stroke="#93c5fd" stroke-width="3">
+    <path d="M362 405h140M362 455h260M362 505h190"/>
+  </g>
+  <g fill="#14b8a6">
+    <circle cx="330" cy="405" r="9"/>
+    <circle cx="330" cy="455" r="9"/>
+    <circle cx="330" cy="505" r="9"/>
+  </g>
+</svg>
