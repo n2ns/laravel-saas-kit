@@ -79,7 +79,7 @@
                     <div class="relative z-10 group">
                         <div class="absolute -top-12 -bottom-24 -left-12 -right-12 bg-[var(--brand-glow)] blur-[160px] rounded-full pointer-events-none transition-colors duration-1000"></div>
                         <div class="absolute -inset-1 bg-[var(--brand-primary)] opacity-25 group-hover:opacity-40 blur rounded-2xl transition duration-1000"></div>
-                        <div class="relative rounded-2xl border border-white/10 overflow-hidden bg-slate-900 shadow-2xl transition-transform duration-500 hover:scale-[1.01] cursor-zoom-in"
+                        <div class="relative rounded-2xl border border-black/10 overflow-hidden bg-white shadow-2xl shadow-orange-900/10 transition-transform duration-500 hover:scale-[1.01] cursor-zoom-in"
                              @click="lightbox = true"
                              role="button"
                              tabindex="0"
@@ -127,9 +127,9 @@
                         </div>
                     </template>
                 @else
-                    <div class="aspect-square rounded-3xl bg-slate-900 border border-white/5 flex items-center justify-center relative">
+                    <div class="aspect-square rounded-3xl bg-white border border-black/10 flex items-center justify-center relative shadow-xl shadow-orange-900/5">
                          <div class="absolute inset-0 bg-[var(--brand-glow)] blur-[100px]"></div>
-                         <div class="w-24 h-24 rounded-2xl bg-[var(--brand-muted)] flex items-center justify-center border border-[var(--brand-border)] relative z-10">
+                        <div class="w-24 h-24 rounded-2xl bg-[var(--brand-muted)] flex items-center justify-center border border-[var(--brand-border)] relative z-10">
                              <i data-lucide="{{ $hero['icon'] ?? 'box' }}" class="w-12 h-12 text-[var(--brand-primary)]"></i>
                          </div>
                     </div>
@@ -139,34 +139,34 @@
             <div class="lg:col-span-7 order-1 lg:order-2 space-y-6 pt-4 lg:pt-1">
                 <div class="flex flex-wrap items-center gap-2">
                     @if($productType)
-                    <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-white/70 text-xs font-bold leading-none">
+                    <span class="px-2.5 py-1 rounded-lg bg-white border border-black/10 text-slate-600 text-xs font-bold leading-none">
                         {{ __("products.product_type.{$productType}") }}
                     </span>
                     @endif
 
-                    <span class="px-2.5 py-1 rounded-lg bg-{{ $statusColor }}-500/10 border border-{{ $statusColor }}-500/20 text-{{ $statusColor }}-400 text-xs font-bold leading-none">
+                    <span class="px-2.5 py-1 rounded-lg bg-orange-100 border border-orange-200 text-[#a34f1f] text-xs font-bold leading-none">
                         {{ __("products.release_status.{$releaseStatus}") }}
                     </span>
 
-                    <div class="h-4 w-px bg-white/10 mx-1"></div>
+                    <div class="h-4 w-px bg-black/10 mx-1"></div>
 
                     @foreach($productTags as $tag)
-                    <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-white/60 text-xs font-bold transition-colors hover:bg-white/10">
+                    <span class="px-2.5 py-1 rounded-lg bg-white border border-black/10 text-slate-600 text-xs font-bold transition-colors hover:bg-orange-50">
                         {{ $tag }}
                     </span>
                     @endforeach
                 </div>
 
-                <h1 class="text-2xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+                <h1 class="text-2xl md:text-5xl font-bold text-slate-950 tracking-tight leading-tight">
                     {{ $title }}
                 </h1>
 
                 <div class="max-w-xl space-y-4">
-                    <p class="text-base md:text-lg text-slate-200 leading-relaxed font-normal">
+                    <p class="text-base md:text-lg text-slate-600 leading-relaxed font-normal">
                         {{ $subtitle }}
                     </p>
                     @if($hero['description'] ?? null)
-                    <p class="text-base text-white/80 leading-relaxed">
+                    <p class="text-base text-slate-600 leading-relaxed">
                         {!! nl2br(e($hero['description'])) !!}
                     </p>
                     @endif
@@ -185,18 +185,18 @@
                 @endif
 
                 @if(! empty($heroStats))
-                <div class="flex items-center gap-8 pt-6 border-t border-white/5">
+                <div class="flex items-center gap-8 pt-6 border-t border-black/10">
                      @if(isset($heroStats['npm_downloads']))
                      <div>
                          <div class="text-xs text-slate-500 uppercase font-bold tracking-widest mb-1">NPM Downloads</div>
-                         <div class="text-white font-bold">{{ number_format($heroStats['npm_downloads']) }}</div>
+                         <div class="text-slate-950 font-bold">{{ number_format($heroStats['npm_downloads']) }}</div>
                      </div>
                      @endif
 
                      @if(isset($heroStats['vscode_downloads']))
                      <div>
                          <div class="text-xs text-slate-500 uppercase font-bold tracking-widest mb-1">IDE Installs</div>
-                         <div class="text-white font-bold">{{ number_format($heroStats['vscode_downloads']) }}</div>
+                         <div class="text-slate-950 font-bold">{{ number_format($heroStats['vscode_downloads']) }}</div>
                      </div>
                      @endif
                 </div>

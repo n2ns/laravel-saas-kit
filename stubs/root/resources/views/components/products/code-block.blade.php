@@ -41,12 +41,12 @@
     }, e($code));
 @endphp
 
-<div {{ $attributes->merge(['class' => 'bg-slate-900/50 rounded-3xl border border-white/10 p-8 md:p-12']) }}>
+<div {{ $attributes->merge(['class' => 'bg-white rounded-3xl border border-black/10 p-8 md:p-12']) }}>
     @if($title)
-        <h2 class="text-2xl md:text-2xl font-bold text-white mb-6">{{ $title }}</h2>
+        <h2 class="text-2xl md:text-2xl font-bold text-slate-950 mb-6">{{ $title }}</h2>
     @endif
 
-    <div class="bg-black rounded-xl p-6 font-mono text-sm overflow-x-auto">
-        <pre class="text-slate-300">{!! $highlighted !!}</pre>
+    <div class="bg-white rounded-xl p-6 font-mono text-sm overflow-x-auto">
+        <pre class="text-slate-700">{!! $highlighted !!}</pre>
     </div>
 </div>

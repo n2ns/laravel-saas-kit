@@ -10,6 +10,7 @@ use App\Filament\Resources\HomepageDisplayResource\Pages\ListHomepageDisplays;
 use App\Models\ApiKey;
 use App\Models\BlogPost;
 use App\Models\CatalogItem;
+use App\Models\OAuthAccount;
 use App\Models\Order;
 use App\Models\Plan;
 use App\Models\SiteVisitDailyStat;
@@ -65,6 +66,17 @@ class TemplateSmokeTest extends TestCase
     public function test_public_home_page_loads(): void
     {
         $this->get('/')->assertOk();
+    }
+
+    public function test_single_product_home_page_links_to_pricing(): void
+    {
+        $this->seed();
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Pricing')
+            ->assertSee('/starter/pricing', false)
+            ->assertSee('View pricing');
     }
 
     public function test_google_auth_redirect_uses_stateful_socialite_flow(): void
@@ -166,6 +178,211 @@ class TemplateSmokeTest extends TestCase
         $this->assertDatabaseHas('oauth_accounts', [
             'user_id' => $user->id,
             'provider_id' => 'google-first-client-1',
+        ]);
+    }
+
+    public function test_google_profile_sync_updates_existing_user_when_data_changes(): void
+    {
+        $user = User::factory()->create([
+            'name' => 'Old Name',
+            'email' => 'old@example.com',
+            'avatar' => null,
+        ]);
+
+        OAuthAccount::create([
+            'user_id' => $user->id,
+            'provider' => OAuthAccount::PROVIDER_GOOGLE,
+            'provider_id' => 'google-sync-user',
+            'provider_email' => 'old@example.com',
+        ]);
+
+        $service = app(SocialAuthService::class);
+
+        $googleUser = new class
+        {
+            public function getId(): string
+            {
+                return 'google-sync-user';
+            }
+
+            public function getEmail(): string
+            {
+                return 'newname@example.com';
+            }
+
+            public function getName(): string
+            {
+                return 'New Display Name';
+            }
+
+            public function getAvatar(): ?string
+            {
+                return 'https://example.com/new-avatar.png';
+            }
+
+            /**
+             * @return array<string, mixed>
+             */
+            public function getRaw(): array
+            {
+                return ['email_verified' => true];
+            }
+        };
+
+        $updatedUser = $service->authenticateUser($googleUser);
+
+        $this->assertSame($user->id, $updatedUser->id);
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => 'New Display Name',
+            'email' => 'newname@example.com',
+            'avatar' => 'https://example.com/new-avatar.png',
+        ]);
+        $this->assertDatabaseHas('oauth_accounts', [
+            'user_id' => $user->id,
+            'provider_id' => 'google-sync-user',
+            'provider_email' => 'newname@example.com',
+        ]);
+    }
+
+    public function test_google_profile_email_conflict_does_not_update_main_user_email(): void
+    {
+        $user = User::factory()->create([
+            'name' => 'Original Name',
+            'email' => 'owner@example.com',
+            'avatar' => null,
+        ]);
+
+        User::factory()->create([
+            'email' => 'owner-new@example.com',
+        ]);
+
+        OAuthAccount::create([
+            'user_id' => $user->id,
+            'provider' => OAuthAccount::PROVIDER_GOOGLE,
+            'provider_id' => 'google-conflict-user',
+            'provider_email' => 'owner@example.com',
+        ]);
+
+        $service = app(SocialAuthService::class);
+
+        $googleUser = new class
+        {
+            public function getId(): string
+            {
+                return 'google-conflict-user';
+            }
+
+            public function getEmail(): string
+            {
+                return 'owner-new@example.com';
+            }
+
+            public function getName(): string
+            {
+                return 'Changed Name';
+            }
+
+            public function getAvatar(): ?string
+            {
+                return 'https://example.com/avatar.png';
+            }
+
+            /**
+             * @return array<string, mixed>
+             */
+            public function getRaw(): array
+            {
+                return ['email_verified' => true];
+            }
+        };
+
+        $updatedUser = $service->authenticateUser($googleUser);
+
+        $this->assertSame($user->id, $updatedUser->id);
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => 'Changed Name',
+            'email' => 'owner@example.com',
+            'avatar' => 'https://example.com/avatar.png',
+        ]);
+        $this->assertDatabaseHas('oauth_accounts', [
+            'user_id' => $user->id,
+            'provider_id' => 'google-conflict-user',
+            'provider_email' => 'owner-new@example.com',
+        ]);
+        $this->assertDatabaseMissing('oauth_accounts', [
+            'user_id' => $user->id,
+            'provider_id' => 'google-conflict-user',
+            'provider_email' => 'owner@example.com',
+        ]);
+    }
+
+    public function test_google_fallback_login_uses_matching_email_user_when_google_id_is_unknown(): void
+    {
+        $targetUser = User::factory()->create([
+            'name' => 'Fallback User',
+            'email' => 'fallback-owner@example.com',
+            'avatar' => null,
+        ]);
+
+        $otherUser = User::factory()->create([
+            'email' => 'fallback-new@example.com',
+            'name' => 'Other Email User',
+        ]);
+
+        $service = app(SocialAuthService::class);
+
+        $googleUser = new class
+        {
+            public function getId(): string
+            {
+                return 'google-fallback-conflict';
+            }
+
+            public function getEmail(): string
+            {
+                return 'fallback-new@example.com';
+            }
+
+            public function getName(): string
+            {
+                return 'Fallback Changed Name';
+            }
+
+            public function getAvatar(): ?string
+            {
+                return 'https://example.com/fallback-avatar.png';
+            }
+
+            /**
+             * @return array<string, mixed>
+             */
+            public function getRaw(): array
+            {
+                return ['email_verified' => true];
+            }
+        };
+
+        $updatedUser = $service->authenticateUser($googleUser);
+
+        $this->assertSame($otherUser->id, $updatedUser->id);
+        $this->assertDatabaseHas('users', [
+            'id' => $otherUser->id,
+            'name' => 'Fallback Changed Name',
+            'email' => 'fallback-new@example.com',
+            'avatar' => 'https://example.com/fallback-avatar.png',
+        ]);
+        $this->assertDatabaseHas('oauth_accounts', [
+            'user_id' => $otherUser->id,
+            'provider' => OAuthAccount::PROVIDER_GOOGLE,
+            'provider_id' => 'google-fallback-conflict',
+            'provider_email' => 'fallback-new@example.com',
+        ]);
+
+        $this->assertDatabaseMissing('oauth_accounts', [
+            'user_id' => $targetUser->id,
+            'provider_id' => 'google-fallback-conflict',
         ]);
     }
 

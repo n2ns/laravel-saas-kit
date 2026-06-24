@@ -75,38 +75,38 @@
     $heroArticleHtml = $heroArticle !== '' ? app(\Spatie\LaravelMarkdown\MarkdownRenderer::class)->toHtml($heroArticle) : '';
 @endphp
 
-<div class="min-h-screen bg-black pb-20">
-    <section class="relative overflow-hidden border-b border-white/[0.08]">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.18),transparent_34%),radial-gradient(circle_at_80%_10%,rgba(16,185,129,0.12),transparent_28%)] pointer-events-none"></div>
+<div class="min-h-screen bg-white pb-20">
+    <section class="relative overflow-hidden border-b border-black/[0.08]">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(251,146,60,0.22),transparent_34%),radial-gradient(circle_at_80%_10%,rgba(163,79,31,0.10),transparent_28%)] pointer-events-none"></div>
 
         <div class="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-12 sm:px-6 lg:grid-cols-12 lg:items-start lg:px-8 lg:py-16">
             <div class="lg:col-span-7">
                 <div class="mb-5 flex flex-wrap items-center gap-2">
                     @if($productType)
-                        <span class="inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/[0.06] px-3 py-1.5 text-sm font-semibold text-slate-100">
-                            <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+                        <span class="inline-flex items-center gap-2 rounded-md border border-black/10 bg-white px-3 py-1.5 text-sm font-semibold text-slate-800">
+                            <span class="h-2 w-2 rounded-full bg-[#a34f1f]"></span>
                             {{ __("products.product_type.{$productType}") }}
                         </span>
                     @endif
 
                     @if($releaseStatus)
-                        <span class="inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/[0.06] px-3 py-1.5 text-sm font-semibold text-slate-100">
+                        <span class="inline-flex items-center gap-2 rounded-md border border-black/10 bg-white px-3 py-1.5 text-sm font-semibold text-slate-800">
                             <span class="h-2 w-2 rounded-full {{ $statusDot }}"></span>
                             {{ __("products.release_status.{$releaseStatus}") }}
                         </span>
                     @endif
                 </div>
 
-                <h1 class="max-w-4xl text-2xl font-bold tracking-tight text-white md:text-5xl">
+                <h1 class="max-w-4xl text-2xl font-bold tracking-tight text-slate-950 md:text-5xl">
                     {{ $title }}
                 </h1>
 
-                <p class="mt-5 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
+                <p class="mt-5 max-w-2xl text-base leading-8 text-slate-700 md:text-lg">
                     {{ $subtitle }}
                 </p>
 
                 @if($heroArticleHtml !== '')
-                    <div class="mt-5 max-w-2xl text-[15px] leading-7 text-slate-400 prose prose-invert prose-p:my-0 [&_p+p]:mt-3 prose-a:text-[var(--brand-primary)]">
+                    <div class="mt-5 max-w-2xl text-[15px] leading-7 text-slate-600 prose prose-p:my-0 [&_p+p]:mt-3 prose-a:text-[var(--brand-primary)]">
                         {!! $heroArticleHtml !!}
                     </div>
                 @endif
@@ -114,7 +114,7 @@
                 @if(! empty($tags))
                     <div class="mt-6 flex max-w-2xl flex-wrap gap-2">
                         @foreach($tags as $tag)
-                            <span class="rounded-md border border-white/15 bg-white/[0.06] px-3 py-1.5 text-sm font-medium text-slate-300">
+                            <span class="rounded-md border border-black/10 bg-white px-3 py-1.5 text-sm font-medium text-slate-700">
                                 {{ $tag }}
                             </span>
                         @endforeach
@@ -131,35 +131,35 @@
             </div>
 
             <aside class="lg:col-span-5">
-                <div class="rounded-lg border border-white/[0.12] bg-[#07111f] p-5 shadow-[0_22px_70px_rgba(0,0,0,0.58)]">
+                <div class="rounded-lg border border-black/[0.10] bg-white p-5 shadow-2xl shadow-orange-900/10">
                     @if($previewImage)
                         <x-products.responsive-image
                             :src="$previewImage"
                             :alt="$title"
-                            picture-class="block overflow-hidden rounded-md border border-white/[0.08] bg-black"
+                            picture-class="block overflow-hidden rounded-md border border-black/[0.08] bg-white"
                             img-class="aspect-[16/10] max-h-[300px] w-full object-cover object-top"
                         />
                     @else
-                        <div class="flex aspect-[16/10] items-center justify-center rounded-md border border-white/[0.08] bg-black">
+                        <div class="flex aspect-[16/10] items-center justify-center rounded-md border border-black/[0.08] bg-white">
                             <i data-lucide="package-open" class="h-12 w-12 text-slate-600"></i>
                         </div>
                     @endif
 
                     <dl class="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
-                        <div class="rounded-md border border-white/[0.08] bg-white/[0.03] p-3">
+                        <div class="rounded-md border border-black/[0.08] bg-white p-3">
                             <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Version</dt>
-                            <dd class="mt-1 text-slate-100">{{ $package['version'] ?? $profile?->version ?? '-' }}</dd>
+                            <dd class="mt-1 text-slate-800">{{ $package['version'] ?? $profile?->version ?? '-' }}</dd>
                         </div>
 
-                        <div class="rounded-md border border-white/[0.08] bg-white/[0.03] p-3">
+                        <div class="rounded-md border border-black/[0.08] bg-white p-3">
                             <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">License</dt>
-                            <dd class="mt-1 text-slate-100">{{ $package['license'] ?? '-' }}</dd>
+                            <dd class="mt-1 text-slate-800">{{ $package['license'] ?? '-' }}</dd>
                         </div>
                     </dl>
 
                     @if(! empty($sourceLinks))
-                        <div class="mt-5 border-t border-white/[0.08] pt-5">
-                            <h2 class="text-sm font-semibold text-white">Project links</h2>
+                        <div class="mt-5 border-t border-black/[0.08] pt-5">
+                            <h2 class="text-sm font-semibold text-slate-950">Project links</h2>
                             <div class="mt-3 space-y-2">
                                 @foreach($sourceLinks as $kind => $source)
                                     @php
@@ -169,12 +169,12 @@
                                     @endphp
 
                                     @if($isUrl)
-                                        <a href="{{ $sourceUrl }}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-3 rounded-md border border-white/[0.08] bg-black/30 px-3 py-2 text-sm text-slate-300 transition hover:border-emerald-300/35 hover:text-white">
+                                        <a href="{{ $sourceUrl }}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-3 rounded-md border border-black/[0.08] bg-white px-3 py-2 text-sm text-slate-700 transition hover:border-orange-300 hover:text-slate-950">
                                             <span class="font-semibold uppercase text-xs tracking-wide text-slate-500">{{ $kind }}</span>
                                             <span class="truncate">{{ $sourceRef ?? $sourceUrl }}</span>
                                         </a>
                                     @else
-                                        <div class="flex items-center justify-between gap-3 rounded-md border border-white/[0.08] bg-black/30 px-3 py-2 text-sm text-slate-300">
+                                        <div class="flex items-center justify-between gap-3 rounded-md border border-black/[0.08] bg-white px-3 py-2 text-sm text-slate-700">
                                             <span class="font-semibold uppercase text-xs tracking-wide text-slate-500">{{ $kind }}</span>
                                             <span class="truncate">{{ $sourceRef ?? '-' }}</span>
                                         </div>

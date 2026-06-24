@@ -44,15 +44,8 @@
     };
 
     $buttonStyle = match ($ctaType) {
-        'install' => 'inline-flex items-center justify-center w-44 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-base shadow-lg shadow-emerald-500/25 transition-all hover:-translate-y-1',
-        'download' => 'inline-flex items-center justify-center w-44 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold text-base shadow-lg shadow-sky-500/25 transition-all hover:-translate-y-1',
-        'pricing' => 'inline-flex items-center justify-center w-44 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-white font-bold text-base shadow-lg shadow-amber-500/25 transition-all hover:-translate-y-1',
-        'guides' => 'inline-flex items-center justify-center w-44 py-3 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-base shadow-lg shadow-rose-500/25 transition-all hover:-translate-y-1',
-        'github' => 'inline-flex items-center justify-center w-36 py-3 rounded-xl bg-white/5 text-slate-300 border border-white/10 hover:bg-white hover:text-slate-950 font-bold text-base transition-all duration-300 shadow-lg shadow-black/20 group/gh',
-        'npm' => 'inline-flex items-center justify-center w-36 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-base shadow-lg shadow-red-600/25 transition-all hover:-translate-y-1',
-        'external' => 'inline-flex items-center justify-center w-36 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-base shadow-lg shadow-slate-900/30 transition-all hover:-translate-y-1',
-        'trial' => 'inline-flex items-center justify-center w-36 py-3 rounded-xl bg-violet-500 hover:bg-violet-400 text-white font-bold text-base shadow-lg shadow-violet-500/25 transition-all hover:-translate-y-1',
-        default => 'inline-flex items-center justify-center w-44 py-3 rounded-xl bg-[var(--brand-primary)] hover:opacity-90 text-white font-bold text-base shadow-lg shadow-[var(--brand-glow)] transition-all hover:-translate-y-1',
+        'github', 'npm', 'external' => 'inline-flex items-center justify-center w-36 py-3 rounded-full bg-white text-slate-950 border border-black/10 hover:bg-orange-50 hover:border-orange-200 font-bold text-base transition-all duration-300 shadow-lg shadow-orange-900/5 group/gh',
+        default => 'inline-flex items-center justify-center w-44 py-3 rounded-full bg-[#a34f1f] hover:opacity-90 text-white font-bold text-base shadow-lg shadow-orange-900/20 transition-all hover:-translate-y-1',
     };
 
     $icon = match ($ctaType) {

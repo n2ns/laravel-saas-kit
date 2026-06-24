@@ -6,6 +6,7 @@ return [
         'home' => '首页',
         'about' => '关于我们',
         'products' => '产品',
+        'pricing' => '价格',
         'blog' => '博客',
         'support' => '支持与联系',
         'login' => '登录',
@@ -13,7 +14,6 @@ return [
 
     'common' => [
         'read_more' => '阅读全文',
-        'back' => '返回',
     ],
 
     // Meta
@@ -28,88 +28,61 @@ return [
     'home' => [
         'title' => 'SaaS Starter - Laravel 产品站模板',
         'hero_title' => '快速搭建聚焦的 SaaS 产品站',
-        'est' => '成立于 2025',
-        'location' => '按你的公司信息配置',
         'hero_subtitle' => '一个 Laravel 产品站骨架，包含产品页、订阅、账户访问、博客发布、SEO 和管理后台。',
-        'hero_learn_more' => '探索产品矩阵',
-        'hero_contact' => '联系销售',
-        'hero_cta' => '开始使用',
-
-        // Featured Products (Replaces generic 'What We Do')
-        'products_title' => '产品',
-        'products_subtitle' => '',
-        'product_catalog_label' => '产品目录',
-        'product_catalog_title' => '精选产品',
-        'product_catalog_subtitle' => '',
-        'product_catalog_cta' => '浏览产品',
-
-        'products_more' => '更多',
-        'view_github' => 'GitHub',
-        'install_extension' => '安装',
-        'view_ecosystem' => '查看网站地图',
-
-        // Stats
-        'stats' => [
-            'ai_first' => '产品',
-            'architecture' => '文档',
-            'cloud' => '账单',
-            'native' => '账户访问',
-            'secure' => '支持',
-            'by_design' => '法律页面',
-            'global' => '博客',
-            'reach' => '网站地图',
+        'hero_pricing_cta' => '查看价格',
+        'hero_product_cta' => '查看产品',
+        'hero_secondary_cta' => '阅读博客',
+        'single_product_suffix' => '已准备好发布',
+        'proof_paid' => '账单',
+        'proof_paid_label' => '内置 Stripe 计划',
+        'proof_sessions' => '账户',
+        'proof_sessions_label' => '登录和设备会话',
+        'proof_content' => '发布',
+        'proof_content_label' => '博客和产品指南',
+        'proof_admin' => '后台',
+        'proof_admin_label' => 'Filament 运营管理',
+        'workflow_title' => '一个能随产品一起成长的落地页',
+        'workflow_subtitle' => '先以单产品落地页启动；当目录扩展时，同一套模板可以自然演进为多产品站点。',
+        'workflow_steps' => [
+            'launch' => [
+                'title' => '发布产品',
+                'description' => '在一个可编辑的 Laravel 应用里发布产品页、价格页、法律页面和账户访问。',
+            ],
+            'sell' => [
+                'title' => '销售套餐',
+                'description' => '直接使用 Stripe Checkout、订阅、订单、积分和客户门户工作流。',
+            ],
+            'publish' => [
+                'title' => '发布指南',
+                'description' => '用同一套内容模型管理博客、产品文章、网站地图和 Post2Site 自动发布。',
+            ],
         ],
 
-        'infrastructure_title' => '已包含的产品站栏目',
-
-        // What We Do (Legacy/Abstract)
-        'what_we_do_title' => '产品站基础模块',
-        'what_we_do_subtitle' => '商业 SaaS 网站常用页面和工作流。',
-        'feature_ai_title' => '产品页面',
-        'feature_ai_desc' => '产品目录、详情页、价格入口和产品文章链接。',
-        'feature_dev_title' => '账户访问',
-        'feature_dev_desc' => '认证、订阅、授权状态和客户账户工作流。',
-        'feature_cloud_title' => '发布工作流',
-        'feature_cloud_desc' => '博客文章、产品指南、SEO 元数据和后台发布界面。',
+        // Featured Products (Replaces generic 'What We Do')
+        'products_title' => '为聚焦产品发布准备的一套模板',
+        'products_subtitle' => '先作为单产品落地页使用；当产品目录增长时，同一套模板会变成多产品站点。',
+        'product_catalog_cta' => '浏览产品',
 
         // Latest from the blog
         'blog_title' => '最新博客动态',
         'blog_cta' => '查看全部文章',
-        // About Brief
-        'about_title' => '关于 SaaS Starter',
-        'about_desc' => 'SaaS Starter 是面向 SaaS 团队的可配置产品站模板。',
-        'learn_more_about' => '了解更多',
     ],
 
     // Footer
     'footer' => [
         'company_desc' => '一个可配置的 SaaS 产品站模板。',
-        'company' => '公司',
-        'legal' => '法律',
-        'quick_links' => '快速链接',
-        'support' => '支持与联系',
-        'payments_by' => '支付合作伙伴',
-        'ssl_secured' => 'SSL 安全认证',
         'rights_reserved' => '版权所有。',
         'sitemap' => '网站地图',
         'disclaimer' => '发布前请替换模板内容、法律信息和产品文案。',
     ],
 
-    // Language
-    'language' => [
-        'current' => '中文',
-        'switch_to' => '切换语言',
-    ],
-
     // Blog
     'blog' => [
-        'title' => '博客',
         'subtitle' => '产品更新、指南和公司动态。',
         'back_to_list' => '返回博客列表',
         'no_blog_posts' => '暂无博客文章。产品更新和指南即将发布。',
         'author_tagline' => '来自站点团队的记录。',
         'article_count' => ':count 篇文章',
-        'field_notes' => '站点记录',
         'filter_all' => '全部文章',
         'filter_blog' => '博客',
         'filter_product_articles' => '产品文章',
@@ -117,11 +90,6 @@ return [
         'product_articles_title' => '来自产品页的指南',
         'product_articles_subtitle' => '产品相关的指南、流程说明和使用记录，集中作为文章入口展示。',
         'product_article_badge' => '产品文章',
-    ],
-
-    // Get Started
-    'get_started' => [
-        'ready' => '就绪',
     ],
 
     // Cookie Consent

@@ -7,16 +7,16 @@
 <div class="bg-bg-body">
 
     <!-- Hero -->
-    <section class="py-16 md:py-24 border-b border-white/[0.06] relative overflow-hidden">
+    <section class="py-16 md:py-24 border-b border-black/[0.08] relative overflow-hidden">
         <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary-500/8 blur-[120px] rounded-full pointer-events-none"></div>
         <div class="absolute inset-0 bg-dot-grid opacity-[0.025] pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="max-w-3xl">
                 <p class="section-label mb-3">Sign-In</p>
-                <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight tracking-tighter">
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-950 mb-6 leading-tight tracking-tighter">
                     Product Account
                 </h1>
-                <p class="text-slate-400 max-w-2xl leading-relaxed text-base md:text-lg">
+                <p class="text-slate-600 max-w-2xl leading-relaxed text-base md:text-lg">
                     Product Account is the identity layer for this product site.
                     Sign in with Google to access your dashboard, subscriptions, and product features.
                 </p>
@@ -25,12 +25,12 @@
     </section>
 
     <!-- What is Product Account -->
-    <section class="section-lg border-b border-white/[0.06]">
+    <section class="section-lg border-b border-black/[0.08]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-3xl">
                 <p class="section-label mb-3">About</p>
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 tracking-tight">What is Product Account?</h2>
-                <div class="space-y-4 text-slate-400 leading-relaxed">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-950 mb-6 tracking-tight">What is Product Account?</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
                     <p>
                         Product Account is the authentication platform that powers sign-in for this site.
                         Use one Google account to access the web dashboard, subscriptions, API access, and any connected clients.
@@ -46,10 +46,10 @@
     </section>
 
     <!-- Products using this account -->
-    <section class="section-lg border-b border-white/[0.06]">
+    <section class="section-lg border-b border-black/[0.08]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p class="section-label mb-3">Products</p>
-            <h2 class="text-2xl md:text-3xl font-bold text-white mb-10 tracking-tight">Products Using This Account</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-950 mb-10 tracking-tight">Products Using This Account</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -62,8 +62,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-white font-semibold mb-1">Starter Product</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">
+                            <h3 class="text-slate-950 font-semibold mb-1">Starter Product</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
                                 Replace this starter product with your own product name, billing plans, product articles, and connected clients.
                                 Sign in to manage subscriptions and access product features.
                             </p>
@@ -80,8 +80,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-white font-semibold mb-1">Web Dashboard</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">
+                            <h3 class="text-slate-950 font-semibold mb-1">Web Dashboard</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
                                 Manage subscriptions, orders, device sessions, API keys, and account settings from the web dashboard.
                             </p>
                         </div>
@@ -93,52 +93,52 @@
     </section>
 
     <!-- How we use Google Sign-In -->
-    <section class="section-lg border-b border-white/[0.06]">
+    <section class="section-lg border-b border-black/[0.08]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-3xl">
                 <p class="section-label mb-3">Privacy & Security</p>
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 tracking-tight">How We Use Your Google Data</h2>
-                <p class="text-slate-400 leading-relaxed mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-950 mb-4 tracking-tight">How We Use Your Google Data</h2>
+                <p class="text-slate-600 leading-relaxed mb-8">
                     When you sign in with Google, this site requests access to your basic profile information
-                    using the <code class="text-primary-300 bg-white/5 px-1 rounded">openid</code>,
-                    <code class="text-primary-300 bg-white/5 px-1 rounded">email</code>, and
-                    <code class="text-primary-300 bg-white/5 px-1 rounded">profile</code> scopes only.
+                    using the <code class="text-primary-300 bg-white px-1 rounded">openid</code>,
+                    <code class="text-primary-300 bg-white px-1 rounded">email</code>, and
+                    <code class="text-primary-300 bg-white px-1 rounded">profile</code> scopes only.
                     The table below explains exactly what we receive and why.
                 </p>
 
                 <!-- Data use table -->
-                <div class="rounded-xl border border-white/10 overflow-hidden mb-8">
+                <div class="rounded-xl border border-black/10 overflow-hidden mb-8">
                     <table class="w-full text-sm">
                         <thead>
-                            <tr class="border-b border-white/10 bg-white/[0.03]">
-                                <th class="text-left px-5 py-3 text-slate-300 font-semibold">Data received from Google</th>
-                                <th class="text-left px-5 py-3 text-slate-300 font-semibold">How we use it</th>
+                            <tr class="border-b border-black/10 bg-white">
+                                <th class="text-left px-5 py-3 text-slate-700 font-semibold">Data received from Google</th>
+                                <th class="text-left px-5 py-3 text-slate-700 font-semibold">How we use it</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-white/[0.06]">
                             <tr>
-                                <td class="px-5 py-3 text-white font-mono text-xs">email</td>
-                                <td class="px-5 py-3 text-slate-400">Primary identifier for your Product Account. Used to uniquely identify you and send transactional emails such as subscription receipts.</td>
+                                <td class="px-5 py-3 text-slate-950 font-mono text-xs">email</td>
+                                <td class="px-5 py-3 text-slate-600">Primary identifier for your Product Account. Used to uniquely identify you and send transactional emails such as subscription receipts.</td>
                             </tr>
                             <tr>
-                                <td class="px-5 py-3 text-white font-mono text-xs">name</td>
-                                <td class="px-5 py-3 text-slate-400">Displayed as your display name in the dashboard and connected client interfaces.</td>
+                                <td class="px-5 py-3 text-slate-950 font-mono text-xs">name</td>
+                                <td class="px-5 py-3 text-slate-600">Displayed as your display name in the dashboard and connected client interfaces.</td>
                             </tr>
                             <tr>
-                                <td class="px-5 py-3 text-white font-mono text-xs">picture</td>
-                                <td class="px-5 py-3 text-slate-400">Displayed as your avatar in the dashboard and connected client interfaces. No image data is stored by this site — only the URL is saved.</td>
+                                <td class="px-5 py-3 text-slate-950 font-mono text-xs">picture</td>
+                                <td class="px-5 py-3 text-slate-600">Displayed as your avatar in the dashboard and connected client interfaces. No image data is stored by this site — only the URL is saved.</td>
                             </tr>
                             <tr>
-                                <td class="px-5 py-3 text-white font-mono text-xs">sub (Google ID)</td>
-                                <td class="px-5 py-3 text-slate-400">A stable unique identifier issued by Google. Used to link your Google identity to your Product Account, enabling sign-in even if you change your email address.</td>
+                                <td class="px-5 py-3 text-slate-950 font-mono text-xs">sub (Google ID)</td>
+                                <td class="px-5 py-3 text-slate-600">A stable unique identifier issued by Google. Used to link your Google identity to your Product Account, enabling sign-in even if you change your email address.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="space-y-4 text-slate-400 text-sm leading-relaxed">
+                <div class="space-y-4 text-slate-600 text-sm leading-relaxed">
                     <p>
-                        <strong class="text-white">We do not access any other Google services.</strong>
+                        <strong class="text-slate-950">We do not access any other Google services.</strong>
                         This site does not request access to Gmail, Google Drive, Google Calendar, Google Contacts,
                         or any other Google API beyond basic identity verification.
                     </p>
@@ -155,7 +155,7 @@
     <section class="section-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl">
-                <p class="text-slate-400 leading-relaxed">
+                <p class="text-slate-600 leading-relaxed">
                     For questions about your account, data, or privacy, see our
                     <a href="{{ localized_route('privacy') }}" class="text-primary-400 hover:text-primary-300 underline underline-offset-2">Privacy Policy</a>
                     or contact us via the

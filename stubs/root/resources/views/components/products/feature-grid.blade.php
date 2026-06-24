@@ -75,9 +75,9 @@
     {{-- Optional Section Title (hidden when there are no cards to show) --}}
     @if($title && $featureCount > 0)
         <div class="flex items-center gap-3 mb-4">
-            <div class="h-px flex-1 bg-white/[0.08]"></div>
-            <h2 class="text-[15px] md:text-[17px] font-semibold text-white tracking-tight">{{ $title }}</h2>
-            <div class="h-px flex-1 bg-white/[0.08]"></div>
+            <div class="h-px flex-1 bg-black/[0.08]"></div>
+            <h2 class="text-[15px] md:text-[17px] font-semibold text-slate-950 tracking-tight">{{ $title }}</h2>
+            <div class="h-px flex-1 bg-black/[0.08]"></div>
         </div>
     @endif
 
@@ -92,19 +92,19 @@
                 $featureSites = $feature['sites'] ?? null;
             @endphp
 
-            <div class="group min-h-[178px] rounded-lg border border-sky-300/30 bg-[#07111f] p-5 shadow-[0_18px_46px_rgba(0,0,0,0.58),inset_0_1px_0_rgba(255,255,255,0.10)] transition duration-200 hover:-translate-y-1 hover:border-sky-200/50 hover:bg-[#091827] hover:shadow-[0_26px_72px_rgba(0,0,0,0.72)]">
+            <div class="group min-h-[178px] rounded-lg border border-black/10 bg-white p-5 shadow-xl shadow-orange-900/5 transition duration-200 hover:-translate-y-1 hover:border-orange-200 hover:bg-orange-50">
                 <div class="mb-5 flex items-start justify-between gap-5">
-                    <h3 class="pt-1 text-base font-semibold text-white tracking-tight">{{ $featureTitle }}</h3>
+                    <h3 class="pt-1 text-base font-semibold text-slate-950 tracking-tight">{{ $featureTitle }}</h3>
                     @if($flagCode)
                         <span class="fi fi-{{ $flagCode }} text-[46px] leading-none rounded-[3px] shadow-md shadow-black/40"></span>
                     @endif
                 </div>
 
-                <p class="text-base text-sky-100 leading-relaxed">{{ $featureDesc }}</p>
+                <p class="text-base text-slate-600 leading-relaxed">{{ $featureDesc }}</p>
 
                 @if($featureSites)
-                    <div class="mt-4 flex items-start gap-2 border-t border-sky-300/15 pt-3 text-[13px] font-medium leading-5 text-slate-300">
-                        <i data-lucide="globe-2" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-cyan-300"></i>
+                    <div class="mt-4 flex items-start gap-2 border-t border-sky-300/15 pt-3 text-[13px] font-medium leading-5 text-slate-700">
+                        <i data-lucide="globe-2" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#a34f1f]"></i>
                         <span>{{ $featureSites }}</span>
                     </div>
                 @endif
@@ -124,17 +124,17 @@
                 $featureDesc = $feature['desc'] ?? $feature['description'] ?? '';
             @endphp
 
-            <div class="group flex min-h-[148px] flex-col items-start rounded-lg border border-white/[0.14] bg-[#080f1a] p-5 shadow-[0_16px_40px_rgba(0,0,0,0.48),inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-200 hover:-translate-y-1 hover:border-[var(--brand-border)] hover:bg-[#0a1624] hover:shadow-[0_24px_62px_rgba(0,0,0,0.62)]">
+            <div class="group flex min-h-[148px] flex-col items-start rounded-lg border border-black/10 bg-white p-5 shadow-xl shadow-orange-900/5 transition duration-200 hover:-translate-y-1 hover:border-orange-200 hover:bg-orange-50">
                 {{-- Icon Container --}}
-                <div class="mb-4 flex h-9 w-9 items-center justify-center rounded-md border border-white/[0.14] bg-white/[0.06] shadow-sm shadow-black/30">
+                <div class="mb-4 flex h-9 w-9 items-center justify-center rounded-md border border-orange-200 bg-orange-100 shadow-sm shadow-orange-900/10">
                     <i data-lucide="{{ $icon }}" class="h-[18px] w-[18px] text-[var(--brand-primary)]"></i>
                 </div>
 
                 {{-- Title --}}
-                <h3 class="text-sm font-semibold text-white mb-2 tracking-tight">{{ $featureTitle }}</h3>
+                <h3 class="text-sm font-semibold text-slate-950 mb-2 tracking-tight">{{ $featureTitle }}</h3>
 
                 {{-- Description --}}
-                <p class="text-sm text-slate-400 leading-relaxed">{{ $featureDesc }}</p>
+                <p class="text-sm text-slate-600 leading-relaxed">{{ $featureDesc }}</p>
             </div>
         @endforeach
     </div>

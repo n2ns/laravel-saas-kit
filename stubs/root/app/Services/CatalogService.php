@@ -93,7 +93,7 @@ class CatalogService
         $locale = $this->normalizeLocale($locale);
 
         if ($primaryGroup === 'concept_project') {
-            return new Collection();
+            return new Collection;
         }
 
         return CatalogItem::query()

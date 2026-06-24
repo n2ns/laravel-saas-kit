@@ -13,17 +13,17 @@
 <div class="bg-bg-body min-h-screen overflow-hidden" x-data="{ articleFilter: 'all' }">
 
     <!-- Page header -->
-    <section class="relative border-b border-white/[0.06] overflow-hidden">
+    <section class="relative border-b border-black/[0.08] overflow-hidden">
         <div class="absolute inset-0 bg-dot-grid opacity-[0.035] pointer-events-none"></div>
         <div class="absolute -top-32 left-[8%] w-[520px] h-[520px] bg-primary-600/8 rounded-full blur-[130px] pointer-events-none"></div>
         <div class="absolute top-20 right-[12%] w-[360px] h-[360px] bg-neon-cyan/8 rounded-full blur-[110px] pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12 relative z-10">
             <div class="flex items-center justify-between gap-6">
-                <h1 class="text-2xl md:text-4xl font-bold text-white tracking-tighter leading-tight shrink-0">
+                <h1 class="text-2xl md:text-4xl font-bold text-slate-950 tracking-tighter leading-tight shrink-0">
                     {{ $title }}
                 </h1>
-                <span class="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.035] px-4 py-2 text-sm text-slate-300 shrink-0 ml-auto">
+                <span class="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white px-4 py-2 text-sm text-slate-700 shrink-0 ml-auto">
                     <i data-lucide="book-open" class="w-4 h-4 text-primary-300"></i>
                     {{ trans_choice('messages.blog.article_count', $blogPosts->total() + $productArticles->count(), ['count' => $blogPosts->total() + $productArticles->count()]) }}
                 </span>
@@ -33,23 +33,23 @@
                         @click="articleFilter = 'all'"
                         :class="articleFilter === 'all'
                             ? 'bg-white text-slate-950 shadow-sm'
-                            : 'bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/8'"
+                            : 'bg-white border border-black/10 text-slate-600 hover:text-slate-950 hover:bg-white/8'"
                         class="px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer">
                     {{ __('messages.blog.filter_all') }}
                 </button>
                 <button type="button"
                         @click="articleFilter = 'blog'"
                         :class="articleFilter === 'blog'
-                            ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/20'
-                            : 'bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/8'"
+                            ? 'bg-primary-500 text-slate-950 shadow-lg shadow-primary-500/20'
+                            : 'bg-white border border-black/10 text-slate-600 hover:text-slate-950 hover:bg-white/8'"
                         class="px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer">
                     {{ __('messages.blog.filter_blog') }}
                 </button>
                 <button type="button"
                         @click="articleFilter = 'product'"
                         :class="articleFilter === 'product'
-                            ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/20'
-                            : 'bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/8'"
+                            ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20'
+                            : 'bg-white border border-black/10 text-slate-600 hover:text-slate-950 hover:bg-white/8'"
                         class="px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer">
                     {{ __('messages.blog.filter_product_articles') }}
                 </button>
@@ -74,7 +74,7 @@
             @endphp
 
             @if($loop->first)
-                <article class="group relative overflow-hidden rounded-[2rem] border border-white/[0.08] bg-gradient-to-br from-white/[0.075] via-white/[0.035] to-primary-500/[0.035] shadow-2xl shadow-black/20">
+                <article class="group relative overflow-hidden rounded-[2rem] border border-black/[0.08] bg-gradient-to-br from-white/[0.075] via-white/[0.035] to-primary-500/[0.035] shadow-2xl shadow-orange-900/10">
                     <div class="absolute inset-0 bg-dot-grid opacity-[0.035] pointer-events-none"></div>
                     <div class="absolute -right-20 -top-20 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -88,18 +88,18 @@
                                     <span class="text-slate-500 text-sm">{{ $blogPost->getReadingTime() }} min read</span>
                                 </div>
 
-                                <h2 class="text-2xl md:text-4xl xl:text-5xl font-bold text-white tracking-tighter leading-[1.08] max-w-5xl group-hover:text-primary-300 transition-colors">
+                                <h2 class="text-2xl md:text-4xl xl:text-5xl font-bold text-slate-950 tracking-tighter leading-[1.08] max-w-5xl group-hover:text-primary-300 transition-colors">
                                     {{ $localizedTitle }}
                                 </h2>
 
                                 @if($localizedExcerpt)
-                                    <p class="mt-6 text-slate-300/85 text-base md:text-lg leading-relaxed max-w-4xl">
+                                    <p class="mt-6 text-slate-700/85 text-base md:text-lg leading-relaxed max-w-4xl">
                                         {{ $localizedExcerpt }}
                                     </p>
                                 @endif
                             </div>
 
-                            <div class="mt-9 pt-7 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-4">
+                            <div class="mt-9 pt-7 border-t border-black/[0.08] flex flex-wrap items-center justify-between gap-4">
                                 <span class="inline-flex items-center gap-2 text-primary-300 font-semibold">
                                     {{ __('messages.common.read_more') ?? 'Read article' }}
                                     <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
@@ -109,7 +109,7 @@
                         </div>
 
                         @if($hasThumbnail)
-                            <div class="min-h-[260px] lg:min-h-full overflow-hidden border-t lg:border-t-0 lg:border-l border-white/[0.08]">
+                            <div class="min-h-[260px] lg:min-h-full overflow-hidden border-t lg:border-t-0 lg:border-l border-black/[0.08]">
                                 <img src="{{ Storage::disk('public')->url($blogPost->thumbnail) }}"
                                      alt="{{ $localizedTitle }}"
                                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
@@ -118,10 +118,10 @@
                     </a>
                 </article>
             @else
-                <article class="group overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.035] hover:bg-white/[0.055] transition-all duration-300 shadow-xl shadow-black/10">
+                <article class="group overflow-hidden rounded-3xl border border-black/[0.08] bg-white hover:bg-orange-50 transition-all duration-300 shadow-xl shadow-orange-900/5">
                     <a href="{{ $articleUrl }}" class="flex flex-col h-full">
                         @if($hasThumbnail)
-                            <div class="aspect-[16/9] overflow-hidden border-b border-white/[0.06]">
+                            <div class="aspect-[16/9] overflow-hidden border-b border-black/[0.08]">
                                 <img src="{{ Storage::disk('public')->url($blogPost->thumbnail) }}"
                                      alt="{{ $localizedTitle }}"
                                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
@@ -134,12 +134,12 @@
                                 <span class="text-slate-500 text-xs">{{ $blogPost->published_at->format('M d, Y') }}</span>
                             </div>
 
-                            <h2 class="text-xl font-bold text-white mb-4 group-hover:text-primary-300 transition-colors leading-snug tracking-tight">
+                            <h2 class="text-xl font-bold text-slate-950 mb-4 group-hover:text-primary-300 transition-colors leading-snug tracking-tight">
                                 {{ $localizedTitle }}
                             </h2>
 
                             @if($localizedExcerpt)
-                                <p class="text-slate-400 text-sm leading-relaxed line-clamp-3 flex-grow">
+                                <p class="text-slate-600 text-sm leading-relaxed line-clamp-3 flex-grow">
                                     {{ $localizedExcerpt }}
                                 </p>
                             @endif
@@ -160,11 +160,11 @@
                 </div>
             @endif
         @empty
-            <div class="py-24 text-center rounded-[2rem] border border-white/[0.08] bg-white/[0.035]">
-                <div class="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center mx-auto mb-4">
+            <div class="py-24 text-center rounded-[2rem] border border-black/[0.08] bg-white">
+                <div class="w-14 h-14 rounded-2xl bg-orange-50 border border-black/[0.08] flex items-center justify-center mx-auto mb-4">
                     <i data-lucide="file-text" class="w-6 h-6 text-slate-500"></i>
                 </div>
-                <p class="text-slate-400 text-sm">{{ __('messages.blog.no_blog_posts') }}</p>
+                <p class="text-slate-600 text-sm">{{ __('messages.blog.no_blog_posts') }}</p>
             </div>
         @endforelse
 
@@ -178,10 +178,10 @@
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-16" x-show="articleFilter === 'all' || articleFilter === 'product'">
             <div class="mb-8">
                 <p class="section-label">{{ __('messages.blog.product_articles_label') }}</p>
-                <h2 class="text-2xl font-bold text-white tracking-tight">
+                <h2 class="text-2xl font-bold text-slate-950 tracking-tight">
                     {{ __('messages.blog.product_articles_title') }}
                 </h2>
-                <p class="mt-2 text-sm md:text-base text-slate-400 max-w-2xl leading-relaxed">
+                <p class="mt-2 text-sm md:text-base text-slate-600 max-w-2xl leading-relaxed">
                     {{ __('messages.blog.product_articles_subtitle') }}
                 </p>
             </div>
@@ -197,10 +197,10 @@
                             : '#';
                     @endphp
 
-                    <article class="group overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.035] hover:bg-white/[0.055] transition-all duration-300 shadow-xl shadow-black/10">
+                    <article class="group overflow-hidden rounded-3xl border border-black/[0.08] bg-white hover:bg-orange-50 transition-all duration-300 shadow-xl shadow-orange-900/5">
                         <a href="{{ $articleUrl }}" class="flex flex-col h-full">
                             @if(filled($productArticle->thumbnail))
-                                <div class="aspect-[16/9] overflow-hidden border-b border-white/[0.06]">
+                                <div class="aspect-[16/9] overflow-hidden border-b border-black/[0.08]">
                                     <img src="{{ Storage::disk('public')->url($productArticle->thumbnail) }}"
                                          alt="{{ $localizedTitle }}"
                                          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
@@ -216,12 +216,12 @@
                                     <span class="text-slate-500 text-xs">{{ $productArticle->published_at->format('M d, Y') }}</span>
                                 </div>
 
-                                <h3 class="text-xl font-bold text-white mb-4 group-hover:text-primary-300 transition-colors leading-snug tracking-tight">
+                                <h3 class="text-xl font-bold text-slate-950 mb-4 group-hover:text-primary-300 transition-colors leading-snug tracking-tight">
                                     {{ $localizedTitle }}
                                 </h3>
 
                                 @if($localizedExcerpt)
-                                    <p class="text-slate-400 text-sm leading-relaxed line-clamp-3 flex-grow">
+                                    <p class="text-slate-600 text-sm leading-relaxed line-clamp-3 flex-grow">
                                         {{ $localizedExcerpt }}
                                     </p>
                                 @endif

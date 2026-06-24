@@ -29,46 +29,46 @@
 */
 
 .type-mcp {
-    --brand-primary: var(--color-emerald-500);
-    --brand-muted: rgba(16, 185, 129, 0.1);
-    --brand-border: rgba(16, 185, 129, 0.2);
-    --brand-glow: rgba(16, 185, 129, 0.15);
+    --brand-primary: var(--color-primary-600);
+    --brand-muted: rgba(163, 79, 31, 0.08);
+    --brand-border: rgba(163, 79, 31, 0.18);
+    --brand-glow: rgba(163, 79, 31, 0.12);
 }
 
 .type-vscode {
-    --brand-primary: var(--color-blue-500);
-    --brand-muted: rgba(59, 130, 246, 0.1);
-    --brand-border: rgba(59, 130, 246, 0.2);
-    --brand-glow: rgba(59, 130, 246, 0.15);
+    --brand-primary: var(--color-primary-600);
+    --brand-muted: rgba(163, 79, 31, 0.08);
+    --brand-border: rgba(163, 79, 31, 0.18);
+    --brand-glow: rgba(163, 79, 31, 0.12);
 }
 
 .type-chrome,
 .type-web {
-    --brand-primary: var(--color-cyan-500);
-    --brand-muted: rgba(6, 182, 212, 0.1);
-    --brand-border: rgba(6, 182, 212, 0.2);
-    --brand-glow: rgba(6, 182, 212, 0.15);
+    --brand-primary: var(--color-primary-600);
+    --brand-muted: rgba(163, 79, 31, 0.08);
+    --brand-border: rgba(163, 79, 31, 0.18);
+    --brand-glow: rgba(163, 79, 31, 0.12);
 }
 
 .type-starter {
-    --brand-primary: var(--color-blue-500);
-    --brand-muted: rgba(59, 130, 246, 0.1);
-    --brand-border: rgba(59, 130, 246, 0.2);
-    --brand-glow: rgba(59, 130, 246, 0.15);
+    --brand-primary: var(--color-primary-600);
+    --brand-muted: rgba(163, 79, 31, 0.08);
+    --brand-border: rgba(163, 79, 31, 0.18);
+    --brand-glow: rgba(163, 79, 31, 0.12);
 }
 
 .type-ide {
-    --brand-primary: var(--color-primary-500);
+    --brand-primary: var(--color-primary-600);
     --brand-muted: color-mix(in srgb, var(--color-primary-500), transparent 90%);
     --brand-border: color-mix(in srgb, var(--color-primary-500), transparent 80%);
     --brand-glow: color-mix(in srgb, var(--color-primary-500), transparent 85%);
 }
 
 .type-jetbrains {
-    --brand-primary: var(--color-amber-500);
-    --brand-muted: rgba(245, 158, 11, 0.1);
-    --brand-border: rgba(245, 158, 11, 0.2);
-    --brand-glow: rgba(245, 158, 11, 0.15);
+    --brand-primary: var(--color-primary-600);
+    --brand-muted: rgba(163, 79, 31, 0.08);
+    --brand-border: rgba(163, 79, 31, 0.18);
+    --brand-glow: rgba(163, 79, 31, 0.12);
 }
 
 .type-server,
@@ -80,16 +80,16 @@
 }
 
 .type-mobile {
-    --brand-primary: var(--color-rose-500);
-    --brand-muted: rgba(244, 63, 94, 0.1);
-    --brand-border: rgba(244, 63, 94, 0.2);
-    --brand-glow: rgba(244, 63, 94, 0.15);
+    --brand-primary: var(--color-primary-600);
+    --brand-muted: rgba(163, 79, 31, 0.08);
+    --brand-border: rgba(163, 79, 31, 0.18);
+    --brand-glow: rgba(163, 79, 31, 0.12);
 }
 
 /* Specific Product Overrides */
 .type-image-refinery {
-    --brand-primary: var(--color-rose-500);
-    --brand-muted: rgba(244, 63, 94, 0.1);
-    --brand-border: rgba(244, 63, 94, 0.2);
-    --brand-glow: rgba(244, 63, 94, 0.15);
+    --brand-primary: var(--color-primary-600);
+    --brand-muted: rgba(163, 79, 31, 0.08);
+    --brand-border: rgba(163, 79, 31, 0.18);
+    --brand-glow: rgba(163, 79, 31, 0.12);
 }

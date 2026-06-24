@@ -131,9 +131,7 @@ class SocialAuthService
                 throw new Exception('OAuth account is not linked to a valid user.');
             }
 
-            if ($avatar && $user->avatar !== $avatar) {
-                $user->update(['avatar' => $avatar]);
-            }
+            $this->syncGoogleAccountState($oauthAccount, $user, $googleId, $email, $name, $avatar, $emailVerified);
             $this->fillFirstClient($user, $firstClient);
 
             return $user;
@@ -144,9 +142,8 @@ class SocialAuthService
 
         if ($user) {
             $this->createOAuthAccount($user, $googleId, $email);
-            if ($avatar && ! $user->avatar) {
-                $user->update(['avatar' => $avatar]);
-            }
+            $this->syncUserProfile($user, $name, $email, $avatar, $emailVerified);
+            $this->syncOAuthProviderEmail($googleId, $email);
             $this->fillFirstClient($user, $firstClient);
 
             return $user;
@@ -166,6 +163,95 @@ class SocialAuthService
         $this->createOAuthAccount($user, $googleId, $email);
 
         return $user;
+    }
+
+    /**
+     * Sync profile fields and link metadata when an existing OAuth account is found.
+     */
+    protected function syncGoogleAccountState(
+        OAuthAccount $oauthAccount,
+        User $user,
+        string $googleId,
+        string $email,
+        string $name,
+        ?string $avatar,
+        bool $emailVerified
+    ): void {
+        $this->syncOAuthAccount($oauthAccount, $email, $googleId);
+        $this->syncUserProfile($user, $name, $email, $avatar, $emailVerified);
+    }
+
+    /**
+     * Sync optional user profile fields from Google payload.
+     */
+    protected function syncUserProfile(
+        User $user,
+        string $name,
+        string $email,
+        ?string $avatar,
+        bool $emailVerified
+    ): void {
+        $updates = [];
+
+        if ($name !== '' && $user->name !== $name) {
+            $updates['name'] = $name;
+        }
+
+        if ($avatar && $user->avatar !== $avatar) {
+            $updates['avatar'] = $avatar;
+        }
+
+        $normalizedEmail = strtolower(trim($email));
+
+        if ($emailVerified && $normalizedEmail !== '' && strtolower((string) $user->email) !== $normalizedEmail) {
+            $conflictingUser = User::where('email', $normalizedEmail)
+                ->where('id', '!=', $user->id)
+                ->exists();
+
+            if (! $conflictingUser) {
+                $updates['email'] = $normalizedEmail;
+                $updates['email_verified_at'] = now();
+            }
+        }
+
+        if (! empty($updates)) {
+            $user->update($updates);
+        }
+    }
+
+    /**
+     * Sync provider email and preserve oauth account metadata.
+     */
+    protected function syncOAuthAccount(OAuthAccount $oauthAccount, string $email, string $googleId): void
+    {
+        $oauthUpdates = [];
+
+        if ($oauthAccount->provider_id !== $googleId) {
+            $oauthUpdates['provider_id'] = $googleId;
+        }
+
+        if ($oauthAccount->provider_email !== $email) {
+            $oauthUpdates['provider_email'] = $email;
+        }
+
+        if (! empty($oauthUpdates)) {
+            $oauthAccount->update($oauthUpdates);
+        }
+    }
+
+    /**
+     * Sync OAuth account provider email for fallback user-match flow.
+     */
+    protected function syncOAuthProviderEmail(string $googleId, string $email): void
+    {
+        $oauthAccount = OAuthAccount::findByProvider(OAuthAccount::PROVIDER_GOOGLE, $googleId);
+        if (! $oauthAccount) {
+            return;
+        }
+
+        if ($oauthAccount->provider_email !== $email) {
+            $oauthAccount->update(['provider_email' => $email]);
+        }
     }
 
     /**

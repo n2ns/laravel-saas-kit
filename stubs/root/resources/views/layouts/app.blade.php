@@ -16,7 +16,7 @@
         default => $pageLocale.'_'.strtoupper($pageLocale),
     };
 @endphp
-<html lang="{{ str_replace('_', '-', $pageLocale) }}" class="dark">
+<html lang="{{ str_replace('_', '-', $pageLocale) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,7 +62,7 @@
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:type" content="{{ $pageType }}">
-    <meta property="og:site_name" content="{{ __('messages.nav.site_name') }}">
+    <meta property="og:site_name" content="{{ __('messages.meta.site_name') }}">
     <meta property="og:url" content="{{ $pageCanonicalUrl }}">
     <meta property="og:locale" content="{{ $pageOgLocale }}">
         @foreach ($supportedLocales as $supportedLocale)
@@ -103,7 +103,7 @@
     @yield('extra_meta')
     @stack('structured_data')
 </head>
-<body class="antialiased bg-bg-body text-text-primary font-sans selection:bg-primary-500 selection:text-white overflow-x-hidden">
+<body class="antialiased bg-bg-body text-text-primary font-sans selection:bg-[#a34f1f] selection:text-white overflow-x-hidden">
     <!-- Navigation -->
     @include('partials.header')
 

@@ -23,7 +23,7 @@
     $imageCount = count($images);
 @endphp
 
-<div {{ $attributes->merge(['class' => 'rounded-3xl border border-white/10 overflow-hidden bg-slate-900 shadow-2xl mb-16 relative group aspect-[21/9]']) }}>
+<div {{ $attributes->merge(['class' => 'rounded-3xl border border-black/10 overflow-hidden bg-white shadow-2xl mb-16 relative group aspect-[21/9]']) }}>
     {{-- Gradient Overlay --}}
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10"></div>
 
@@ -52,11 +52,11 @@
             @endforeach
             {{-- Carousel Controls --}}
             <button @click="current = (current - 1 + {{ $imageCount }}) % {{ $imageCount }}"
-                    class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white">
+                    class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-slate-950">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
             </button>
             <button @click="current = (current + 1) % {{ $imageCount }}"
-                    class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white">
+                    class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-slate-950">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
             </button>
         </div>

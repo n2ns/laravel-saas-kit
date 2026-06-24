@@ -26,11 +26,11 @@
                 $pageSubtitle = $product->getLocalized('subtitle');
             @endphp
             <p class="section-label mb-3">{{ __('products.pricing.title') }}</p>
-            <h1 class="text-2xl md:text-5xl font-bold text-white mb-4 leading-tight tracking-tight">
+            <h1 class="text-2xl md:text-5xl font-bold text-slate-950 mb-4 leading-tight tracking-tight">
                 {{ $pageTitle }}
             </h1>
             @if($pageSubtitle)
-                <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-sm md:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
                     {{ $pageSubtitle }}
                 </p>
             @endif

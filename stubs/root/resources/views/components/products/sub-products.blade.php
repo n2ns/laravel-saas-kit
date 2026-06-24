@@ -40,7 +40,7 @@
 
             @if($layout === 'horizontal')
                 {{-- Horizontal Layout (Image on right) --}}
-                <div class="relative bg-slate-900 rounded-3xl border border-white/10 overflow-hidden grid md:grid-cols-2 gap-8 items-center p-8 md:p-12">
+                <div class="relative bg-white rounded-3xl border border-black/10 overflow-hidden grid md:grid-cols-2 gap-8 items-center p-8 md:p-12">
 
                     <div class="order-2 md:order-1 space-y-6">
                         {{-- Icon --}}
@@ -55,12 +55,12 @@
                         </div>
 
                         {{-- Name --}}
-                        <h2 class="text-2xl md:text-2xl font-bold text-white">
+                        <h2 class="text-2xl md:text-2xl font-bold text-slate-950">
                             {{ __($item['name_key']) }}
                         </h2>
 
                         {{-- Description --}}
-                        <p class="text-base text-slate-400 leading-relaxed">
+                        <p class="text-base text-slate-600 leading-relaxed">
                             {{ __($item['desc_key']) }}
                         </p>
 
@@ -81,7 +81,7 @@
                         <x-products.responsive-image
                             :src="$item['image']"
                             :alt="__($item['name_key'])"
-                            img-class="w-full h-auto rounded-xl shadow-2xl border border-white/10 transform group-hover:scale-105 transition duration-700"
+                            img-class="w-full h-auto rounded-xl shadow-2xl border border-black/10 transform group-hover:scale-105 transition duration-700"
                             picture-class=""
                             loading="lazy"
                         />
@@ -90,7 +90,7 @@
 
             @else
                 {{-- Overlay Layout (Background image with text overlay) --}}
-                <div class="relative bg-slate-900 rounded-3xl border border-white/10 overflow-hidden text-center md:text-left">
+                <div class="relative bg-white rounded-3xl border border-black/10 overflow-hidden text-center md:text-left">
                     {{-- Background Image --}}
                     <div class="absolute inset-0 z-0">
                         <x-products.responsive-image
@@ -100,7 +100,7 @@
                             picture-class="absolute inset-0"
                             loading="lazy"
                         />
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
                     </div>
 
                     <div class="relative z-10 p-8 md:p-16 flex flex-col md:flex-row items-center gap-10">
@@ -115,12 +115,12 @@
                             </div>
 
                             {{-- Name --}}
-                            <h2 class="text-2xl md:text-2xl font-bold text-white">
+                            <h2 class="text-2xl md:text-2xl font-bold text-slate-950">
                                 {{ __($item['name_key']) }}
                             </h2>
 
                             {{-- Description --}}
-                            <p class="text-base md:text-lg text-slate-300 leading-relaxed font-normal">
+                            <p class="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                 {{ __($item['desc_key']) }}
                             </p>
 

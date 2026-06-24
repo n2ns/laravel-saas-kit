@@ -10,10 +10,10 @@
 @if($body !== '')
 <section {{ $attributes->merge(['class' => 'mx-auto mb-12 max-w-4xl']) }}>
     @if($title)
-        <h2 class="text-[19px] md:text-[22px] font-semibold text-white mb-4 tracking-tight">{{ $title }}</h2>
+        <h2 class="text-[19px] md:text-[22px] font-semibold text-slate-950 mb-4 tracking-tight">{{ $title }}</h2>
     @endif
 
-    <div class="prose prose-invert max-w-none prose-p:text-slate-300 prose-p:leading-7 prose-li:text-slate-300 prose-strong:text-white prose-a:text-[var(--brand-primary)]">
+    <div class="prose max-w-none prose-p:text-slate-700 prose-p:leading-7 prose-li:text-slate-700 prose-strong:text-slate-950 prose-a:text-[var(--brand-primary)]">
         {!! $html !!}
     </div>
 </section>

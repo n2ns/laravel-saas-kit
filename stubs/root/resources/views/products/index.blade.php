@@ -10,15 +10,15 @@
      x-effect="history.replaceState(null, '', category ? '?category=' + category : window.location.pathname)">
 
     <!-- Page header -->
-    <div class="border-b border-white/[0.06] bg-bg-body">
+    <div class="border-b border-black/10 bg-gradient-to-b from-[#fff4e8] to-[#fff9f2]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
 
             <div class="mb-8">
                 <p class="section-label">{{ __('messages.nav.products') }}</p>
-                <h1 class="text-3xl md:text-5xl font-bold text-white tracking-tight mb-3">
+                <h1 class="text-3xl md:text-5xl font-bold text-slate-950 tracking-tight mb-3">
                     {{ __('products.title') }}
                 </h1>
-                <p class="text-slate-400 text-sm md:text-base max-w-2xl leading-relaxed">
+                <p class="text-slate-600 text-sm md:text-base max-w-2xl leading-relaxed">
                     {{ __('products.subtitle') }}
                 </p>
             </div>
@@ -27,32 +27,32 @@
             <div class="flex flex-wrap gap-2">
                 <button @click="category = null"
                         :class="category === null
-                            ? 'bg-white text-slate-950 shadow-sm'
-                            : 'bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/8'"
-                        class="px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer">
+                            ? 'bg-[#a34f1f] text-white shadow-sm'
+                            : 'bg-white border border-black/10 text-slate-600 hover:text-slate-950 hover:bg-orange-50'"
+                        class="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer">
                     {{ __('products.category_all') }}
                 </button>
                 <button @click="category = 'application-product'"
                         :class="category === 'application-product'
-                            ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20'
-                            : 'bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/8'"
-                        class="px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer flex items-center gap-1.5">
+                            ? 'bg-[#a34f1f] text-white shadow-lg shadow-orange-900/20'
+                            : 'bg-white border border-black/10 text-slate-600 hover:text-slate-950 hover:bg-orange-50'"
+                        class="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer flex items-center gap-1.5">
                     <i data-lucide="rocket" class="w-3 h-3"></i>
                     {{ __('products.category_application_product') }}
                 </button>
                 <button @click="category = 'developer-tool'"
                         :class="category === 'developer-tool'
-                            ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/20'
-                            : 'bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/8'"
-                        class="px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer flex items-center gap-1.5">
+                            ? 'bg-[#a34f1f] text-white shadow-lg shadow-orange-900/20'
+                            : 'bg-white border border-black/10 text-slate-600 hover:text-slate-950 hover:bg-orange-50'"
+                        class="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer flex items-center gap-1.5">
                     <i data-lucide="code-2" class="w-3 h-3"></i>
                     {{ __('products.category_developer_tool') }}
                 </button>
                 <button @click="category = 'concept'"
                         :class="category === 'concept'
-                            ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20'
-                            : 'bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/8'"
-                        class="px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer flex items-center gap-1.5">
+                            ? 'bg-[#a34f1f] text-white shadow-lg shadow-orange-900/20'
+                            : 'bg-white border border-black/10 text-slate-600 hover:text-slate-950 hover:bg-orange-50'"
+                        class="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer flex items-center gap-1.5">
                     <i data-lucide="sparkles" class="w-3 h-3"></i>
                     {{ __('products.category_concept') }}
                 </button>

@@ -27,25 +27,25 @@
 
             if ($isHighlight) {
                 $wrapperClass = 'relative z-10 scale-[1.02]';
-                $cardClass = 'ui-card flex flex-col h-full p-8 rounded-3xl border-2 border-[var(--tier-pro)] shadow-[0_0_40px_var(--tier-pro-glow)] bg-slate-800/60 backdrop-blur-xl';
+                $cardClass = 'ui-card flex flex-col h-full p-8 rounded-3xl border-2 border-[var(--tier-pro)] shadow-[0_0_40px_var(--tier-pro-glow)] bg-white backdrop-blur-xl';
                 $titleClass = 'text-lg font-bold text-[var(--tier-pro)]';
                 $badgeClass = 'px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[var(--tier-pro-muted)] text-[var(--tier-pro)] border border-[var(--tier-pro-muted)]';
-                $mainBtnClass = 'w-full py-3.5 rounded-xl bg-[var(--tier-pro)] hover:opacity-90 text-white font-bold text-sm transition-all text-center block shadow-lg shadow-[var(--tier-pro-glow)] hover:scale-[1.02]';
+                $mainBtnClass = 'w-full py-3.5 rounded-full bg-[#a34f1f] hover:opacity-90 text-white font-bold text-sm transition-all text-center block shadow-lg shadow-orange-900/20 hover:scale-[1.02]';
                 $brandColorVar = 'var(--tier-pro)';
                 $useBrand = true;
             } elseif ($useBrand) {
                 $wrapperClass = '';
-                $cardClass = 'ui-card flex flex-col h-full p-8 rounded-3xl border-[var(--brand-border)] bg-slate-800/40';
+                $cardClass = 'ui-card flex flex-col h-full p-8 rounded-3xl border-[var(--brand-border)] bg-white';
                 $titleClass = 'text-lg font-bold text-[var(--brand-primary)]';
                 $badgeClass = 'px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[var(--brand-muted)] text-[var(--brand-primary)] border border-[var(--brand-border)]';
-                $mainBtnClass = 'w-full py-3.5 rounded-xl bg-[var(--brand-primary)] hover:opacity-90 text-white font-bold text-sm transition-all text-center block hover:scale-[1.02]';
+                $mainBtnClass = 'w-full py-3.5 rounded-full bg-[#a34f1f] hover:opacity-90 text-white font-bold text-sm transition-all text-center block shadow-lg shadow-orange-900/20 hover:scale-[1.02]';
                 $brandColorVar = 'var(--brand-primary)';
             } else {
                 $wrapperClass = '';
-                $cardClass = 'ui-card flex flex-col h-full p-8 rounded-3xl bg-white/[0.02]';
-                $titleClass = 'text-lg font-bold text-slate-300';
+                $cardClass = 'ui-card flex flex-col h-full p-8 rounded-3xl bg-white';
+                $titleClass = 'text-lg font-bold text-slate-700';
                 $badgeClass = '';
-                $mainBtnClass = 'w-full py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10 font-bold text-sm transition-all text-center block hover:scale-[1.02]';
+                $mainBtnClass = 'w-full py-3.5 rounded-full bg-white hover:bg-orange-50 text-slate-950 border border-black/10 font-bold text-sm transition-all text-center block hover:scale-[1.02]';
                 $brandColorVar = 'rgba(148,163,184,0.6)';
             }
 
@@ -65,7 +65,7 @@
             if (Auth::check() && Auth::user()->hasActiveSubscription($product->code) && ! $plan->isFree() && ! $plan->isCreditPack()) {
                 $ctaUrl = localized_route('checkout.portal', ['product' => $product->code]);
                 $ctaText = __('checkout.manage_subscription');
-                $mainBtnClass = 'w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all text-center block';
+                $mainBtnClass = 'w-full py-3.5 rounded-full bg-[#a34f1f] hover:opacity-90 text-white font-bold text-sm transition-all text-center block';
                 $target = '_self';
             }
         @endphp
@@ -81,20 +81,20 @@
 
                 <div class="mb-6">
                     <div class="flex items-baseline gap-1">
-                        <span class="text-2xl md:text-4xl font-bold text-white tracking-tight">
+                        <span class="text-2xl md:text-4xl font-bold text-slate-950 tracking-tight">
                             {{ $plan->price > 0 ? '$' . number_format($plan->price, 2) : '$0' }}
                         </span>
                         @if($plan->price > 0)
-                            <span class="text-slate-400 text-sm ml-1">/ {{ $plan->billing_cycle }}</span>
+                            <span class="text-slate-600 text-sm ml-1">/ {{ $plan->billing_cycle }}</span>
                         @endif
                     </div>
-                    <p class="mt-3 text-sm leading-relaxed {{ $useBrand ? '' : 'text-slate-400' }}"
+                    <p class="mt-3 text-sm leading-relaxed {{ $useBrand ? '' : 'text-slate-600' }}"
                        style="{{ $useBrand ? "color: $brandColorVar; opacity: 0.85;" : "" }}">
                         {{ $plan->description }}
                     </p>
                 </div>
 
-                <div class="w-full h-px mb-7" style="background: {{ $useBrand ? $brandColorVar : 'rgba(255,255,255,0.08)' }}; opacity: {{ $useBrand ? '0.25' : '1' }}"></div>
+                <div class="w-full h-px mb-7" style="background: {{ $useBrand ? $brandColorVar : 'rgba(15,23,42,0.08)' }}; opacity: {{ $useBrand ? '0.25' : '1' }}"></div>
 
                 <ul class="space-y-3.5 mb-8 flex-1">
                     @foreach($featuresList as $index => $feature)
@@ -106,7 +106,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
                                 @endif
                             </svg>
-                            <span class="text-sm text-slate-300 leading-snug {{ ($index === 0 && $useBrand) ? 'text-white font-semibold' : '' }}">
+                            <span class="text-sm text-slate-700 leading-snug {{ ($index === 0 && $useBrand) ? 'text-slate-950 font-semibold' : '' }}">
                                 {{ $feature }}
                             </span>
                         </li>

@@ -108,9 +108,9 @@
         <x-products.guide-list :guides="$guides" :product-code="$product?->code" />
 
         @if($privacyUrl)
-        <div class="mt-12 flex justify-end border-t border-white/[0.08] pt-6">
+        <div class="mt-12 flex justify-end border-t border-black/[0.08] pt-6">
             <a href="{{ $privacyUrl }}"
-               class="group inline-flex items-center gap-2 text-base text-slate-300 hover:text-white transition-colors">
+               class="group inline-flex items-center gap-2 text-base text-slate-700 hover:text-slate-950 transition-colors">
                 <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400/80"></i>
                 {{ __('privacy.nav') }}
                 <i data-lucide="arrow-right" class="w-4 h-4 -ml-1 opacity-0 group-hover:opacity-100 group-hover:ml-0 transition-all"></i>

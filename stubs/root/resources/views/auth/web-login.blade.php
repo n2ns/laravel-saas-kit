@@ -10,39 +10,39 @@
     <div class="relative mx-auto grid min-h-[calc(100vh-160px)] max-w-7xl grid-cols-1 items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-16">
         <div class="max-w-2xl">
             <p class="section-label mb-5">{{ __('Account Access') }}</p>
-            <h1 class="text-3xl font-bold tracking-tight text-white md:text-5xl">
+            <h1 class="text-3xl font-bold tracking-tight text-slate-950 md:text-5xl">
                 {{ __('Sign in to your account') }}
             </h1>
-            <p class="mt-6 max-w-xl text-base leading-8 text-slate-400 md:text-lg">
+            <p class="mt-6 max-w-xl text-base leading-8 text-slate-600 md:text-lg">
                 {{ __('Manage subscriptions, product access, usage insights, and support from one secure account.') }}
             </p>
 
             <div class="mt-9 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-3">
-                <div class="rounded-lg border border-white/10 bg-white/[0.04] p-4">
-                    <p class="text-sm font-semibold text-white">{{ __('Licenses') }}</p>
-                    <p class="mt-2 text-sm leading-6 text-slate-400">{{ __('Keep product access in sync.') }}</p>
+                <div class="rounded-lg border border-black/10 bg-white p-4">
+                    <p class="text-sm font-semibold text-slate-950">{{ __('Licenses') }}</p>
+                    <p class="mt-2 text-sm leading-6 text-slate-600">{{ __('Keep product access in sync.') }}</p>
                 </div>
-                <div class="rounded-lg border border-white/10 bg-white/[0.04] p-4">
-                    <p class="text-sm font-semibold text-white">{{ __('Billing') }}</p>
-                    <p class="mt-2 text-sm leading-6 text-slate-400">{{ __('Review plans and invoices.') }}</p>
+                <div class="rounded-lg border border-black/10 bg-white p-4">
+                    <p class="text-sm font-semibold text-slate-950">{{ __('Billing') }}</p>
+                    <p class="mt-2 text-sm leading-6 text-slate-600">{{ __('Review plans and invoices.') }}</p>
                 </div>
-                <div class="rounded-lg border border-white/10 bg-white/[0.04] p-4">
-                    <p class="text-sm font-semibold text-white">{{ __('Support') }}</p>
-                    <p class="mt-2 text-sm leading-6 text-slate-400">{{ __('Connect requests to your account.') }}</p>
+                <div class="rounded-lg border border-black/10 bg-white p-4">
+                    <p class="text-sm font-semibold text-slate-950">{{ __('Support') }}</p>
+                    <p class="mt-2 text-sm leading-6 text-slate-600">{{ __('Connect requests to your account.') }}</p>
                 </div>
             </div>
         </div>
 
         <div class="mx-auto w-full max-w-[440px]">
-            <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-6 shadow-2xl shadow-black/40 backdrop-blur-xl sm:p-8">
+            <div class="rounded-2xl border border-black/10 bg-white p-6 shadow-2xl shadow-orange-900/10 backdrop-blur-xl sm:p-8">
                 <div class="mb-8 text-center">
-                    <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04]">
+                    <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-black/10 bg-white">
                         <img src="{{ asset('favicon-512.png') }}" alt="{{ config('app.name') }}" class="h-12 w-12">
                     </div>
-                    <h2 class="text-2xl font-bold tracking-tight text-white">
+                    <h2 class="text-2xl font-bold tracking-tight text-slate-950">
                         {{ __('Welcome back') }}
                     </h2>
-                    <p class="mt-3 text-sm leading-6 text-slate-400">
+                    <p class="mt-3 text-sm leading-6 text-slate-600">
                         {{ __('Use your Google account to continue securely.') }}
                     </p>
                 </div>
@@ -72,13 +72,13 @@
                     </div>
                 </div>
 
-                <div class="mt-7 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3">
+                <div class="mt-7 rounded-lg border border-black/10 bg-white px-4 py-3">
                     <p class="text-center text-xs leading-5 text-slate-500">
                         {{ __('This site only uses basic Google profile information for authentication and account access.') }}
                     </p>
                 </div>
 
-                <p class="mt-7 text-center text-sm text-slate-400">
+                <p class="mt-7 text-center text-sm text-slate-600">
                     {{ __('Browse as Guest') }}
                     <span class="text-slate-600">/</span>
                     <a href="{{ localized_route('home') }}" class="font-medium text-primary-400 transition-colors hover:text-primary-300">
@@ -86,12 +86,12 @@
                     </a>
                 </p>
 
-                <div class="mt-8 border-t border-white/10 pt-5 text-center text-xs leading-6 text-slate-500">
+                <div class="mt-8 border-t border-black/10 pt-5 text-center text-xs leading-6 text-slate-500">
                     <p>{{ __('By signing in, you agree to our') }}</p>
                     <p>
-                        <a href="{{ localized_route('terms') }}" class="text-slate-300 transition-colors hover:text-white">{{ __('Terms of Service') }}</a>
+                        <a href="{{ localized_route('terms') }}" class="text-slate-700 transition-colors hover:text-slate-950">{{ __('Terms of Service') }}</a>
                         <span class="text-slate-600"> & </span>
-                        <a href="{{ localized_route('privacy') }}" class="text-slate-300 transition-colors hover:text-white">{{ __('Privacy Policy') }}</a>
+                        <a href="{{ localized_route('privacy') }}" class="text-slate-700 transition-colors hover:text-slate-950">{{ __('Privacy Policy') }}</a>
                     </p>
                 </div>
             </div>

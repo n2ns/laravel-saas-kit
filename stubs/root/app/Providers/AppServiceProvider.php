@@ -7,6 +7,7 @@ use App\Auth\Grants\SocialGrant;
 use App\Auth\Repositories\AccessTokenRepository;
 use App\Models\Subscription;
 use App\Services\Auth\SocialAuthService;
+use App\Services\ProductService;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -52,12 +53,18 @@ class AppServiceProvider extends ServiceProvider
         // System Strictness & Models
         Model::shouldBeStrict(! $this->app->isProduction());
         Cashier::useSubscriptionModel(Subscription::class);
-        // View Composer: Share data with header and footer partials
-        View::composer(['partials.header', 'partials.footer'], function ($view) {
+        // View Composer: Share landing navigation context with the header.
+        View::composer('partials.header', function ($view) {
             $route = request()->route();
+            $navProducts = app(ProductService::class)->getHomepageProducts();
+            $navSingleProduct = count($navProducts) === 1 ? $navProducts[0] : null;
+
             $view->with([
                 'currentRouteName' => $route?->getName() ?? 'home',
                 'currentRouteParams' => $route?->parameters() ?? [],
+                'navProducts' => $navProducts,
+                'navSingleProduct' => $navSingleProduct,
+                'navIsSingleProductLanding' => $navSingleProduct !== null,
             ]);
         });
 

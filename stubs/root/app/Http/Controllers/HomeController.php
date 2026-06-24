@@ -15,6 +15,8 @@ class HomeController extends Controller
     public function index()
     {
         $featuredProducts = $this->productService->getHomepageProducts();
+        $landingProduct = count($featuredProducts) === 1 ? $featuredProducts[0] : null;
+        $isSingleProductLanding = $landingProduct !== null;
 
         $locale = app()->getLocale();
         $defaultLocale = LocaleProfile::default();
@@ -33,6 +35,8 @@ class HomeController extends Controller
 
         return view('home', compact(
             'featuredProducts',
+            'landingProduct',
+            'isSingleProductLanding',
             'latestBlogPosts'
         ));
     }
