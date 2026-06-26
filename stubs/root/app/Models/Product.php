@@ -205,16 +205,6 @@ class Product extends Model implements Sitemapable
         return localized_route('catalog.pricing', $parameters, $absolute);
     }
 
-    public function guidesUrl(?string $locale = null, bool $absolute = true): ?string
-    {
-        $parameters = ['productCode' => $this->code];
-        if ($locale !== null) {
-            $parameters['locale'] = $locale;
-        }
-
-        return localized_route('catalog.guides.index', $parameters, $absolute);
-    }
-
     public function isSitemapIndexable(): bool
     {
         $catalogItem = $this->resolvedCatalogItem();
@@ -338,12 +328,10 @@ class Product extends Model implements Sitemapable
         $baseUrl = config('app.url');
         $tags = [];
         $pricingPath = "{$detailPath}/pricing";
-        $educationPath = "{$detailPath}/guides";
 
         foreach ($locales as $hreflang => $urlPrefix) {
             $tags[] = $this->createSitemapUrl($baseUrl, $locales, $detailPath, $urlPrefix, $defaultPrefix, 0.8);
             $tags[] = $this->createSitemapUrl($baseUrl, $locales, $pricingPath, $urlPrefix, $defaultPrefix, 0.7);
-            $tags[] = $this->createSitemapUrl($baseUrl, $locales, $educationPath, $urlPrefix, $defaultPrefix, 0.8);
         }
 
         return $tags;

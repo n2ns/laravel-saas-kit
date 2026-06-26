@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api;
 
-use App\Models\Product;
+use App\Models\BlogPost;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,9 +25,19 @@ class StoreBlogPostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => ['nullable', 'string', Rule::in(['technical', 'announcement', 'changelog', 'guide'])],
-            'content_scope' => ['nullable', 'string', 'required_if:type,guide', 'prohibited_unless:type,guide', $this->validContentScopeRule()],
+            'type' => ['nullable', 'string', Rule::in(BlogPost::typeCodes())],
+            'geo_tags' => ['nullable', 'array'],
+            'geo_tags.*' => ['string', 'size:2'],
+            'topics' => ['nullable', 'array'],
+            'topics.*' => ['string', Rule::in(BlogPost::topicCodes())],
+            'seo_keywords' => ['nullable', 'array'],
+            'seo_keywords.*' => ['string', 'max:80'],
+            'related_slugs' => ['nullable', 'array'],
+            'related_slugs.*' => ['string', 'max:180'],
             'status' => ['nullable', 'string', Rule::in(['draft', 'published'])],
+            'is_pinned' => ['nullable', 'boolean'],
+            'pin_order' => ['nullable', 'integer', 'min:0'],
+            'pinned_until' => ['nullable', 'date'],
             'slug' => ['required', 'string', 'unique:blog_posts,slug'],
             'title' => ['required', 'array'], // Expecting ['en' => '...', 'zh_CN' => '...']
             'content' => ['required', 'array'],
@@ -35,25 +45,5 @@ class StoreBlogPostRequest extends FormRequest
             'thumbnail' => ['nullable', 'string'],
             'published_at' => ['nullable', 'date'],
         ];
-    }
-
-    private function validContentScopeRule(): callable
-    {
-        return function (string $attribute, mixed $value, callable $fail): void {
-            if ($value === null || $value === '') {
-                return;
-            }
-
-            if (! is_string($value) || ! preg_match('/^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$/', $value)) {
-                $fail('The '.$attribute.' field must use the kind:key format.');
-
-                return;
-            }
-
-            [$kind, $key] = explode(':', $value, 2);
-            if ($kind === 'product' && ! Product::query()->where('code', $key)->exists()) {
-                $fail('The selected '.$attribute.' product does not exist.');
-            }
-        };
     }
 }

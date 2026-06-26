@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "saas-kit-blog-post-meta",
+  "title": "Blog Post Metadata",
+  "description": "Contract for database/seeders/data/posts/{slug}/meta.json. Markdown body and per-locale title/excerpt live in {locale}.md front matter.",
+  "type": "object",
+  "required": ["slug", "type", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "type": { "enum": ["article", "guide", "announcement", "changelog"] },
+    "status": { "enum": ["draft", "published"] },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "is_pinned": {
+      "type": "boolean"
+    },
+    "pin_order": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "pinned_until": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "thumbnail": {
+      "type": ["string", "null"]
+    },
+    "geo_tags": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[A-Z]{2}$" },
+      "uniqueItems": true
+    },
+    "topics": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": ["getting-started", "product", "tutorial", "release", "company"]
+      }
+    },
+    "seo_keywords": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "related_slugs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    }
+  },
+  "x-content-vocabulary": {
+    "types": {
+      "article": {
+        "labels": {
+          "en": "Article",
+          "zh_CN": "文章"
+        },
+        "default": true
+      },
+      "guide": {
+        "labels": {
+          "en": "Guide",
+          "zh_CN": "指南"
+        }
+      },
+      "announcement": {
+        "labels": {
+          "en": "Announcement",
+          "zh_CN": "公告"
+        }
+      },
+      "changelog": {
+        "labels": {
+          "en": "Changelog",
+          "zh_CN": "更新日志"
+        }
+      }
+    },
+    "topics": {
+      "getting-started": {
+        "labels": {
+          "en": "Getting started",
+          "zh_CN": "入门"
+        }
+      },
+      "product": {
+        "labels": {
+          "en": "Product",
+          "zh_CN": "产品"
+        }
+      },
+      "tutorial": {
+        "labels": {
+          "en": "Tutorial",
+          "zh_CN": "教程"
+        }
+      },
+      "release": {
+        "labels": {
+          "en": "Release",
+          "zh_CN": "发布"
+        }
+      },
+      "company": {
+        "labels": {
+          "en": "Company",
+          "zh_CN": "公司"
+        }
+      }
+    }
+  }
+}

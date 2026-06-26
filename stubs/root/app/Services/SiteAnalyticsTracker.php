@@ -174,16 +174,8 @@ class SiteAnalyticsTracker
                 : BlogPost::query()->where('slug', $parameters['slug'])->value('id');
         }
 
-        if ($baseRouteName === 'catalog.guides.show' && isset($parameters['productCode'], $parameters['slug'])) {
-            $blogPostId = BlogPost::query()
-                ->where('slug', $parameters['slug'])
-                ->where('content_scope', BlogPost::productContentScope((string) $parameters['productCode']))
-                ->value('id');
-        }
-
         $catalogCode = match ($baseRouteName) {
             'catalog.show', 'catalog.pricing', 'checkout.create' => $parameters['slug'] ?? $parameters['product'] ?? null,
-            'catalog.guides.index', 'catalog.guides.show' => $parameters['productCode'] ?? null,
             default => null,
         };
 
@@ -232,8 +224,6 @@ class SiteAnalyticsTracker
             'catalog.show', 'catalog.pricing' => 'catalog',
             'blog.index' => 'blog_index',
             'blog.show' => 'blog_post',
-            'catalog.guides.index' => 'guide_index',
-            'catalog.guides.show' => 'guide',
             'checkout.create', 'checkout.success', 'checkout.cancel', 'checkout.portal' => 'checkout',
             'login', 'auth.google', 'auth.google.callback' => 'auth',
             default => 'page',

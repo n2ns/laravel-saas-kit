@@ -177,7 +177,7 @@ class SiteAccessAnalytics extends Page
             ->selectRaw('SUM(unique_visitors) as visitors')
             ->with([
                 'catalogItem.translations',
-                'blogPost:id,title,slug,content_scope,type',
+                'blogPost:id,title,slug,type',
             ])
             ->whereBetween('visit_date', [$startDate, $endDate])
             ->groupBy('path_hash')

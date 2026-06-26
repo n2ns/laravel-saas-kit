@@ -1,0 +1,12 @@
+{
+  "slug": "starter-launch-guide",
+  "type": "article",
+  "status": "published",
+  "published_at": "2026-01-01T00:00:00Z",
+  "is_pinned": true,
+  "pin_order": 10,
+  "topics": ["getting-started", "tutorial"],
+  "geo_tags": ["US"],
+  "seo_keywords": ["Laravel SaaS starter", "product site launch", "starter kit"],
+  "related_slugs": ["starter-guide-article"]
+}

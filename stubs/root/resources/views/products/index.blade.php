@@ -2,7 +2,7 @@
 
 @section('title', __('products.seo_title'))
 @section('meta_description', __('products.seo_description'))
-@section('meta_keywords', 'SaaS products, product catalog, subscriptions, product guides, SaaS Starter')
+@section('meta_keywords', 'SaaS products, product catalog, subscriptions, SaaS Starter')
 
 @section('content')
 <div class="product-index-page bg-bg-body min-h-[calc(100vh-80px)]"

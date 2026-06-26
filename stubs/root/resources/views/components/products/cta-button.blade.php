@@ -28,12 +28,6 @@
         }
 
         $ctaLabel = $ctaLabel ?: ($hasPaidPlans ? __('products.cta.pricing') : __('products.cta.install'));
-    } elseif ($ctaType === 'guides') {
-        if ($productCode) {
-            $ctaUrl = localized_route('catalog.guides.index', ['productCode' => $productCode]);
-        }
-
-        $ctaLabel = $ctaLabel ?: __('products.cta.guides');
     } else {
         $ctaLabel = $ctaLabel ?: __($cta['label_key'] ?? "products.cta.{$ctaType}");
     }
@@ -53,7 +47,6 @@
         'install' => '<i data-lucide="download" class="ml-2 h-[18px] w-[18px]"></i>',
         'download' => '<i data-lucide="arrow-down-to-line" class="ml-2 h-[18px] w-[18px]"></i>',
         'pricing' => '<i data-lucide="tags" class="ml-2 h-[18px] w-[18px]"></i>',
-        'guides' => '<i data-lucide="book-open" class="ml-2 h-[18px] w-[18px]"></i>',
         'npm' => '<i data-lucide="package" class="ml-2 h-[18px] w-[18px]"></i>',
         'trial' => '<i data-lucide="play" class="ml-2 h-[18px] w-[18px]"></i>',
         'external' => '<i data-lucide="external-link" class="ml-2 h-[18px] w-[18px]"></i>',

@@ -30,6 +30,7 @@ class GenerateSitemapCommand extends Command
         'about' => 0.8,
         'products' => 0.9,
         'blog' => 0.7,
+        'account-access' => 0.6,
         'get-started' => 0.6,
         'support' => 0.6,
         'privacy' => 0.3,
@@ -95,8 +96,6 @@ class GenerateSitemapCommand extends Command
             ->published()
             ->get()
         );
-
-        // Product guides are tied to products and handled by Product@toSitemapTag.
 
         $sitemap->writeToFile(public_path('sitemap.xml'));
 
@@ -199,7 +198,6 @@ class GenerateSitemapCommand extends Command
 
                 return [
                     ...$this->localizedTags("{$path}/pricing", $product->updated_at, 0.7),
-                    ...$this->localizedTags("{$path}/guides", $product->updated_at, 0.8),
                 ];
             })
             ->values()

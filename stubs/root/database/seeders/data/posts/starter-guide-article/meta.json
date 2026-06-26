@@ -1,0 +1,9 @@
+{
+  "slug": "starter-guide-article",
+  "type": "guide",
+  "status": "published",
+  "published_at": "2026-01-02T00:00:00Z",
+  "topics": ["product"],
+  "seo_keywords": ["starter product guide", "product documentation"],
+  "related_slugs": ["starter-launch-guide"]
+}

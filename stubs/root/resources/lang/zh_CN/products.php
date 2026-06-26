@@ -10,9 +10,9 @@
 return [
     // Product Index Page - Generic UI
     'title' => '我们的解决方案',
-    'subtitle' => '浏览本站点发布的产品、套餐和指南。',
+    'subtitle' => '浏览本站点发布的产品和套餐。',
     'seo_title' => '产品 | SaaS Starter',
-    'seo_description' => '浏览此 SaaS 产品站的产品、价格、指南和账户访问入口。',
+    'seo_description' => '浏览此 SaaS 产品站的产品、价格和账户访问入口。',
     'view_details' => '查看详情',
     'view_github' => 'GitHub',
     'try_now' => '试用',
@@ -43,7 +43,6 @@ return [
         'install' => '安装',
         'download' => '下载',
         'pricing' => '方案',
-        'guides' => '指南',
         'github' => 'GitHub',
         'npm' => 'npm',
         'external' => '打开',
@@ -54,12 +53,6 @@ return [
     // Install button (used in pricing page fallback)
     'install' => '安装',
     'get_started' => '立即开始',
-    'read_guides' => '指南',
-    'guides_label' => '指南',
-    'latest_guides' => '产品指南',
-    'all_guides' => '全部指南',
-    'read_guide' => '阅读文章',
-
     // Product Type translations
     'product_type' => [
         'chrome' => '浏览器附加组件',

@@ -14,6 +14,7 @@ return [
 
     'common' => [
         'read_more' => 'Vollständigen Artikel Lesen',
+        'reading_time' => ':minutes Min. Lesezeit',
     ],
 
     // Meta
@@ -38,7 +39,7 @@ return [
         'proof_sessions' => 'Konten',
         'proof_sessions_label' => 'Login und Gerätesitzungen',
         'proof_content' => 'Publishing',
-        'proof_content_label' => 'Blog und Produktleitfäden',
+        'proof_content_label' => 'Blog-Veröffentlichung',
         'proof_admin' => 'Admin',
         'proof_admin_label' => 'Filament-Betrieb',
         'workflow_title' => 'Eine Landingpage, die mit dem Produkt wachsen kann',
@@ -54,7 +55,7 @@ return [
             ],
             'publish' => [
                 'title' => 'Leitfäden veröffentlichen',
-                'description' => 'Betreiben Sie Blogbeiträge, Produktartikel, Sitemap und Post2Site-Automation über dasselbe Modell.',
+                'description' => 'Betreiben Sie Blogbeiträge, Sitemap und Post2Site-Automation über einen gemeinsamen Workflow.',
             ],
         ],
 
@@ -79,17 +80,27 @@ return [
     // Blog
     'blog' => [
         'subtitle' => 'Produktupdates, Leitfäden und Unternehmensnotizen.',
+        'meta_keywords' => 'SaaS Starter Blog, Produktupdates, Leitfäden, Unternehmensnotizen',
         'back_to_list' => 'Zurück zum Blog',
         'no_blog_posts' => 'Noch keine Blogbeiträge gefunden. Bleiben Sie dran!',
         'author_tagline' => 'Notizen vom Website-Team.',
+        'published_by' => 'Veröffentlicht vom Website-Team',
         'article_count' => '{1} :count Artikel|[2,*] :count Artikel',
-        'filter_all' => 'Alle Artikel',
-        'filter_blog' => 'Blog',
-        'filter_product_articles' => 'Produktartikel',
-        'product_articles_label' => 'Produktartikel',
-        'product_articles_title' => 'Leitfäden aus Produktseiten',
-        'product_articles_subtitle' => 'Produktspezifische Leitfäden, Workflows und Betriebsnotizen als Artikeleinstiege.',
-        'product_article_badge' => 'Produktartikel',
+        'search_label' => 'Artikel suchen',
+        'search_placeholder' => 'Artikel suchen',
+        'search_submit' => 'Suchen',
+        'search_clear' => 'Suche löschen',
+        'search_results_for' => 'Suchergebnisse für ":query"',
+        'no_search_results' => 'Keine passenden Artikel gefunden.',
+        'sort_label' => 'Sortieren',
+        'sort_latest' => 'Neueste zuerst',
+        'sort_oldest' => 'Älteste zuerst',
+        'type_label' => 'Typ',
+        'all_types' => 'Alle Typen',
+        'topic_label' => 'Thema',
+        'all_topics' => 'Alle Themen',
+        'reset_filters' => 'Filter zurücksetzen',
+        'related_title' => 'Ähnliche Beiträge',
     ],
 
     // Cookie Consent

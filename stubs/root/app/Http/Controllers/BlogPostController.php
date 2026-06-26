@@ -12,31 +12,66 @@ use Spatie\LaravelMarkdown\MarkdownRenderer;
 
 class BlogPostController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $locale = app()->getLocale();
+        $searchQuery = trim($request->string('q')->toString());
+        if (mb_strlen($searchQuery) > 120) {
+            $searchQuery = mb_substr($searchQuery, 0, 120);
+        }
+
+        $sort = $request->string('sort')->toString() === 'oldest' ? 'oldest' : 'latest';
+        $type = $request->string('type')->toString();
+        if (! in_array($type, BlogPost::typeCodes(), true)) {
+            $type = null;
+        }
+
+        $topic = $request->string('topic')->toString();
+        if (! in_array($topic, BlogPost::topicCodes(), true)) {
+            $topic = null;
+        }
+
+        $filterQuery = array_filter([
+            'q' => $searchQuery !== '' ? $searchQuery : null,
+            'sort' => $sort === 'oldest' ? $sort : null,
+            'type' => $type,
+            'topic' => $topic,
+        ], fn ($value): bool => filled($value));
+        $searchPreservedQuery = collect($filterQuery)->except('q')->all();
+
         $blogPosts = BlogPost::published()
-            ->companyBlog()
             ->withLocalizedTranslations($locale)
-            ->orderBy('published_at', 'desc')
-            ->paginate(10);
+            ->when($searchQuery !== '', fn ($query) => $query->search($searchQuery))
+            ->when($type, fn ($query) => $query->where('type', $type))
+            ->withTopic($topic)
+            ->applyListingOrder($sort)
+            ->paginate(10)
+            ->appends($filterQuery);
 
-        $productArticles = BlogPost::published()
-            ->where('type', 'guide')
-            ->where('content_scope', 'like', 'product:%')
-            ->withLocalizedTranslations($locale)
-            ->orderBy('published_at', 'desc')
-            ->limit(9)
-            ->get();
+        $sortOptions = [
+            'latest' => __('messages.blog.sort_latest'),
+            'oldest' => __('messages.blog.sort_oldest'),
+        ];
+        $typeOptions = BlogPost::typeOptions($locale);
+        $topicOptions = BlogPost::topicOptions($locale);
 
-        return view('blog.index', compact('blogPosts', 'productArticles'));
+        return view('blog.index', compact(
+            'blogPosts',
+            'searchQuery',
+            'sort',
+            'sortOptions',
+            'type',
+            'typeOptions',
+            'topic',
+            'topicOptions',
+            'searchPreservedQuery'
+        ));
     }
 
     public function show(Request $request, string $slug): View
     {
         $blogPost = BlogPost::with('author')
             ->published()
-            ->companyBlog()
             ->where('slug', $slug)
             ->with('translations')
             ->firstOrFail();

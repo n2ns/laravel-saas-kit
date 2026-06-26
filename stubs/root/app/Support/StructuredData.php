@@ -44,14 +44,9 @@ class StructuredData
         return self::article($post, $url ?? url()->current(), 'BlogPosting');
     }
 
-    public static function techArticle(BlogPost $post, ?string $url = null): array
-    {
-        return self::article($post, $url ?? url()->current(), 'TechArticle');
-    }
-
     public static function productWebPage(Product $product, ?string $url = null): array
     {
-        $locale = app()->getLocale();
+        $locale = self::contentLocale();
         $pageUrl = $url ?? url()->current();
         $name = $product->getLocalized('name', $locale);
         $description = $product->getLocalized('subtitle', $locale);
@@ -81,7 +76,7 @@ class StructuredData
 
     public static function catalogItemWebPage(CatalogItem $item, ?string $url = null): array
     {
-        $locale = app()->getLocale();
+        $locale = self::contentLocale();
         $pageUrl = $url ?? url()->current();
         $name = $item->getLocalized('name', $locale);
         $description = $item->getLocalized('short_description', $locale);
@@ -128,7 +123,7 @@ class StructuredData
 
     private static function article(BlogPost $post, string $url, string $type): array
     {
-        $locale = app()->getLocale();
+        $locale = self::contentLocale();
         $title = $post->getTranslation('title', $locale);
         $excerpt = $post->getTranslation('excerpt', $locale);
         $content = $post->getTranslation('content', $locale);
@@ -144,7 +139,9 @@ class StructuredData
             'headline' => $title,
             'description' => $excerpt,
             'image' => self::assetUrl($post->thumbnail),
-            'articleSection' => $post->type,
+            'keywords' => ! empty($post->seo_keywords) ? implode(', ', $post->seo_keywords) : null,
+            'spatialCoverage' => self::spatialCoverage($post->geo_tags ?? []),
+            'articleSection' => $post->typeLabel('en'),
             'articleBody' => $content ? Str::of($content)->stripTags()->squish()->toString() : null,
             'datePublished' => $post->published_at?->toAtomString(),
             'dateModified' => ($post->updated_at ?? $post->published_at)?->toAtomString(),
@@ -158,6 +155,29 @@ class StructuredData
             'isAccessibleForFree' => true,
             'inLanguage' => str_replace('_', '-', $locale),
         ]);
+    }
+
+    private static function contentLocale(): string
+    {
+        return \App\Support\LocaleProfile::normalize((string) request()->attributes->get('seo_content_locale', app()->getLocale()));
+    }
+
+    /**
+     * @param  array<int, string>  $geoTags
+     * @return array<int, array<string, string>>|null
+     */
+    private static function spatialCoverage(array $geoTags): ?array
+    {
+        $places = [];
+        foreach ($geoTags as $code) {
+            $code = strtoupper((string) $code);
+            $places[] = [
+                '@type' => 'Country',
+                'name' => $code,
+            ];
+        }
+
+        return $places === [] ? null : $places;
     }
 
     private static function assetUrl(?string $path): ?string

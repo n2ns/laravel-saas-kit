@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BlogPost;
 use App\Models\CatalogItem;
 use App\Services\ProductCatalogReader;
 use App\Services\ProductService;
@@ -63,23 +62,12 @@ class ProductController extends Controller
             abort(404, 'Product configuration not found.');
         }
 
-        $guides = $product
-            ? BlogPost::with('author')
-                ->published()
-                ->productGuides($product->code)
-                ->withLocalizedTranslations($contentLocale)
-                ->orderBy('published_at', 'desc')
-                ->limit(3)
-                ->get()
-            : collect();
-
         $viewData = [
             'product' => $product,
             'catalogItem' => $catalogItem,
             'config' => $config,
             'sectionsContent' => $this->catalogSectionsContent($catalogItem, $contentLocale),
             'slug' => $slug,
-            'guides' => $guides,
             'hasPrivacyPage' => $this->catalogReader->hasPrivacyPolicy($catalogItem),
             'seoContentLocale' => $contentLocale,
             'seoCanonicalUrl' => localized_route('catalog.show', ['locale' => $contentLocale, 'slug' => $slug]),

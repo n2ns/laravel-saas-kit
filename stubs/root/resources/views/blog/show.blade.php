@@ -4,7 +4,7 @@
     $contentLocale = $contentLocale ?? app()->getLocale();
 @endphp
 
-@section('title', $blogPost->getTranslation('title', $contentLocale) . ' - SaaS Starter Blog')
+@section('title', $blogPost->getTranslation('title', $contentLocale) . ' - ' . __('messages.nav.blog'))
 @section('meta_description', $blogPost->getTranslation('excerpt', $contentLocale))
 @section('og_type', 'article')
 
@@ -17,63 +17,42 @@
 @section('extra_meta')
     @unless(request()->routeIs('admin.*'))
         @push('structured_data')
-            @include('partials.structured-data.json-ld', ['data' => \App\Support\StructuredData::blogPosting($blogPost)])
+            @include('partials.structured-data.json-ld', ['data' => \App\Support\StructuredData::blogPosting($blogPost, $seoCanonicalUrl ?? url()->current())])
         @endpush
     @endunless
-    <style>
-        .blog-content pre {
-            display: block !important;
-            margin: 1.75rem 0 !important;
-            padding: 1.25rem !important;
-            overflow-x: auto !important;
-            border: 1px solid rgba(96, 165, 250, 0.28) !important;
-            border-radius: 1rem !important;
-            background:
-                linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.96)) !important;
-            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.34) !important;
-        }
 
-        .blog-content pre code {
-            display: block !important;
-            padding: 0 !important;
-            border-radius: 0 !important;
-            background: transparent !important;
-            color: #cffafe !important;
-            font-size: 0.92rem !important;
-            line-height: 1.75 !important;
-            white-space: pre !important;
-        }
+    @if($blogPost->seo_keywords)
+        <meta name="keywords" content="{{ implode(', ', $blogPost->seo_keywords) }}">
+    @endif
+    @if($blogPost->published_at)
+        <meta property="article:published_time" content="{{ $blogPost->published_at->toAtomString() }}">
+    @endif
+    @if($modifiedAt = $blogPost->updated_at ?? $blogPost->published_at)
+        <meta property="article:modified_time" content="{{ $modifiedAt->toAtomString() }}">
+    @endif
+    <meta property="article:section" content="{{ $blogPost->typeLabel('en') }}">
+    @foreach(($blogPost->geo_tags ?? []) as $countryCode)
+        <meta name="geo.region" content="{{ $countryCode }}">
+    @endforeach
 
-        .blog-content > code[class^="language-"],
-        .blog-content > code[class*=" language-"] {
-            display: block !important;
-            margin: 1.75rem 0 !important;
-            padding: 1.25rem !important;
-            overflow-x: auto !important;
-            border: 1px solid rgba(96, 165, 250, 0.28) !important;
-            border-radius: 1rem !important;
-            background:
-                linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.96)) !important;
-            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.34) !important;
-            color: #cffafe !important;
-            font-size: 0.92rem !important;
-            line-height: 1.75 !important;
-            white-space: pre !important;
-        }
-    </style>
+    @include('partials.blog.content-styles')
 @endsection
 
 @section('content')
-<div class="relative min-h-screen pt-10">
+<div class="relative pt-10">
     <!-- Background Gradient -->
     <div class="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-primary-600/10 to-transparent pointer-events-none"></div>
 
     <article class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-4 relative z-10">
+        <div class="mb-8 flex justify-end">
+            @include('partials.blog.search-form', ['id' => 'show'])
+        </div>
+
         <!-- Header -->
         <header class="text-left mb-16 animate-fade-in border-l-2 border-primary-500 pl-8">
             <div class="flex items-center justify-start gap-4 mb-6">
                 <span class="px-3 py-1 bg-primary-500/10 text-primary-400 text-xs font-normal rounded-full border border-primary-500/20 uppercase tracking-widest leading-6">
-                    {{ $blogPost->type }}
+                    {{ $blogPost->typeLabel($contentLocale) }}
                 </span>
                 <span class="text-text-tertiary h-1 w-1 rounded-full bg-slate-700"></span>
                 @if($displayDate = $blogPost->published_at ?? $blogPost->updated_at ?? $blogPost->created_at)
@@ -82,7 +61,7 @@
                     </time>
                 @endif
                 <span class="text-slate-600 h-1 w-1 rounded-full bg-slate-700"></span>
-                <span class="text-slate-600 font-normal text-xs">{{ $blogPost->getReadingTime($contentLocale) }} min read</span>
+                <span class="text-slate-600 font-normal text-xs">{{ __('messages.common.reading_time', ['minutes' => $blogPost->getReadingTime($contentLocale)]) }}</span>
             </div>
 
             <h1 class="text-2xl md:text-5xl font-bold mb-10 text-slate-950 tracking-tight leading-tight font-bold">
@@ -117,6 +96,8 @@
             animate-slide-up">
             {!! $htmlContent !!}
         </div>
+
+        @include('partials.blog.related-posts', ['relatedPosts' => $blogPost->relatedPosts(locale: $contentLocale), 'contentLocale' => $contentLocale])
 
         <!-- Footer / Navigation -->
         <footer class="mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">

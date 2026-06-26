@@ -63,6 +63,118 @@ class TemplateSmokeTest extends TestCase
         ]);
     }
 
+    public function test_file_based_blog_seed_data_is_seeded_with_metadata(): void
+    {
+        $this->seed();
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'content@example.com',
+            'is_admin' => false,
+        ]);
+
+        $this->assertDatabaseHas('blog_posts', [
+            'slug' => 'starter-launch-guide',
+            'status' => 'published',
+            'is_pinned' => true,
+            'pin_order' => 10,
+        ]);
+
+        $post = BlogPost::where('slug', 'starter-launch-guide')->firstOrFail();
+
+        $this->assertSame(['getting-started', 'tutorial'], $post->topics);
+        $this->assertSame(['US'], $post->geo_tags);
+        $this->assertSame(['Laravel SaaS starter', 'product site launch', 'starter kit'], $post->seo_keywords);
+        $this->assertSame(['starter-guide-article'], $post->related_slugs);
+        $this->assertSame('Starter Launch Guide', $post->title);
+    }
+
+    public function test_blog_taxonomy_is_loaded_from_seed_schema(): void
+    {
+        $this->assertSame(['article', 'guide', 'announcement', 'changelog'], BlogPost::typeCodes());
+        $this->assertSame('article', BlogPost::defaultType());
+        $this->assertSame(['getting-started', 'product', 'tutorial', 'release', 'company'], BlogPost::topicCodes());
+    }
+
+    public function test_file_based_guide_seed_data_is_available_as_blog_post(): void
+    {
+        $this->seed();
+
+        $this->assertDatabaseHas('blog_posts', [
+            'slug' => 'starter-guide-article',
+            'type' => 'guide',
+        ]);
+
+        $this->get('/blog/starter-guide-article')
+            ->assertOk()
+            ->assertSee('Starter Guide Article')
+            ->assertSee('This guide is published as a normal blog article');
+    }
+
+    public function test_related_blog_posts_use_curated_related_slugs(): void
+    {
+        $this->seed();
+
+        $post = BlogPost::where('slug', 'starter-launch-guide')->firstOrFail();
+
+        $this->assertSame(
+            ['starter-guide-article'],
+            $post->relatedPosts()->pluck('slug')->all()
+        );
+
+        $this->get('/blog/starter-launch-guide')
+            ->assertOk()
+            ->assertSee('Related reading')
+            ->assertSee('Starter Guide Article');
+    }
+
+    public function test_blog_index_uses_listing_order_without_pin_boost(): void
+    {
+        $this->seed();
+
+        $user = User::factory()->create();
+        BlogPost::create([
+            'title' => 'Newer Unpinned Article',
+            'slug' => 'newer-unpinned-article',
+            'status' => 'published',
+            'published_at' => now(),
+            'content' => 'A newer unpinned article.',
+            'excerpt' => 'A newer unpinned article.',
+            'type' => BlogPost::defaultType(),
+            'user_id' => $user->id,
+        ]);
+
+        $this->get('/blog')
+            ->assertOk()
+            ->assertSeeInOrder([
+                'Newer Unpinned Article',
+                'Starter Launch Guide',
+            ]);
+    }
+
+    public function test_home_page_uses_pinned_posts_as_featured_blog_posts(): void
+    {
+        $this->seed();
+
+        $user = User::factory()->create();
+        BlogPost::create([
+            'title' => 'Newer Unpinned Article',
+            'slug' => 'newer-unpinned-article',
+            'status' => 'published',
+            'published_at' => now(),
+            'content' => 'A newer unpinned article.',
+            'excerpt' => 'A newer unpinned article.',
+            'type' => BlogPost::defaultType(),
+            'user_id' => $user->id,
+        ]);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSeeInOrder([
+                'Starter Launch Guide',
+                'Newer Unpinned Article',
+            ]);
+    }
+
     public function test_public_home_page_loads(): void
     {
         $this->get('/')->assertOk();
@@ -448,8 +560,7 @@ class TemplateSmokeTest extends TestCase
             'published_at' => now()->subDay(),
             'content' => 'Article content.',
             'excerpt' => 'Article excerpt.',
-            'type' => 'technical',
-            'content_scope' => null,
+            'type' => BlogPost::defaultType(),
             'user_id' => $user->id,
         ]);
 

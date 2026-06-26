@@ -84,7 +84,6 @@ Route::prefix('v1')->group(function () {
         // ========== Legacy MCP Management API ==========
         Route::middleware(['api_key'])->prefix('mcp')->group(function () {
             Route::get('/capabilities', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'capabilities']);
-            Route::get('/products/{contentScope}', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'productContext']);
             Route::get('/posts', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'index']);
             Route::post('/posts', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'store']);
             Route::get('/posts/{id}', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'show']);

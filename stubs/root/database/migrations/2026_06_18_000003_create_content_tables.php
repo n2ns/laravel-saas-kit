@@ -16,13 +16,20 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->text('excerpt')->nullable();
             $table->string('status')->default('draft');
-            $table->string('type')->default('technical');
-            $table->string('content_scope')->nullable();
+            $table->boolean('is_pinned')->default(false);
+            $table->unsignedInteger('pin_order')->default(0);
+            $table->timestamp('pinned_until')->nullable();
+            $table->string('type')->default('article');
+            $table->json('geo_tags')->nullable();
+            $table->json('topics')->nullable();
+            $table->json('seo_keywords')->nullable();
+            $table->json('related_slugs')->nullable();
             $table->string('thumbnail')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
 
-            $table->index(['content_scope', 'status', 'published_at'], 'blog_posts_scope_status_published_idx');
+            $table->index(['status', 'is_pinned', 'pin_order', 'published_at'], 'blog_posts_listing_order_idx');
+            $table->index(['status', 'published_at'], 'blog_posts_status_published_idx');
             if (Schema::getConnection()->getDriverName() !== 'sqlite') {
                 $table->fullText(['title', 'excerpt', 'content'], 'blog_posts_content_fulltext_idx');
             }

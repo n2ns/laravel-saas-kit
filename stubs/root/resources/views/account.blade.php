@@ -64,7 +64,7 @@
                         <div>
                             <h3 class="text-slate-950 font-semibold mb-1">Starter Product</h3>
                             <p class="text-slate-600 text-sm leading-relaxed">
-                                Replace this starter product with your own product name, billing plans, product articles, and connected clients.
+                                Replace this starter product with your own product name, billing plans, blog content, and connected clients.
                                 Sign in to manage subscriptions and access product features.
                             </p>
                         </div>

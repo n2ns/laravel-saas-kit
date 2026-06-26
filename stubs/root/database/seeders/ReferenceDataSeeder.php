@@ -54,7 +54,7 @@ class ReferenceDataSeeder extends Seeder
                 'key_points' => json_encode([
                     ['title' => 'Google login', 'description' => 'Uses the same Socialite and Google ID token flow as the SaaS Starter main site.'],
                     ['title' => 'Stripe billing', 'description' => 'Includes Checkout, webhooks, orders, subscriptions, and customer portal wiring.'],
-                    ['title' => 'Content ready', 'description' => 'Includes blog, product articles, sitemap, and admin publishing workflows.'],
+                    ['title' => 'Content ready', 'description' => 'Includes blog, sitemap, and admin publishing workflows.'],
                 ]),
                 'seo_payload' => json_encode(['indexable' => true, 'schema_type' => 'SoftwareApplication']),
                 'created_at' => now(),
@@ -138,10 +138,10 @@ class ReferenceDataSeeder extends Seeder
                         ],
                         'content' => [
                             'title' => 'Content and SEO',
-                            'description' => 'Product pages, pricing pages, blog posts, product guides, sitemap, and structured data.',
+                            'description' => 'Product pages, pricing pages, blog posts, sitemap, and structured data.',
                         ],
                     ],
-                    'article' => 'Use this starter product as the first editable entry for a new SaaS site. Replace the copy, plans, Stripe price IDs, legal pages, and product articles from the admin panel.',
+                    'article' => 'Use this starter product as the first editable entry for a new SaaS site. Replace the copy, plans, Stripe price IDs, legal pages, and blog content from the admin panel.',
                 ]),
                 'localized_payload' => json_encode([]),
                 'created_at' => now(),

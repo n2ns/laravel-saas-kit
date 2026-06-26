@@ -5,7 +5,6 @@ use App\Http\Controllers\Auth\WebAuthController;
 use App\Http\Controllers\BlogPostController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\GuidesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JwksController;
 use App\Http\Controllers\PlanController;
@@ -81,8 +80,6 @@ $defineRoutes = function () {
     // reserved slugs such as blog, checkout, and dashboard win first.
     Route::get('/{slug}/pricing', [PlanController::class, 'pricing'])->name('catalog.pricing');
     Route::get('/{slug}/privacy', [ProductController::class, 'privacy'])->name('catalog.privacy');
-    Route::get('/{productCode}/guides', [GuidesController::class, 'index'])->name('catalog.guides.index');
-    Route::get('/{productCode}/guides/{slug}', [GuidesController::class, 'show'])->name('catalog.guides.show');
     Route::get('/{slug}', [ProductController::class, 'show'])->name('catalog.show');
 };
 
@@ -104,10 +101,6 @@ $adminPath = trim((string) config('app.admin_path', 'admin'), '/');
 Route::get("/{$adminPath}/blog-posts/{blogPost}/preview", [BlogPostController::class, 'preview'])
     ->middleware('auth')
     ->name('admin.blog-posts.preview');
-
-Route::get("/{$adminPath}/product-articles/{blogPost}/preview", [GuidesController::class, 'preview'])
-    ->middleware('auth')
-    ->name('admin.product-articles.preview');
 
 Route::get('/auth/google', [WebAuthController::class, 'redirectToGoogle'])
     ->middleware('throttle:web-auth')

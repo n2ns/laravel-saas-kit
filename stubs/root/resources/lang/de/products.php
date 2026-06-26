@@ -10,9 +10,9 @@
 return [
     // Product Index Page - Generic UI
     'title' => 'Unsere Lösungen',
-    'subtitle' => 'Entdecken Sie Produkte, Tarife und Leitfäden, die auf dieser Website veröffentlicht sind.',
+    'subtitle' => 'Entdecken Sie Produkte und Tarife, die auf dieser Website veröffentlicht sind.',
     'seo_title' => 'Produkte | SaaS Starter',
-    'seo_description' => 'Entdecken Sie Produkte, Preise, Leitfäden und Konto-Zugriff für diese SaaS-Produktseite.',
+    'seo_description' => 'Entdecken Sie Produkte, Preise und Konto-Zugriff für diese SaaS-Produktseite.',
     'view_details' => 'Details Ansehen',
     'view_github' => 'GitHub',
     'try_now' => 'Jetzt Testen',
@@ -43,7 +43,6 @@ return [
         'install' => 'Installieren',
         'download' => 'Herunterladen',
         'pricing' => 'Tarife',
-        'guides' => 'Leitfäden',
         'github' => 'GitHub',
         'npm' => 'npm',
         'external' => 'Öffnen',
@@ -54,12 +53,6 @@ return [
     // Install button (used in pricing page fallback)
     'install' => 'Installieren',
     'get_started' => 'Loslegen',
-    'read_guides' => 'Leitfäden',
-    'guides_label' => 'Leitfäden',
-    'latest_guides' => 'Produktleitfäden',
-    'all_guides' => 'Alle Leitfäden',
-    'read_guide' => 'Leitfaden lesen',
-
     // Product Type translations
     'product_type' => [
         'chrome' => 'Browser-Add-on',

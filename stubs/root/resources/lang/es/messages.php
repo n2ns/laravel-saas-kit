@@ -14,6 +14,7 @@ return [
 
     'common' => [
         'read_more' => 'Leer Artículo Completo',
+        'reading_time' => ':minutes min de lectura',
     ],
 
     // Meta
@@ -38,7 +39,7 @@ return [
         'proof_sessions' => 'Cuentas',
         'proof_sessions_label' => 'Inicio de sesión y sesiones de dispositivo',
         'proof_content' => 'Publicación',
-        'proof_content_label' => 'Blog y guías de producto',
+        'proof_content_label' => 'Publicación en blog',
         'proof_admin' => 'Admin',
         'proof_admin_label' => 'Operaciones con Filament',
         'workflow_title' => 'Una landing page que puede crecer con el producto',
@@ -54,7 +55,7 @@ return [
             ],
             'publish' => [
                 'title' => 'Publicar guías',
-                'description' => 'Gestione blog, artículos de producto, sitemap y automatización Post2Site desde el mismo modelo.',
+                'description' => 'Gestione blog, sitemap y automatización Post2Site desde un mismo flujo de contenido.',
             ],
         ],
 
@@ -79,17 +80,27 @@ return [
     // Blog
     'blog' => [
         'subtitle' => 'Actualizaciones de producto, guías y notas de la empresa.',
+        'meta_keywords' => 'SaaS Starter blog, actualizaciones de producto, guías, notas de empresa',
         'back_to_list' => 'Volver al Blog',
         'no_blog_posts' => 'Aún no hay entradas de blog. Mantente atento.',
         'author_tagline' => 'Notas del equipo del sitio.',
+        'published_by' => 'Publicado por el equipo del sitio',
         'article_count' => '{1} :count artículo|[2,*] :count artículos',
-        'filter_all' => 'Todos los artículos',
-        'filter_blog' => 'Blog',
-        'filter_product_articles' => 'Artículos de producto',
-        'product_articles_label' => 'Artículos de producto',
-        'product_articles_title' => 'Guías desde páginas de producto',
-        'product_articles_subtitle' => 'Guías, flujos de trabajo y notas operativas específicas de producto como entradas de artículo.',
-        'product_article_badge' => 'Artículo de producto',
+        'search_label' => 'Buscar artículos',
+        'search_placeholder' => 'Buscar artículos',
+        'search_submit' => 'Buscar',
+        'search_clear' => 'Limpiar búsqueda',
+        'search_results_for' => 'Resultados de búsqueda para ":query"',
+        'no_search_results' => 'No hay artículos que coincidan con esta búsqueda.',
+        'sort_label' => 'Ordenar',
+        'sort_latest' => 'Más recientes primero',
+        'sort_oldest' => 'Más antiguos primero',
+        'type_label' => 'Tipo',
+        'all_types' => 'Todos los tipos',
+        'topic_label' => 'Tema',
+        'all_topics' => 'Todos los temas',
+        'reset_filters' => 'Restablecer filtros',
+        'related_title' => 'Lecturas relacionadas',
     ],
 
     // Cookie Consent

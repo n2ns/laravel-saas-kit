@@ -13,16 +13,18 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -61,9 +63,6 @@ class BlogPostResource extends Resource
             ->components([
                 Section::make('博客文章内容')
                     ->schema([
-                        Hidden::make('content_scope')
-                            ->default(null),
-
                         TextInput::make('title')
                             ->label('标题')
                             ->live(onBlur: true)
@@ -99,13 +98,9 @@ class BlogPostResource extends Resource
                     ->schema([
                         Select::make('type')
                             ->label('文章类型')
-                            ->options([
-                                'technical' => '技术文章',
-                                'announcement' => '产品公告',
-                                'changelog' => '更新日志',
-                            ])
+                            ->options(BlogPost::typeOptions('zh_CN'))
                             ->required()
-                            ->default('technical'),
+                            ->default(BlogPost::defaultType()),
 
                         Select::make('status')
                             ->label('发布状态')
@@ -120,6 +115,40 @@ class BlogPostResource extends Resource
                             ->label('发布时间')
                             ->native(false)
                             ->displayFormat('Y-m-d H:i:s'),
+
+                        Toggle::make('is_pinned')
+                            ->label('置顶')
+                            ->default(false),
+
+                        TextInput::make('pin_order')
+                            ->label('置顶排序')
+                            ->numeric()
+                            ->minValue(0)
+                            ->default(0)
+                            ->helperText('数字越小越靠前，仅对置顶文章生效。'),
+
+                        DateTimePicker::make('pinned_until')
+                            ->label('置顶截止时间')
+                            ->native(false)
+                            ->displayFormat('Y-m-d H:i:s'),
+
+                        TagsInput::make('topics')
+                            ->label('主题标签')
+                            ->suggestions(BlogPost::topicOptions('zh_CN'))
+                            ->placeholder('输入或选择主题标签'),
+
+                        TagsInput::make('geo_tags')
+                            ->label('地区代码')
+                            ->placeholder('例如 US、GB、SG')
+                            ->helperText('可选 ISO 3166-1 alpha-2 国家/地区代码，用于 SEO 和相关推荐。'),
+
+                        TagsInput::make('seo_keywords')
+                            ->label('SEO 关键词')
+                            ->placeholder('输入关键词'),
+
+                        TagsInput::make('related_slugs')
+                            ->label('相关文章 Slug')
+                            ->placeholder('输入相关文章 slug'),
 
                         FileUpload::make('thumbnail')
                             ->label('封面图片')
@@ -155,19 +184,12 @@ class BlogPostResource extends Resource
                     ->label('类型')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'technical' => 'info',
+                        'guide' => 'primary',
                         'announcement' => 'success',
                         'changelog' => 'warning',
-                        'guide' => 'primary',
                         default => 'gray',
                     })
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'technical' => '技术文章',
-                        'announcement' => '产品公告',
-                        'changelog' => '更新日志',
-                        'guide' => '使用指南',
-                        default => $state,
-                    }),
+                    ->formatStateUsing(fn (string $state): string => BlogPost::typeOptions('zh_CN')[$state] ?? $state),
                 TextColumn::make('status')
                     ->label('状态')
                     ->badge()
@@ -179,6 +201,13 @@ class BlogPostResource extends Resource
                         'draft' => '草稿',
                         'published' => '已发布',
                     }),
+                IconColumn::make('is_pinned')
+                    ->label('置顶')
+                    ->boolean()
+                    ->sortable(),
+                TextColumn::make('pin_order')
+                    ->label('置顶排序')
+                    ->sortable(),
                 TextColumn::make('published_at')
                     ->label('发布时间')
                     ->dateTime()
@@ -245,7 +274,6 @@ class BlogPostResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->whereNull('content_scope')
             ->withSum('viewDailyStats as views_total', 'views')
             ->withSum([
                 'viewDailyStats as views_7d' => fn (Builder $query) => $query

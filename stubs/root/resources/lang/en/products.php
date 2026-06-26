@@ -10,9 +10,9 @@
 return [
     // Product Index Page - Generic UI
     'title' => 'Our Solutions',
-    'subtitle' => 'Explore the products, plans, and guides published on this site.',
+    'subtitle' => 'Explore the products and plans published on this site.',
     'seo_title' => 'Products | SaaS Starter',
-    'seo_description' => 'Explore products, pricing, guides, and account access for this SaaS product site.',
+    'seo_description' => 'Explore products, pricing, and account access for this SaaS product site.',
     'view_details' => 'View Details',
     'view_github' => 'GitHub',
     'try_now' => 'Try Now',
@@ -43,7 +43,6 @@ return [
         'install' => 'Install',
         'download' => 'Download',
         'pricing' => 'Plans',
-        'guides' => 'Guides',
         'github' => 'GitHub',
         'npm' => 'npm',
         'external' => 'Open',
@@ -54,12 +53,6 @@ return [
     // Install button (used in pricing page fallback)
     'install' => 'Install',
     'get_started' => 'Get Started',
-    'read_guides' => 'Guides',
-    'guides_label' => 'Guides',
-    'latest_guides' => 'Product guides',
-    'all_guides' => 'All guides',
-    'read_guide' => 'Read guide',
-
     // Product Type translations
     'product_type' => [
         'chrome' => 'Browser Add-on',

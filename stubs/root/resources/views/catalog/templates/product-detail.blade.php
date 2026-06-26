@@ -105,8 +105,6 @@
             @endswitch
         @endforeach
 
-        <x-products.guide-list :guides="$guides" :product-code="$product?->code" />
-
         @if($privacyUrl)
         <div class="mt-12 flex justify-end border-t border-black/[0.08] pt-6">
             <a href="{{ $privacyUrl }}"

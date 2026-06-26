@@ -22,14 +22,13 @@ class HomeController extends Controller
         $defaultLocale = LocaleProfile::default();
         $latestBlogPosts = BlogPost::with('author')
             ->published()
-            ->companyBlog()
             ->withLocalizedTranslations($locale)
             ->when($locale !== $defaultLocale, function ($query) use ($locale) {
                 $query->whereHas('translations', function ($q) use ($locale) {
                     $q->where('locale', $locale);
                 });
             })
-            ->orderBy('published_at', 'desc')
+            ->applyPinnedListingOrder('latest')
             ->take(3)
             ->get();
 

@@ -28,7 +28,7 @@
                         What This App Does
                     </h2>
                     <p class="text-slate-600 leading-relaxed text-base md:text-lg">
-                        SaaS Starter provides account-based access to products, product guides, subscriptions, and license management for this site.
+                        SaaS Starter provides account-based access to products, subscriptions, and license management for this site.
                     </p>
                 </div>
 

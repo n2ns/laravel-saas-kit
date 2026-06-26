@@ -15,8 +15,8 @@ This is intentionally a template application. The goal is to reuse a proven impl
 - API Google ID token login through Passport social grant.
 - Long-lived refresh tokens, device sessions, multi-device revoke, and `auth_epoch`.
 - Stripe Checkout, webhooks, Customer Portal, orders, subscriptions, and plans.
-- Product catalog, product pages, pricing pages, blog, product articles, preview routes, sitemap, canonical/structured-data helpers.
-- Filament admin for users, sessions, products, plans, subscriptions, orders, blog posts, product articles, API keys, and access analytics.
+- Product catalog, product pages, pricing pages, blog, preview routes, sitemap, canonical/structured-data helpers.
+- Filament admin for users, sessions, products, plans, subscriptions, orders, blog posts, API keys, and access analytics.
 - Site visit/event tracking through `TrackSiteVisit`, `SiteAnalyticsTracker`, and the site analytics tables.
 - Automated content publishing through `n2ns/laravel-post2site`; the older template MCP routes stay disabled unless `SAAS_KIT_LEGACY_MCP_ROUTES=true`.
 - Starter seed data for one product, Free/Plus/Credits plans, and Stripe gateway.
@@ -88,7 +88,7 @@ Script behavior and options are documented in [SCRIPTS.md](SCRIPTS.md).
 
 ## Operating Model
 
-Use the admin panel to replace the starter product, plans, blog posts, product articles, SEO fields, and legal pages with the new product site's own content.
+Use the admin panel to replace the starter product, plans, blog posts, SEO fields, and legal pages with the new product site's own content.
 
 For automated publishing, use `n2ns/laravel-post2site` with `POST2SITE_PRESET=laravel_saas_kit`. The site publishes through its built-in `blog_posts` and `blog_post_translations` tables; it does not need another blog package.
 

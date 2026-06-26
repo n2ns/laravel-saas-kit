@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Models\Concerns\HasLocalizedAttributes;
+use App\Support\BlogContentVocabulary;
 use App\Support\LocaleProfile;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
@@ -40,8 +42,14 @@ class BlogPost extends Model implements Sitemapable
     protected $fillable = [
         'user_id',
         'type',
-        'content_scope',
+        'geo_tags',
+        'topics',
+        'seo_keywords',
+        'related_slugs',
         'status',
+        'is_pinned',
+        'pin_order',
+        'pinned_until',
         'slug',
         'title', // Stores English / Default title
         'content', // Stores English / Default content
@@ -54,6 +62,13 @@ class BlogPost extends Model implements Sitemapable
     {
         return [
             'published_at' => 'datetime',
+            'is_pinned' => 'boolean',
+            'pin_order' => 'integer',
+            'pinned_until' => 'datetime',
+            'geo_tags' => 'array',
+            'topics' => 'array',
+            'seo_keywords' => 'array',
+            'related_slugs' => 'array',
         ];
     }
 
@@ -75,32 +90,121 @@ class BlogPost extends Model implements Sitemapable
         return $this->hasMany(SiteVisitDailyStat::class);
     }
 
-    public static function productContentScope(string $productCode): string
+    /**
+     * Related posts via layered fallback:
+     * 1) explicit related_slugs, 2) same geo_tags,
+     * 3) same topics, 4) same type.
+     *
+     * @return \Illuminate\Support\Collection<int, BlogPost>
+     */
+    public function relatedPosts(int $limit = 4, ?string $locale = null): \Illuminate\Support\Collection
     {
-        return 'product:'.$productCode;
-    }
+        $locale = $locale ?? app()->getLocale();
+        $collected = collect();
+        $excludeIds = [$this->id];
 
-    public function contentScopeKind(): ?string
-    {
-        if (! $this->content_scope || ! str_contains($this->content_scope, ':')) {
-            return null;
+        $baseQuery = function () use ($locale) {
+            return static::query()
+                ->published()
+                ->withLocalizedTranslations($locale)
+                ->where('id', '!=', $this->id);
+        };
+
+        $take = function ($query) use (&$collected, &$excludeIds, $limit): void {
+            if ($collected->count() >= $limit) {
+                return;
+            }
+
+            $posts = $query->whereNotIn('id', $excludeIds)
+                ->orderByDesc('published_at')
+                ->limit($limit - $collected->count())
+                ->get();
+
+            foreach ($posts as $post) {
+                $collected->push($post);
+                $excludeIds[] = $post->id;
+            }
+        };
+
+        if (! empty($this->related_slugs)) {
+            static::query()
+                ->published()
+                ->withLocalizedTranslations($locale)
+                ->whereIn('slug', $this->related_slugs)
+                ->where('id', '!=', $this->id)
+                ->get()
+                ->sortBy(fn (BlogPost $post): int => array_search($post->slug, $this->related_slugs, true))
+                ->each(function (BlogPost $post) use (&$collected, &$excludeIds, $limit): void {
+                    if ($collected->count() < $limit) {
+                        $collected->push($post);
+                        $excludeIds[] = $post->id;
+                    }
+                });
         }
 
-        return explode(':', $this->content_scope, 2)[0];
-    }
-
-    public function contentScopeKey(): ?string
-    {
-        if (! $this->content_scope || ! str_contains($this->content_scope, ':')) {
-            return null;
+        if (! empty($this->geo_tags)) {
+            $take($this->matchAnyJson($baseQuery(), 'geo_tags', $this->geo_tags));
         }
 
-        return explode(':', $this->content_scope, 2)[1];
+        if (! empty($this->topics)) {
+            $take($this->matchAnyJson($baseQuery(), 'topics', $this->topics));
+        }
+
+        $take($baseQuery()->where('type', $this->type));
+
+        return $collected->take($limit)->values();
     }
 
-    public function productCode(): ?string
+    /**
+     * @return array<string, string>
+     */
+    public static function typeOptions(?string $locale = null): array
     {
-        return $this->contentScopeKind() === 'product' ? $this->contentScopeKey() : null;
+        return BlogContentVocabulary::typeOptions($locale);
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public static function typeCodes(): array
+    {
+        return BlogContentVocabulary::typeCodes();
+    }
+
+    public static function defaultType(): string
+    {
+        return BlogContentVocabulary::defaultType();
+    }
+
+    public function typeLabel(?string $locale = null): string
+    {
+        return self::typeLabelFor($this->type, $locale);
+    }
+
+    public static function typeLabelFor(string $type, ?string $locale = null): string
+    {
+        return self::typeOptions($locale)[$type] ?? (string) str($type)->replace(['-', '_'], ' ')->headline();
+    }
+
+    public function isPinnedActive(): bool
+    {
+        return $this->is_pinned && (! $this->pinned_until || $this->pinned_until->isFuture());
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function topicOptions(?string $locale = null): array
+    {
+        return BlogContentVocabulary::topicOptions($locale);
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public static function topicCodes(): array
+    {
+        return BlogContentVocabulary::topicCodes();
     }
 
     public function publicUrl(?string $locale = null): ?string
@@ -110,15 +214,8 @@ class BlogPost extends Model implements Sitemapable
             return null;
         }
 
-        $productCode = $this->productCode();
-        if ($this->content_scope && ($this->type !== 'guide' || ! $productCode)) {
-            return null;
-        }
-
         $prefixPath = $prefix ? "/{$prefix}" : '';
-        $path = $productCode
-            ? "{$prefixPath}/{$productCode}/guides/{$this->slug}"
-            : "{$prefixPath}/blog/{$this->slug}";
+        $path = "{$prefixPath}/blog/{$this->slug}";
 
         return rtrim((string) config('app.url'), '/').$path;
     }
@@ -186,29 +283,44 @@ class BlogPost extends Model implements Sitemapable
             ->where('published_at', '<=', now());
     }
 
-    /**
-     * Scope for company blog posts (not tied to any content scope).
-     */
-    public function scopeCompanyBlog($query)
+    public function scopePinned($query)
     {
-        return $query->whereNull('content_scope');
+        return $query->where('is_pinned', true)
+            ->where(function ($q): void {
+                $q->whereNull('pinned_until')
+                    ->orWhere('pinned_until', '>', now());
+            });
     }
 
-    /**
-     * Scope for product guides.
-     */
-    public function scopeForProduct($query, string $productCode)
+    public function scopeApplyListingOrder($query, string $sort = 'latest')
     {
-        return $query->where('content_scope', self::productContentScope($productCode));
+        return $sort === 'oldest'
+            ? $query->orderBy('published_at')
+            : $query->orderByDesc('published_at');
     }
 
-    /**
-     * Scope for published product guide content.
-     */
-    public function scopeProductGuides($query, string $productCode)
+    public function scopeApplyPinnedListingOrder($query, string $sort = 'latest')
     {
-        return $query->where('content_scope', self::productContentScope($productCode))
-            ->where('type', 'guide');
+        $query->orderByRaw(
+            'case when is_pinned = 1 and (pinned_until is null or pinned_until > ?) then 0 else 1 end',
+            [now()]
+        )->orderByRaw(
+            'case when is_pinned = 1 and (pinned_until is null or pinned_until > ?) then pin_order else 0 end',
+            [now()]
+        );
+
+        return $sort === 'oldest'
+            ? $query->orderBy('published_at')
+            : $query->orderByDesc('published_at');
+    }
+
+    public function scopeWithTopic($query, ?string $topic)
+    {
+        if (! $topic || ! in_array($topic, self::topicCodes(), true)) {
+            return $query;
+        }
+
+        return $query->whereJsonContains('topics', $topic);
     }
 
     /**
@@ -223,26 +335,43 @@ class BlogPost extends Model implements Sitemapable
         }
 
         $like = self::likePattern($keyword);
+        $supportsFullText = DB::connection()->getDriverName() !== 'sqlite';
 
-        return $query->where(function ($q) use ($keyword, $like) {
-            $q->whereFullText(self::FULL_TEXT_COLUMNS, $keyword)
-                ->orWhere('title', 'like', $like)
+        return $query->where(function ($q) use ($keyword, $like, $supportsFullText) {
+            $q->where('title', 'like', $like)
                 ->orWhere('excerpt', 'like', $like)
-                ->orWhere('content', 'like', $like)
-                ->orWhereHas('translations', function ($tq) use ($keyword) {
-                    $tq->whereFullText(self::FULL_TEXT_COLUMNS, $keyword);
-                })
-                ->orWhereHas('translations', function ($tq) use ($like) {
-                    $tq->where('title', 'like', $like)
-                        ->orWhere('excerpt', 'like', $like)
-                        ->orWhere('content', 'like', $like);
-                });
+                ->orWhere('content', 'like', $like);
+
+            if ($supportsFullText) {
+                $q->orWhereFullText(self::FULL_TEXT_COLUMNS, $keyword)
+                    ->orWhereHas('translations', function ($tq) use ($keyword) {
+                        $tq->whereFullText(self::FULL_TEXT_COLUMNS, $keyword);
+                    });
+            }
+
+            $q->orWhereHas('translations', function ($tq) use ($like) {
+                $tq->where('title', 'like', $like)
+                    ->orWhere('excerpt', 'like', $like)
+                    ->orWhere('content', 'like', $like);
+            });
         });
     }
 
     private static function likePattern(string $keyword): string
     {
         return '%'.addcslashes($keyword, '\\%_').'%';
+    }
+
+    /**
+     * @param  array<int, string>  $values
+     */
+    private function matchAnyJson($query, string $column, array $values)
+    {
+        return $query->where(function ($inner) use ($column, $values): void {
+            foreach ($values as $value) {
+                $inner->orWhereJsonContains($column, $value);
+            }
+        });
     }
 
     // Localization methods provided by HasLocalizedAttributes trait
@@ -270,19 +399,11 @@ class BlogPost extends Model implements Sitemapable
     {
         $availableLocales = $this->renderableLocalePrefixes();
         $baseUrl = config('app.url');
-        $productCode = $this->productCode();
-
-        if ($this->content_scope && ($this->type !== 'guide' || ! $productCode)) {
-            return [];
-        }
-
         if ($availableLocales === []) {
             return [];
         }
 
-        $path = $productCode
-            ? "/{$productCode}/guides/{$this->slug}"
-            : "/blog/{$this->slug}";
+        $path = "/blog/{$this->slug}";
         $tags = [];
 
         foreach ($availableLocales as $hreflang => $urlPrefix) {

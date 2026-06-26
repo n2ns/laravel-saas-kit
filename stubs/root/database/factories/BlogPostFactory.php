@@ -20,12 +20,19 @@ class BlogPostFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'type' => $this->faker->randomElement(['technical', 'announcement', 'changelog']),
+            'type' => $this->faker->randomElement(BlogPost::typeCodes()),
             'status' => 'draft',
+            'is_pinned' => false,
+            'pin_order' => 0,
+            'pinned_until' => null,
             'slug' => $this->faker->slug,
             'title' => $this->faker->sentence,
             'content' => $this->faker->paragraphs(3, true),
             'excerpt' => $this->faker->sentence,
+            'geo_tags' => null,
+            'topics' => null,
+            'seo_keywords' => null,
+            'related_slugs' => null,
             'published_at' => null,
         ];
     }

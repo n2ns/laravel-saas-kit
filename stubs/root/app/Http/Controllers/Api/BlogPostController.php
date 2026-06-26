@@ -40,9 +40,15 @@ class BlogPostController extends Controller
             // Prepare main table data with fallback locale.
             $blogPostData = [
                 'user_id' => Auth::id(),
-                'type' => $validated['type'] ?? 'technical',
-                'content_scope' => $validated['content_scope'] ?? null,
+                'type' => $validated['type'] ?? BlogPost::defaultType(),
+                'geo_tags' => $this->normalizedStringList($validated['geo_tags'] ?? null, uppercase: true),
+                'topics' => $this->normalizedStringList($validated['topics'] ?? null),
+                'seo_keywords' => $this->normalizedStringList($validated['seo_keywords'] ?? null),
+                'related_slugs' => $this->normalizedStringList($validated['related_slugs'] ?? null),
                 'status' => $validated['status'] ?? 'draft',
+                'is_pinned' => (bool) ($validated['is_pinned'] ?? false),
+                'pin_order' => (int) ($validated['pin_order'] ?? 0),
+                'pinned_until' => $validated['pinned_until'] ?? null,
                 'slug' => $validated['slug'],
                 'thumbnail' => $validated['thumbnail'] ?? null,
                 'published_at' => $validated['published_at'] ?? null,
@@ -86,18 +92,20 @@ class BlogPostController extends Controller
     public function update(UpdateBlogPostRequest $request, BlogPost $blogPost): JsonResponse
     {
         $validated = $request->validated();
-        $validationError = $this->validateNextTypeAndScope($blogPost, $validated);
-        if ($validationError) {
-            return $validationError;
-        }
 
         return DB::transaction(function () use ($blogPost, $validated) {
             $updateData = [];
 
             // Update simple fields
-            foreach (['type', 'content_scope', 'status', 'slug', 'thumbnail', 'published_at'] as $field) {
+            foreach (['type', 'status', 'slug', 'thumbnail', 'published_at', 'is_pinned', 'pin_order', 'pinned_until'] as $field) {
                 if (array_key_exists($field, $validated)) {
                     $updateData[$field] = $validated[$field];
+                }
+            }
+
+            foreach (['geo_tags', 'topics', 'seo_keywords', 'related_slugs'] as $field) {
+                if (array_key_exists($field, $validated)) {
+                    $updateData[$field] = $this->normalizedStringList($validated[$field], uppercase: $field === 'geo_tags');
                 }
             }
 
@@ -219,25 +227,25 @@ class BlogPostController extends Controller
         ]);
     }
 
-    private function validateNextTypeAndScope(BlogPost $blogPost, array $validated): ?JsonResponse
+    /**
+     * @param  array<int, mixed>|null  $values
+     * @return array<int, string>|null
+     */
+    private function normalizedStringList(?array $values, bool $uppercase = false): ?array
     {
-        $nextType = $validated['type'] ?? $blogPost->type;
-        $nextScope = array_key_exists('content_scope', $validated) ? $validated['content_scope'] : $blogPost->content_scope;
-
-        if ($nextType === 'guide' && empty($nextScope)) {
-            return response()->json([
-                'message' => 'The content_scope field is required when type is guide.',
-                'errors' => ['content_scope' => ['The content_scope field is required when type is guide.']],
-            ], 422);
+        if ($values === null) {
+            return null;
         }
 
-        if ($nextType !== 'guide' && ! empty($nextScope)) {
-            return response()->json([
-                'message' => 'The content_scope field is only allowed when type is guide.',
-                'errors' => ['content_scope' => ['The content_scope field is only allowed when type is guide.']],
-            ], 422);
-        }
+        $normalized = collect($values)
+            ->filter(fn ($value): bool => is_string($value) || is_numeric($value))
+            ->map(fn ($value): string => trim((string) $value))
+            ->filter()
+            ->map(fn (string $value): string => $uppercase ? strtoupper($value) : $value)
+            ->unique()
+            ->values()
+            ->all();
 
-        return null;
+        return $normalized === [] ? null : $normalized;
     }
 }

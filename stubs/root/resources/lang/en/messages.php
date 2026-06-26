@@ -14,6 +14,7 @@ return [
 
     'common' => [
         'read_more' => 'Read Full Article',
+        'reading_time' => ':minutes min read',
     ],
 
     // Meta
@@ -38,7 +39,7 @@ return [
         'proof_sessions' => 'Accounts',
         'proof_sessions_label' => 'Login and device sessions',
         'proof_content' => 'Publishing',
-        'proof_content_label' => 'Blog and product guides',
+        'proof_content_label' => 'Blog publishing',
         'proof_admin' => 'Admin',
         'proof_admin_label' => 'Filament operations',
         'workflow_title' => 'A landing page that can grow with the product',
@@ -54,7 +55,7 @@ return [
             ],
             'publish' => [
                 'title' => 'Publish guides',
-                'description' => 'Run blog posts, product articles, sitemap generation, and Post2Site content automation from the same model.',
+                'description' => 'Run blog posts, sitemap generation, and Post2Site content automation from one workflow.',
             ],
         ],
 
@@ -79,17 +80,27 @@ return [
     // Blog
     'blog' => [
         'subtitle' => 'Product updates, guides, and company notes.',
+        'meta_keywords' => 'SaaS Starter blog, product updates, guides, company notes',
         'back_to_list' => 'Back to Blog',
         'no_blog_posts' => 'No blog posts yet. Product updates and guides are coming soon.',
         'author_tagline' => 'Notes from the site team.',
+        'published_by' => 'Published by the site team',
         'article_count' => '{1} :count article|[2,*] :count articles',
-        'filter_all' => 'All articles',
-        'filter_blog' => 'Blog',
-        'filter_product_articles' => 'Product articles',
-        'product_articles_label' => 'Product articles',
-        'product_articles_title' => 'Guides from product pages',
-        'product_articles_subtitle' => 'Product-specific guides, workflows, and operating notes collected as article entry points.',
-        'product_article_badge' => 'Product article',
+        'search_label' => 'Search articles',
+        'search_placeholder' => 'Search articles',
+        'search_submit' => 'Search',
+        'search_clear' => 'Clear search',
+        'search_results_for' => 'Search results for ":query"',
+        'no_search_results' => 'No articles matched this search.',
+        'sort_label' => 'Sort',
+        'sort_latest' => 'Newest first',
+        'sort_oldest' => 'Oldest first',
+        'type_label' => 'Type',
+        'all_types' => 'All types',
+        'topic_label' => 'Topic',
+        'all_topics' => 'All topics',
+        'reset_filters' => 'Reset filters',
+        'related_title' => 'Related reading',
     ],
 
     // Cookie Consent

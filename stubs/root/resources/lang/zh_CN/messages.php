@@ -14,6 +14,7 @@ return [
 
     'common' => [
         'read_more' => '阅读全文',
+        'reading_time' => ':minutes 分钟阅读',
     ],
 
     // Meta
@@ -38,7 +39,7 @@ return [
         'proof_sessions' => '账户',
         'proof_sessions_label' => '登录和设备会话',
         'proof_content' => '发布',
-        'proof_content_label' => '博客和产品指南',
+        'proof_content_label' => '博客发布',
         'proof_admin' => '后台',
         'proof_admin_label' => 'Filament 运营管理',
         'workflow_title' => '一个能随产品一起成长的落地页',
@@ -54,7 +55,7 @@ return [
             ],
             'publish' => [
                 'title' => '发布指南',
-                'description' => '用同一套内容模型管理博客、产品文章、网站地图和 Post2Site 自动发布。',
+                'description' => '用同一套内容流程管理博客、网站地图和 Post2Site 自动发布。',
             ],
         ],
 
@@ -79,17 +80,27 @@ return [
     // Blog
     'blog' => [
         'subtitle' => '产品更新、指南和公司动态。',
+        'meta_keywords' => 'SaaS Starter 博客, 产品更新, 指南, 公司动态',
         'back_to_list' => '返回博客列表',
         'no_blog_posts' => '暂无博客文章。产品更新和指南即将发布。',
         'author_tagline' => '来自站点团队的记录。',
+        'published_by' => '由站点团队发布',
         'article_count' => ':count 篇文章',
-        'filter_all' => '全部文章',
-        'filter_blog' => '博客',
-        'filter_product_articles' => '产品文章',
-        'product_articles_label' => '产品文章',
-        'product_articles_title' => '来自产品页的指南',
-        'product_articles_subtitle' => '产品相关的指南、流程说明和使用记录，集中作为文章入口展示。',
-        'product_article_badge' => '产品文章',
+        'search_label' => '搜索文章',
+        'search_placeholder' => '搜索文章',
+        'search_submit' => '搜索',
+        'search_clear' => '清除搜索',
+        'search_results_for' => '“:query”的搜索结果',
+        'no_search_results' => '没有找到匹配的文章。',
+        'sort_label' => '排序',
+        'sort_latest' => '最新优先',
+        'sort_oldest' => '最早优先',
+        'type_label' => '类型',
+        'all_types' => '全部类型',
+        'topic_label' => '主题',
+        'all_topics' => '全部主题',
+        'reset_filters' => '重置筛选',
+        'related_title' => '相关阅读',
     ],
 
     // Cookie Consent
