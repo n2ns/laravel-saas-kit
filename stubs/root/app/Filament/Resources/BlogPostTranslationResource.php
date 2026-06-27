@@ -29,42 +29,42 @@ class BlogPostTranslationResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-language';
 
-    protected static string|UnitEnum|null $navigationGroup = '内容管理';
+    protected static string|UnitEnum|null $navigationGroup = 'Content';
 
-    protected static ?string $navigationLabel = '文章翻译';
+    protected static ?string $navigationLabel = 'Post translations';
 
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $modelLabel = '文章翻译';
+    protected static ?string $modelLabel = 'Post translations';
 
-    protected static ?string $pluralModelLabel = '博客文章翻译';
+    protected static ?string $pluralModelLabel = 'BlogPost translations';
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 Select::make('blog_post_id')
-                    ->label('博客文章')
+                    ->label('Blog post')
                     ->relationship('blogPost', 'title')
                     ->required()
                     ->searchable()
                     ->preload(),
                 Select::make('locale')
-                    ->label('语言')
+                    ->label('Language')
                     ->options([
-                        'zh_CN' => '中文 (Chinese)',
+                        'zh_CN' => 'Chinese',
                         'es' => 'Español (Spanish)',
                         'de' => 'Deutsch (German)',
                     ])
                     ->required(),
                 TextInput::make('title')
-                    ->label('标题')
+                    ->label('Title')
                     ->maxLength(255),
                 MarkdownEditor::make('content')
-                    ->label('正文')
+                    ->label('Content')
                     ->columnSpanFull(),
                 Textarea::make('excerpt')
-                    ->label('摘要')
+                    ->label('Excerpt')
                     ->maxLength(500)
                     ->columnSpanFull(),
             ]);
@@ -78,12 +78,12 @@ class BlogPostTranslationResource extends Resource
             ->modifyQueryUsing(fn (Builder $query) => $query->with('blogPost:id,title'))
             ->columns([
                 TextColumn::make('blogPost.title')
-                    ->label('原始文章')
+                    ->label('Source post')
                     ->searchable()
                     ->sortable()
                     ->limit(30),
                 TextColumn::make('locale')
-                    ->label('语言')
+                    ->label('Language')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'zh_CN' => 'danger',
@@ -92,19 +92,19 @@ class BlogPostTranslationResource extends Resource
                         default => 'gray',
                     }),
                 TextColumn::make('title')
-                    ->label('标题')
+                    ->label('Title')
                     ->searchable()
                     ->limit(40),
                 TextColumn::make('updated_at')
-                    ->label('更新时间')
+                    ->label('Updated at')
                     ->dateTime()
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('locale')
-                    ->label('按语言过滤')
+                    ->label('Filter by language')
                     ->options([
-                        'zh_CN' => '中文',
+                        'zh_CN' => 'Chinese',
                         'es' => 'Español',
                         'de' => 'Deutsch',
                     ]),

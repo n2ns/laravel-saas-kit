@@ -113,7 +113,10 @@ Set:
 ```dotenv
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=https://example.com/auth/google/callback
+# Optional override. Defaults to APP_URL/auth/google/callback.
+# GOOGLE_REDIRECT_URI=https://example.com/auth/google/callback
+PRODUCT_KIT_CHROME_REDIRECT_URI=https://example.chromiumapp.org/callback
+PRODUCT_KIT_MOBILE_REDIRECT_URI=starter://callback
 ```
 
 Google Console must include:
@@ -122,7 +125,19 @@ Google Console must include:
 - Authorized redirect URI: `https://example.com/auth/google/callback`
 
 For app or browser-extension clients, update `config/auth_clients.php` and the
-client redirect URI environment variables.
+client redirect URI environment variables. The client `client_id` and
+`product_code` sent by the external app must exactly match
+`config/auth_clients.php`.
+
+After migrations, create the Passport client used by API Google login:
+
+```bash
+php artisan passport:ensure-social-client --create
+```
+
+Copy the printed `PASSPORT_PASSWORD_CLIENT_ID` and
+`PASSPORT_PASSWORD_CLIENT_SECRET` values into `.env`. See `API_AUTH.md` for the
+full external-client checklist.
 
 ## 6. Stripe
 
@@ -195,6 +210,8 @@ First deployment usually needs:
 ```bash
 php artisan key:generate
 php artisan passport:keys
+php artisan migrate --force
+php artisan passport:ensure-social-client --create
 bash scripts/deploy-production.sh --seed-reference
 ```
 

@@ -18,7 +18,7 @@ class EditBlogPost extends EditRecord
     {
         return [
             Action::make('preview')
-                ->label('预览')
+                ->label('Preview')
                 ->icon('heroicon-o-eye')
                 ->color('gray')
                 ->url(fn (): string => route('admin.blog-posts.preview', [
@@ -27,21 +27,21 @@ class EditBlogPost extends EditRecord
                 ]))
                 ->openUrlInNewTab(),
             Action::make('save')
-                ->label('保存')
+                ->label('Save')
                 ->icon('heroicon-o-check')
                 ->keyBindings(['mod+s'])
                 ->action(fn () => $this->save(shouldRedirect: false)),
-            DeleteAction::make()->label('删除'),
+            DeleteAction::make()->label('Delete'),
         ];
     }
 
     protected function getSavedNotificationTitle(): ?string
     {
-        return '博客文章更新成功';
+        return 'Blog post updated';
     }
 
     protected function getValidationErrorNotificationTitle(): ?string
     {
-        return '保存失败：表单内容有误';
+        return 'Save failed: the form contains errors';
     }
 }

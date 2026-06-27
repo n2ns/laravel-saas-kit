@@ -29,7 +29,7 @@ class TranslationsRelationManager extends RelationManager
                 Select::make('locale')
                     ->options([
                         'en' => 'English',
-                        'zh_CN' => '中文 (Chinese)',
+                        'zh_CN' => 'Chinese',
                         'es' => 'Español (Spanish)',
                         'de' => 'Deutsch (German)',
                     ])

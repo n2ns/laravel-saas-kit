@@ -21,20 +21,20 @@ class TaxonomyAssignmentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'taxonomyAssignments';
 
-    protected static ?string $title = '分类标签';
+    protected static ?string $title = 'Taxonomy tags';
 
     public function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 Select::make('catalog_taxonomy_id')
-                    ->label('分类维度')
+                    ->label('Taxonomy dimension')
                     ->relationship('taxonomy', 'name')
                     ->required()
                     ->live()
                     ->afterStateUpdated(fn (Set $set) => $set('catalog_taxonomy_term_id', null)),
                 Select::make('catalog_taxonomy_term_id')
-                    ->label('分类项')
+                    ->label('Taxonomy item')
                     ->options(fn (Get $get): array => CatalogTaxonomyTerm::query()
                         ->where('catalog_taxonomy_id', $get('catalog_taxonomy_id'))
                         ->orderBy('sort_order')
@@ -44,7 +44,7 @@ class TaxonomyAssignmentsRelationManager extends RelationManager
                     ->required()
                     ->searchable(),
                 Select::make('source')
-                    ->label('来源')
+                    ->label('Source')
                     ->options([
                         'manual' => 'Manual',
                         'seed' => 'Seed',
@@ -52,7 +52,7 @@ class TaxonomyAssignmentsRelationManager extends RelationManager
                     ])
                     ->default('manual'),
                 Textarea::make('note')
-                    ->label('备注')
+                    ->label('Notes')
                     ->rows(3)
                     ->columnSpanFull(),
             ]);
@@ -65,15 +65,15 @@ class TaxonomyAssignmentsRelationManager extends RelationManager
             ->recordAction(null)
             ->columns([
                 TextColumn::make('taxonomy.name')
-                    ->label('分类维度')
+                    ->label('Taxonomy dimension')
                     ->badge(),
                 TextColumn::make('term.name')
-                    ->label('分类项'),
+                    ->label('Taxonomy item'),
                 TextColumn::make('source')
-                    ->label('来源')
+                    ->label('Source')
                     ->badge(),
                 TextColumn::make('updated_at')
-                    ->label('最后更新')
+                    ->label('Last updated')
                     ->dateTime()
                     ->sortable(),
             ])

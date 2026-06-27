@@ -19,11 +19,11 @@ class EditOrder extends EditRecord
 
     protected function getSavedNotificationTitle(): ?string
     {
-        return '订单更新成功';
+        return 'Order updated';
     }
 
     protected function getValidationErrorNotificationTitle(): ?string
     {
-        return '保存失败：请检查表单输入';
+        return 'Save failed: please check the form input';
     }
 }

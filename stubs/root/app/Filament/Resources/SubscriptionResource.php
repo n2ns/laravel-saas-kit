@@ -29,9 +29,9 @@ class SubscriptionResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-credit-card';
 
-    protected static string|UnitEnum|null $navigationGroup = '商业运营';
+    protected static string|UnitEnum|null $navigationGroup = 'Commerce';
 
-    protected static ?string $navigationLabel = '订阅管理';
+    protected static ?string $navigationLabel = 'Subscriptions';
 
     protected static ?int $navigationSort = 1;
 

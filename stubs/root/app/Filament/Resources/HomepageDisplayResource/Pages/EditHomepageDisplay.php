@@ -11,6 +11,6 @@ class EditHomepageDisplay extends EditRecord
 
     protected function getSavedNotificationTitle(): ?string
     {
-        return '首页展示设置已更新';
+        return 'Homepage display settings updated';
     }
 }

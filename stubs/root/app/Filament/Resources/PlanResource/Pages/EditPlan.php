@@ -19,11 +19,11 @@ class EditPlan extends EditRecord
 
     protected function getSavedNotificationTitle(): ?string
     {
-        return '方案更新成功';
+        return 'Plan updated';
     }
 
     protected function getValidationErrorNotificationTitle(): ?string
     {
-        return '保存失败：请检查表单输入';
+        return 'Save failed: please check the form input';
     }
 }

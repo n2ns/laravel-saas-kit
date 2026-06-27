@@ -20,7 +20,7 @@ class PrivacyPoliciesRelationManager extends RelationManager
 {
     protected static string $relationship = 'privacyPolicies';
 
-    protected static ?string $title = '隐私政策';
+    protected static ?string $title = 'Privacy policies';
 
     protected static ?string $recordTitleAttribute = 'locale';
 
@@ -29,32 +29,32 @@ class PrivacyPoliciesRelationManager extends RelationManager
         return $schema
             ->components([
                 Select::make('locale')
-                    ->label('语言')
+                    ->label('Language')
                     ->options([
                         'en' => 'English',
-                        'zh_CN' => '中文',
+                        'zh_CN' => 'Chinese',
                         'es' => 'Español',
                         'de' => 'Deutsch',
                     ])
                     ->required()
                     ->unique(ignoreRecord: true, modifyRuleUsing: fn ($rule, $livewire) => $rule->where('catalog_item_id', $livewire->ownerRecord->id)),
                 TextInput::make('title')
-                    ->label('标题')
+                    ->label('Title')
                     ->maxLength(255),
                 TextInput::make('updated_label')
-                    ->label('更新说明')
+                    ->label('Change note')
                     ->maxLength(255),
                 DatePicker::make('effective_date')
-                    ->label('生效日期'),
+                    ->label('Effective date'),
                 Textarea::make('sections')
-                    ->label('政策 Sections JSON')
+                    ->label('Policy sections JSON')
                     ->rows(14)
                     ->formatStateUsing(fn ($state): ?string => self::formatJson($state))
                     ->dehydrateStateUsing(fn ($state): ?array => self::decodeJson($state))
                     ->rules(['nullable', 'json'])
                     ->columnSpanFull(),
                 Textarea::make('metadata')
-                    ->label('元数据 JSON')
+                    ->label('Metadata JSON')
                     ->rows(6)
                     ->formatStateUsing(fn ($state): ?string => self::formatJson($state))
                     ->dehydrateStateUsing(fn ($state): ?array => self::decodeJson($state))
@@ -70,16 +70,16 @@ class PrivacyPoliciesRelationManager extends RelationManager
             ->recordAction(null)
             ->columns([
                 TextColumn::make('locale')
-                    ->label('语言')
+                    ->label('Language')
                     ->badge(),
                 TextColumn::make('title')
-                    ->label('标题')
+                    ->label('Title')
                     ->limit(40),
                 TextColumn::make('effective_date')
-                    ->label('生效日期')
+                    ->label('Effective date')
                     ->date(),
                 TextColumn::make('updated_at')
-                    ->label('最后更新')
+                    ->label('Last updated')
                     ->dateTime()
                     ->sortable(),
             ])

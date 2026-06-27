@@ -27,7 +27,7 @@ class PaymentGatewayResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-credit-card';
 
-    protected static string|UnitEnum|null $navigationGroup = '系统配置';
+    protected static string|UnitEnum|null $navigationGroup = 'System Configuration';
 
     protected static ?int $navigationSort = 3;
 

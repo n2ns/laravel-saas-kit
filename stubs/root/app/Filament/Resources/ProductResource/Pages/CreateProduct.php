@@ -11,11 +11,11 @@ class CreateProduct extends CreateRecord
 
     protected function getCreatedNotificationTitle(): ?string
     {
-        return '产品创建成功';
+        return 'Product created';
     }
 
     protected function getValidationErrorNotificationTitle(): ?string
     {
-        return '创建失败：请检查表单输入';
+        return 'Create failed: please check the form input';
     }
 }

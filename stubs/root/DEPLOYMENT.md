@@ -51,7 +51,8 @@ SESSION_DRIVER=database
 
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=https://example.com/auth/google/callback
+# Optional override. Defaults to APP_URL/auth/google/callback.
+# GOOGLE_REDIRECT_URI=https://example.com/auth/google/callback
 
 STRIPE_KEY=
 STRIPE_SECRET=
@@ -61,6 +62,9 @@ STRIPE_PORTAL_CONFIGURATION=
 STARTER_STRIPE_PRODUCT_ID=
 STARTER_PLUS_MONTHLY_STRIPE_PRICE_ID=
 STARTER_CREDITS_10_STRIPE_PRICE_ID=
+
+PASSPORT_PASSWORD_CLIENT_ID=
+PASSPORT_PASSWORD_CLIENT_SECRET=
 
 ADMIN_EMAIL=
 ADMIN_EMAILS=
@@ -95,6 +99,21 @@ Run migrations:
 
 ```bash
 php artisan migrate --force
+```
+
+Create the Passport client used by external-client API Google login:
+
+```bash
+php artisan passport:ensure-social-client --create
+```
+
+Copy the printed `PASSPORT_PASSWORD_CLIENT_ID` and
+`PASSPORT_PASSWORD_CLIENT_SECRET` values into `.env`, then rebuild the
+configuration cache:
+
+```bash
+php artisan optimize:clear
+php artisan optimize
 ```
 
 Seed starter reference data only for a new product site:
@@ -137,12 +156,13 @@ The script runs:
 1. `composer install --no-dev --prefer-dist --optimize-autoloader`
 2. `npm ci`
 3. `npm run build`
-4. `php artisan migrate --force`
-5. `php artisan storage:link` when `public/storage` does not exist
-6. `php artisan optimize:clear`
-7. optional `php artisan db:seed --class=ReferenceDataSeeder --force`
-8. `php artisan optimize`
-9. `php artisan reload`
+4. `php artisan storage:link` when `public/storage` does not exist
+5. `php artisan optimize:clear`
+6. `php artisan migrate --force`
+7. `php artisan passport:ensure-social-client`
+8. optional `php artisan db:seed --class=ReferenceDataSeeder --force`
+9. `php artisan optimize`
+10. `php artisan reload`
 
 `php artisan reload` is required because queue workers and other long-running
 services do not automatically notice new code. The systemd service restarts the
@@ -217,8 +237,9 @@ Configure Google OAuth with:
 - Authorized JavaScript origin: `https://example.com`
 - Authorized redirect URI: `https://example.com/auth/google/callback`
 
-Set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `GOOGLE_REDIRECT_URI` in
-production.
+Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in production. Set
+`GOOGLE_REDIRECT_URI` only when the callback URL differs from
+`APP_URL/auth/google/callback`.
 
 ## Health Check
 

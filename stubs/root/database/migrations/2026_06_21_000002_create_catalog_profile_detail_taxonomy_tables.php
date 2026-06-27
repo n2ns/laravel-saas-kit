@@ -29,7 +29,7 @@ return new class extends Migration
             'selection_mode' => 'single',
             'is_public_filter' => true,
             'terms' => [
-                ['code' => 'chrome_extension', 'name' => 'Chrome Extension', 'description' => 'Runs as a Chrome or Chromium-compatible browser extension.'],
+                ['code' => 'browser_extension', 'name' => 'Browser Extension', 'description' => 'Runs as a browser extension.'],
                 ['code' => 'vscode_extension', 'name' => 'VS Code Extension', 'description' => 'Runs inside VS Code or compatible editor surfaces.'],
                 ['code' => 'mcp_server', 'name' => 'MCP Server', 'description' => 'Exposes tools or context through the Model Context Protocol.'],
                 ['code' => 'laravel_package', 'name' => 'Laravel Package', 'description' => 'Installs into Laravel applications.'],
@@ -44,7 +44,7 @@ return new class extends Migration
             'selection_mode' => 'multiple',
             'is_public_filter' => true,
             'terms' => [
-                ['code' => 'ai_workflow', 'name' => 'AI Workflow', 'description' => 'Helps users operate, review, or automate AI-assisted work.'],
+                ['code' => 'automation_workflow', 'name' => 'Automation Workflow', 'description' => 'Helps users operate, review, or automate structured work.'],
                 ['code' => 'automation', 'name' => 'Automation', 'description' => 'Automates repetitive manual tasks or form-based workflows.'],
                 ['code' => 'browser_enhancement', 'name' => 'Browser Enhancement', 'description' => 'Improves browser-side reading, clipping, or productivity workflows.'],
                 ['code' => 'knowledge_management', 'name' => 'Knowledge Management', 'description' => 'Captures, organizes, or retrieves knowledge and memory.'],

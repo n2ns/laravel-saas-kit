@@ -18,7 +18,7 @@ class ManageBlogPosts extends ManageRecords
     {
         return [
             LocaleSwitcher::make(),
-            CreateAction::make()->label('新建博客'),
+            CreateAction::make()->label('New blog post'),
         ];
     }
 }

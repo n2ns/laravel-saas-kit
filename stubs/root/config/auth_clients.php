@@ -20,7 +20,7 @@ return [
             'confidential' => false,
         ],
         'chrome_starter' => [
-            'name' => 'Starter Chrome Extension',
+            'name' => 'Starter Browser Extension',
             'product_code' => 'starter',
             'token_name' => 'ext:starter',
             'redirect' => env('PRODUCT_KIT_CHROME_REDIRECT_URI', 'https://example.chromiumapp.org/callback'),
@@ -37,7 +37,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | 登录与权限映射 (Legacy Bridge)
+    | Login and permission mapping (legacy bridge)
     |--------------------------------------------------------------------------
     */
     'valid_clients' => [

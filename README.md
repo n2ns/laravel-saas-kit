@@ -48,6 +48,7 @@ composer dump-autoload
 
 php artisan migrate:fresh --force
 php artisan passport:keys --force
+php artisan passport:ensure-social-client --create
 
 npm install
 npm run build
@@ -59,6 +60,7 @@ npm run build
 
 - [Installation](docs/INSTALLATION.md)
 - [Package Structure](docs/PACKAGE_STRUCTURE.md)
+- [API Google Authentication](docs/API_AUTH.md)
 - [Template Maintenance](docs/TEMPLATE_MAINTENANCE.md)
 - [Post2Site Integration](docs/POST2SITE.md)
 - [Verification](docs/VERIFICATION.md)

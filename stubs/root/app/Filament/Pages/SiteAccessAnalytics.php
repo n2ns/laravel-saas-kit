@@ -17,11 +17,11 @@ class SiteAccessAnalytics extends Page
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-globe-alt';
 
-    protected static string|UnitEnum|null $navigationGroup = '数据中心';
+    protected static string|UnitEnum|null $navigationGroup = 'Data Center';
 
-    protected static ?string $navigationLabel = '访问分析';
+    protected static ?string $navigationLabel = 'Access analytics';
 
-    protected static ?string $title = '访问分析';
+    protected static ?string $title = 'Access analytics';
 
     protected static ?int $navigationSort = 1;
 
@@ -149,7 +149,7 @@ class SiteAccessAnalytics extends Page
 
     private function rangeLabel(int $days): string
     {
-        return $days === 1 ? '最近 24 小时' : "最近 {$days} 天";
+        return $days === 1 ? 'Last 24 hours' : "Last {} days";
     }
 
     /** @return Collection<int, SiteVisitDailyStat> */

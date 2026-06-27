@@ -36,13 +36,13 @@ class CatalogItemResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static string|UnitEnum|null $navigationGroup = '产品管理';
+    protected static string|UnitEnum|null $navigationGroup = 'Product Management';
 
-    protected static ?string $navigationLabel = '产品资料';
+    protected static ?string $navigationLabel = 'Catalog Items';
 
-    protected static ?string $modelLabel = '产品资料';
+    protected static ?string $modelLabel = 'Catalog Items';
 
-    protected static ?string $pluralModelLabel = '产品资料';
+    protected static ?string $pluralModelLabel = 'Catalog Items';
 
     protected static ?int $navigationSort = 1;
 
@@ -54,52 +54,52 @@ class CatalogItemResource extends Resource
                 Group::make()
                     ->columnSpan(2)
                     ->schema([
-                        Section::make('基础资料')
+                        Section::make('Base details')
                             ->schema([
                                 TextInput::make('code')
-                                    ->label('资料编码')
+                                    ->label('Item code')
                                     ->disabled(),
                                 Select::make('status')
-                                    ->label('内容状态')
+                                    ->label('Content status')
                                     ->options([
-                                        CatalogItem::STATUS_DRAFT => '草稿',
-                                        CatalogItem::STATUS_PUBLISHED => '已发布',
-                                        CatalogItem::STATUS_ARCHIVED => '已归档',
+                                        CatalogItem::STATUS_DRAFT => 'Draft',
+                                        CatalogItem::STATUS_PUBLISHED => 'Published',
+                                        CatalogItem::STATUS_ARCHIVED => 'Archived',
                                     ])
                                     ->required(),
                                 Select::make('primary_group_term_id')
-                                    ->label('一级分类')
+                                    ->label('Primary category')
                                     ->options(fn (): array => self::primaryGroupOptions())
                                     ->searchable()
                                     ->required(),
                                 Toggle::make('is_visible')
-                                    ->label('公开可见'),
+                                    ->label('Public'),
                                 TextInput::make('sort_order')
-                                    ->label('列表排序')
+                                    ->label('List order')
                                     ->numeric()
                                     ->default(0),
                                 DateTimePicker::make('published_at')
-                                    ->label('发布时间'),
+                                    ->label('Published at'),
                             ])
                             ->columns(2),
 
-                        Section::make('展示资料')
+                        Section::make('Display details')
                             ->relationship('profile')
                             ->schema([
                                 TextInput::make('product_type')
-                                    ->label('交付形态')
+                                    ->label('Delivery type')
                                     ->maxLength(50),
                                 TextInput::make('segment')
-                                    ->label('业务分组')
+                                    ->label('Business group')
                                     ->maxLength(100),
                                 TextInput::make('theme_profile')
-                                    ->label('主题 Profile')
+                                    ->label('Theme profile')
                                     ->maxLength(100),
                                 TextInput::make('version')
-                                    ->label('版本')
+                                    ->label('Version')
                                     ->maxLength(50),
                                 Select::make('release_status')
-                                    ->label('发布状态')
+                                    ->label('Publication status')
                                     ->options([
                                         'stable' => 'Stable',
                                         'beta' => 'Beta',
@@ -108,43 +108,43 @@ class CatalogItemResource extends Resource
                                         'draft' => 'Draft',
                                     ]),
                                 Select::make('development_status')
-                                    ->label('开发状态')
+                                    ->label('Development status')
                                     ->options([
-                                        'launched' => '已上线',
-                                        CatalogItem::DEVELOPMENT_SHELVED => '搁置',
+                                        'launched' => 'Launched',
+                                        CatalogItem::DEVELOPMENT_SHELVED => 'Shelved',
                                     ]),
                                 TextInput::make('image')
-                                    ->label('主图')
+                                    ->label('Hero image')
                                     ->maxLength(255),
                                 TextInput::make('thumbnail')
-                                    ->label('缩略图')
+                                    ->label('Thumbnail')
                                     ->maxLength(255),
                                 TextInput::make('icon')
-                                    ->label('图标')
+                                    ->label('Icon')
                                     ->maxLength(255),
                                 Textarea::make('links')
-                                    ->label('链接 JSON')
+                                    ->label('Links JSON')
                                     ->rows(6)
                                     ->formatStateUsing(fn ($state): ?string => self::formatJson($state))
                                     ->dehydrateStateUsing(fn ($state): ?array => self::decodeJson($state))
                                     ->rules(['nullable', 'json'])
                                     ->columnSpanFull(),
                                 Textarea::make('facts')
-                                    ->label('事实 JSON')
+                                    ->label('Facts JSON')
                                     ->rows(6)
                                     ->formatStateUsing(fn ($state): ?string => self::formatJson($state))
                                     ->dehydrateStateUsing(fn ($state): ?array => self::decodeJson($state))
                                     ->rules(['nullable', 'json'])
                                     ->columnSpanFull(),
                                 Textarea::make('media')
-                                    ->label('媒体 JSON')
+                                    ->label('Media JSON')
                                     ->rows(6)
                                     ->formatStateUsing(fn ($state): ?string => self::formatJson($state))
                                     ->dehydrateStateUsing(fn ($state): ?array => self::decodeJson($state))
                                     ->rules(['nullable', 'json'])
                                     ->columnSpanFull(),
                                 Textarea::make('aliases')
-                                    ->label('别名 JSON')
+                                    ->label('Aliases JSON')
                                     ->rows(4)
                                     ->formatStateUsing(fn ($state): ?string => self::formatJson($state))
                                     ->dehydrateStateUsing(fn ($state): ?array => self::decodeJson($state))
@@ -158,18 +158,18 @@ class CatalogItemResource extends Resource
                             ])
                             ->columns(2),
 
-                        Section::make('详情模板')
+                        Section::make('Detail template')
                             ->relationship('detail')
                             ->schema([
                                 TextInput::make('template_key')
-                                    ->label('模板 Key')
+                                    ->label('Template key')
                                     ->maxLength(100),
                                 TextInput::make('schema_version')
-                                    ->label('Schema 版本')
+                                    ->label('Schema Version')
                                     ->numeric()
                                     ->default(1),
                                 Textarea::make('structure_payload')
-                                    ->label('结构 JSON')
+                                    ->label('Structure JSON')
                                     ->rows(12)
                                     ->formatStateUsing(fn ($state): ?string => self::formatJson($state))
                                     ->dehydrateStateUsing(fn ($state): ?array => self::decodeJson($state))
@@ -179,15 +179,15 @@ class CatalogItemResource extends Resource
                             ->columns(2)
                             ->collapsed(),
 
-                        Section::make('首页展示')
+                        Section::make('Homepage display')
                             ->schema([
                                 Toggle::make('show_on_homepage')
-                                    ->label('首页展示')
-                                    ->helperText('开启后进入首页产品区。'),
+                                    ->label('Homepage display')
+                                    ->helperText('When enabled, this item appears in the homepage product section.'),
                                 TextInput::make('homepage_sort_order')
-                                    ->label('首页排序')
+                                    ->label('Homepage order')
                                     ->numeric()
-                                    ->helperText('数字越小越靠前；为空时作为兜底排序。'),
+                                    ->helperText('Lower numbers appear first; blank values are used as fallback order.'),
                             ])
                             ->columns(2),
                     ]),
@@ -195,16 +195,16 @@ class CatalogItemResource extends Resource
                 Group::make()
                     ->columnSpan(1)
                     ->schema([
-                        Section::make('资料摘要')
+                        Section::make('Item summary')
                             ->schema([
                                 Placeholder::make('display_name')
-                                    ->label('名称')
+                                    ->label('Name')
                                     ->content(fn (?CatalogItem $record): string => self::displayName($record)),
                                 Placeholder::make('primary_group')
-                                    ->label('一级分类')
+                                    ->label('Primary category')
                                     ->content(fn (?CatalogItem $record): string => self::primaryGroupLabel($record)),
                                 Placeholder::make('updated_at')
-                                    ->label('最后修改')
+                                    ->label('Last modified')
                                     ->content(fn (?CatalogItem $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
                             ])
                             ->visible(fn ($record) => $record !== null),
@@ -219,23 +219,23 @@ class CatalogItemResource extends Resource
             ->recordAction(null)
             ->columns([
                 TextColumn::make('code')
-                    ->label('资料编码')
+                    ->label('Item code')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('display_name')
-                    ->label('名称')
+                    ->label('Name')
                     ->getStateUsing(fn (CatalogItem $record): string => self::displayName($record)),
                 TextColumn::make('primary_group')
-                    ->label('一级分类')
+                    ->label('Primary category')
                     ->badge()
                     ->getStateUsing(fn (CatalogItem $record): string => self::primaryGroupLabel($record)),
                 TextColumn::make('status')
-                    ->label('状态')
+                    ->label('Status')
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => match ($state) {
-                        CatalogItem::STATUS_DRAFT => '草稿',
-                        CatalogItem::STATUS_PUBLISHED => '已发布',
-                        CatalogItem::STATUS_ARCHIVED => '已归档',
+                        CatalogItem::STATUS_DRAFT => 'Draft',
+                        CatalogItem::STATUS_PUBLISHED => 'Published',
+                        CatalogItem::STATUS_ARCHIVED => 'Archived',
                         default => $state,
                     })
                     ->color(fn (string $state): string => match ($state) {
@@ -244,22 +244,22 @@ class CatalogItemResource extends Resource
                         default => 'warning',
                     }),
                 IconColumn::make('is_visible')
-                    ->label('公开')
+                    ->label('Public')
                     ->boolean(),
                 IconColumn::make('show_on_homepage')
-                    ->label('首页')
+                    ->label('Homepage')
                     ->boolean(),
                 TextColumn::make('homepage_sort_order')
-                    ->label('首页排序')
+                    ->label('Homepage order')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('sort_order')
-                    ->label('列表排序')
+                    ->label('List order')
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->label('最后更新')
+                    ->label('Last updated')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -267,20 +267,20 @@ class CatalogItemResource extends Resource
             ->defaultSort('sort_order')
             ->filters([
                 SelectFilter::make('status')
-                    ->label('内容状态')
+                    ->label('Content status')
                     ->options([
-                        CatalogItem::STATUS_DRAFT => '草稿',
-                        CatalogItem::STATUS_PUBLISHED => '已发布',
-                        CatalogItem::STATUS_ARCHIVED => '已归档',
+                        CatalogItem::STATUS_DRAFT => 'Draft',
+                        CatalogItem::STATUS_PUBLISHED => 'Published',
+                        CatalogItem::STATUS_ARCHIVED => 'Archived',
                     ]),
                 TernaryFilter::make('is_visible')
-                    ->label('公开可见'),
+                    ->label('Public'),
                 TernaryFilter::make('show_on_homepage')
-                    ->label('首页展示'),
+                    ->label('Homepage display'),
             ])
             ->recordActions([
                 EditAction::make()
-                    ->label('编辑'),
+                    ->label('Edit'),
             ]);
     }
 

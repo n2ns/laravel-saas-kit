@@ -27,9 +27,9 @@ class UserSessionResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-computer-desktop';
 
-    protected static string|UnitEnum|null $navigationGroup = '用户管理';
+    protected static string|UnitEnum|null $navigationGroup = 'User Management';
 
-    protected static ?string $navigationLabel = '用户会话';
+    protected static ?string $navigationLabel = 'User Sessions';
 
     protected static ?int $navigationSort = 2;
 
@@ -151,7 +151,7 @@ class UserSessionResource extends Resource
     public static function revokeAction(): Action
     {
         return Action::make('revoke')
-            ->label('撤销')
+            ->label('Revoke')
             ->icon('heroicon-o-x-circle')
             ->color('danger')
             ->requiresConfirmation()
@@ -160,7 +160,7 @@ class UserSessionResource extends Resource
                 app(UserSessionRevoker::class)->revoke($record, 'admin_revoked');
 
                 Notification::make()
-                    ->title('会话已撤销')
+                    ->title('Session revoked')
                     ->success()
                     ->send();
             });
@@ -169,7 +169,7 @@ class UserSessionResource extends Resource
     public static function revokeBulkAction(): BulkAction
     {
         return BulkAction::make('revoke_selected')
-            ->label('批量撤销')
+            ->label('Revoke selected')
             ->icon('heroicon-o-x-circle')
             ->color('danger')
             ->requiresConfirmation()
@@ -178,7 +178,7 @@ class UserSessionResource extends Resource
                 $count = app(UserSessionRevoker::class)->revokeMany($records, 'admin_bulk_revoked');
 
                 Notification::make()
-                    ->title("已撤销 {$count} 个会话")
+                    ->title("Revoked {} sessions")
                     ->success()
                     ->send();
             });

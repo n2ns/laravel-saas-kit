@@ -64,11 +64,11 @@ class EditCatalogItem extends EditRecord
 
     protected function getSavedNotificationTitle(): ?string
     {
-        return '产品资料更新成功';
+        return 'Catalog item updated';
     }
 
     protected function getValidationErrorNotificationTitle(): ?string
     {
-        return '保存失败：表单内容有误';
+        return 'Save failed: the form contains errors';
     }
 }

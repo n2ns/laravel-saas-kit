@@ -21,7 +21,7 @@ class TranslationsRelationManager extends RelationManager
 {
     protected static string $relationship = 'translations';
 
-    protected static ?string $title = '多语言资料';
+    protected static ?string $title = 'Translations';
 
     protected static ?string $recordTitleAttribute = 'locale';
 
@@ -30,49 +30,49 @@ class TranslationsRelationManager extends RelationManager
         return $schema
             ->components([
                 Select::make('locale')
-                    ->label('语言')
+                    ->label('Language')
                     ->options([
                         'en' => 'English',
-                        'zh_CN' => '中文',
+                        'zh_CN' => 'Chinese',
                         'es' => 'Español',
                         'de' => 'Deutsch',
                     ])
                     ->required()
                     ->unique(ignoreRecord: true, modifyRuleUsing: fn ($rule, $livewire) => $rule->where('catalog_item_id', $livewire->ownerRecord->id)),
 
-                Section::make('基础文案')
+                Section::make('Base copy')
                     ->schema([
                         TextInput::make('name')
-                            ->label('名称')
+                            ->label('Name')
                             ->maxLength(255),
                         TextInput::make('card_tag')
-                            ->label('卡片标签')
+                            ->label('Card tag')
                             ->maxLength(255),
                         TextInput::make('cta_label')
-                            ->label('CTA 文案')
+                            ->label('CTA copy')
                             ->maxLength(255),
                         Textarea::make('short_description')
-                            ->label('短描述')
+                            ->label('Short description')
                             ->rows(3)
                             ->columnSpanFull(),
                         Textarea::make('long_description')
-                            ->label('长描述')
+                            ->label('Long description')
                             ->rows(8)
                             ->columnSpanFull(),
                         TagsInput::make('tags')
-                            ->label('标签'),
+                            ->label('Tags'),
                         TagsInput::make('key_points')
-                            ->label('要点'),
+                            ->label('Highlights'),
                     ])
                     ->columns(2),
 
                 Section::make('SEO')
                     ->schema([
                         TextInput::make('seo_title')
-                            ->label('SEO 标题')
+                            ->label('SEO title')
                             ->maxLength(255),
                         Textarea::make('seo_description')
-                            ->label('SEO 描述')
+                            ->label('SEO description')
                             ->rows(3),
                         Textarea::make('seo_payload')
                             ->label('SEO JSON')
@@ -93,16 +93,16 @@ class TranslationsRelationManager extends RelationManager
             ->recordAction(null)
             ->columns([
                 TextColumn::make('locale')
-                    ->label('语言')
+                    ->label('Language')
                     ->badge(),
                 TextColumn::make('name')
-                    ->label('名称')
+                    ->label('Name')
                     ->limit(40),
                 TextColumn::make('card_tag')
-                    ->label('标签')
+                    ->label('Tags')
                     ->limit(30),
                 TextColumn::make('updated_at')
-                    ->label('最后更新')
+                    ->label('Last updated')
                     ->dateTime()
                     ->sortable(),
             ])

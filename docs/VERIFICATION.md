@@ -49,6 +49,7 @@ php artisan key:generate
 touch database/database.sqlite
 php artisan migrate:fresh --force
 php artisan passport:keys --force
+php artisan passport:ensure-social-client --create
 ```
 
 Check routes and app boot:
@@ -107,6 +108,7 @@ The smoke test confirms:
 - kit migrations create the full schema;
 - route registration works;
 - Passport keys can be generated;
+- the Passport social grant client can be created for external API login;
 - installed template tests pass through `composer test`;
 - installed PHP files pass syntax linting;
 - frontend assets build through Vite.

@@ -29,9 +29,9 @@ class ApiKeyResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-key';
 
-    protected static string|UnitEnum|null $navigationGroup = '系统配置';
+    protected static string|UnitEnum|null $navigationGroup = 'System Configuration';
 
-    protected static ?string $navigationLabel = 'API 密钥';
+    protected static ?string $navigationLabel = 'API Key';
 
     protected static ?int $navigationSort = 1;
 

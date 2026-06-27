@@ -20,11 +20,11 @@ class OperationsDashboard extends Page
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-squares-2x2';
 
-    protected static string|UnitEnum|null $navigationGroup = '数据中心';
+    protected static string|UnitEnum|null $navigationGroup = 'Data Center';
 
-    protected static ?string $navigationLabel = '运营仪表盘';
+    protected static ?string $navigationLabel = 'Operations dashboard';
 
-    protected static ?string $title = '运营仪表盘';
+    protected static ?string $title = 'Operations dashboard';
 
     protected static ?int $navigationSort = 2;
 

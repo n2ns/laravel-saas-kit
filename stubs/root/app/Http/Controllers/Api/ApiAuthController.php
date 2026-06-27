@@ -117,7 +117,7 @@ class ApiAuthController extends Controller
 
         if (! $response->successful()) {
             $oauthError = (string) $response->json('error', '');
-            $errorCode = $this->mapOAuthErrorCode($oauthError);
+            $errorCode = $this->mapOAuthErrorCode($oauthError, request()->routeIs('api.auth.refresh'));
 
             $payload = [
                 'success' => false,
@@ -351,10 +351,10 @@ class ApiAuthController extends Controller
         ]);
     }
 
-    protected function mapOAuthErrorCode(string $oauthError): string
+    protected function mapOAuthErrorCode(string $oauthError, bool $isRefreshRequest = false): string
     {
         return match ($oauthError) {
-            'invalid_grant' => 'REFRESH_TOKEN_EXPIRED',
+            'invalid_grant' => $isRefreshRequest ? 'REFRESH_TOKEN_EXPIRED' : 'AUTH_FAILED',
             'invalid_client' => 'CLIENT_ERROR',
             default => 'AUTH_FAILED',
         };

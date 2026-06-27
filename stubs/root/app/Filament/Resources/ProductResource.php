@@ -32,100 +32,100 @@ class ProductResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cube';
 
-    protected static string|UnitEnum|null $navigationGroup = '商业运营';
+    protected static string|UnitEnum|null $navigationGroup = 'Commerce';
 
-    protected static ?string $navigationLabel = '上架管理';
+    protected static ?string $navigationLabel = 'Product Listings';
 
     protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {
         return $schema
-            ->columns(3) // 2:1 比例布局
+            ->columns(3) // 2:1 layout
             ->components([
-                // 左侧主内容栏
+                // Main content column
                 Group::make()
                     ->columnSpan(2)
                     ->schema([
-                        Section::make('基本信息')
+                        Section::make('Basic information')
                             ->schema([
                                 Select::make('catalog_item_id')
-                                    ->label('产品资料')
+                                    ->label('Catalog Items')
                                     ->relationship('catalogItem', 'code')
                                     ->searchable()
                                     ->preload()
                                     ->required(),
                                 TextInput::make('code')
-                                    ->label('产品编码')
+                                    ->label('Product code')
                                     ->required()
                                     ->unique(ignoreRecord: true)
                                     ->maxLength(255),
                                 Placeholder::make('catalog_name')
-                                    ->label('资料名称')
+                                    ->label('Catalog item name')
                                     ->content(fn (?Product $record): string => $record?->name ?? '-'),
                             ])->columns(2),
                     ]),
 
-                // 右侧侧边栏
+                // Sidebar
                 Group::make()
                     ->columnSpan(1)
                     ->schema([
-                        Section::make('状态与排序')
+                        Section::make('Status and sorting')
                             ->schema([
                                 Toggle::make('is_active')
-                                    ->label('启用状态')
+                                    ->label('Enabled')
                                     ->default(true),
                                 TextInput::make('sort_order')
-                                    ->label('显示权重')
+                                    ->label('Display weight')
                                     ->numeric()
                                     ->default(0),
                                 Select::make('pause_reason')
-                                    ->label('订阅控制')
+                                    ->label('Subscription control')
                                     ->options([
-                                        null => '✅ 正常 (允许订阅)',
-                                        'maintenance' => '🔧 维护中',
-                                        'payment_upgrade' => '💳 支付系统升级',
-                                        'coming_soon' => '🚀 即将上线',
-                                        'region_restricted' => '🌍 区域限制',
+                                        null => '✅ Normal (subscriptions allowed)',
+                                        'maintenance' => '🔧 Maintenance',
+                                        'payment_upgrade' => '💳 Payment system upgrade',
+                                        'coming_soon' => '🚀 Coming soon',
+                                        'region_restricted' => '🌍 Region restricted',
                                     ])
-                                    ->placeholder('正常')
-                                    ->helperText('设置非空值将暂停新用户订阅'),
+                                    ->placeholder('Normal')
+                                    ->helperText('Set a non-empty value to pause new subscriptions'),
                             ]),
 
-                        Section::make('高级集成')
+                        Section::make('Advanced integrations')
                             ->schema([
                                 TextInput::make('stripe_product_id')
-                                    ->label('Stripe 产品 ID')
+                                    ->label('Stripe product ID')
                                     ->maxLength(255),
                                 TextInput::make('pricing_page_url')
-                                    ->label('外部价格页')
+                                    ->label('External pricing page')
                                     ->url()
                                     ->maxLength(255),
                                 TextInput::make('mcp_server_url')
-                                    ->label('MCP 服务器地址')
+                                    ->label('MCP server URL')
                                     ->url()
                                     ->maxLength(255),
                                 TextInput::make('mcp_api_key')
-                                    ->label('MCP API 密钥')
+                                    ->label('MCP API Key')
                                     ->password()
                                     ->revealable()
                                     ->maxLength(255),
                                 Textarea::make('metadata')
-                                    ->label('元数据 (JSON)')
-                                    ->helperText('额外 JSON 数据 (如数据来源、统计指标等)')
+                                    ->label('Metadata (JSON)')
+                                    ->helperText('Additional JSON data such as source metadata or metrics')
                                     ->rows(5)
                                     ->formatStateUsing(fn ($state) => json_encode($state, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))
                                     ->dehydrateStateUsing(fn ($state) => json_decode($state, true) ?? []),
                             ])->collapsed(),
 
-                        Section::make('记录摘要')
+                        Section::make('Record summary')
                             ->schema([
                                 Placeholder::make('created_at')
-                                    ->label('创建时间')
+                                    ->label('Created at')
                                     ->content(fn (Product $record): ?string => $record->created_at?->translatedFormat('Y-m-d H:i') ?? '-'),
 
                                 Placeholder::make('updated_at')
-                                    ->label('最后修改')
+                                    ->label('Last modified')
                                     ->content(fn (Product $record): ?string => $record->updated_at?->diffForHumans() ?? '-'),
                             ])
                             ->visible(fn ($record) => $record !== null),
@@ -140,39 +140,39 @@ class ProductResource extends Resource
             ->recordAction(null)
             ->columns([
                 TextColumn::make('code')
-                    ->label('产品编码')
+                    ->label('Product code')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('name')
-                    ->label('名称'),
+                    ->label('Name'),
                 TextColumn::make('card_tag')
-                    ->label('标签'),
+                    ->label('Tags'),
                 IconColumn::make('is_active')
-                    ->label('启用')
+                    ->label('Enabled')
                     ->boolean(),
                 TextColumn::make('sort_order')
-                    ->label('权重')
+                    ->label('Weight')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('pause_reason')
-                    ->label('订阅状态')
+                    ->label('Subscription status')
                     ->badge()
                     ->formatStateUsing(fn (?string $state): string => $state ? match ($state) {
-                        'maintenance' => '🔧 维护',
-                        'payment_upgrade' => '💳 升级',
-                        'coming_soon' => '🚀 预热',
-                        'region_restricted' => '🌍 受限',
+                        'maintenance' => '🔧 Maintenance',
+                        'payment_upgrade' => '💳 Upgrade',
+                        'coming_soon' => '🚀 Coming soon',
+                        'region_restricted' => '🌍 Restricted',
                         default => $state,
-                    } : '✅ 正常')
+                    } : '✅ Normal')
                     ->color(fn (?string $state): string => $state ? 'warning' : 'success'),
                 TextColumn::make('translations_count')
-                    ->label('翻译数')
+                    ->label('Translations')
                     ->counts('translations'),
                 TextColumn::make('plans_count')
-                    ->label('方案数')
+                    ->label('Plans')
                     ->counts('plans'),
                 TextColumn::make('updated_at')
-                    ->label('最后更新')
+                    ->label('Last updated')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -180,11 +180,11 @@ class ProductResource extends Resource
             ->defaultSort('sort_order')
             ->filters([
                 TernaryFilter::make('is_active')
-                    ->label('按状态过滤'),
+                    ->label('Filter by status'),
             ])
             ->recordActions([
                 EditAction::make()
-                    ->label('编辑'),
+                    ->label('Edit'),
             ]);
     }
 

@@ -31,9 +31,9 @@ class UserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-users';
 
-    protected static string|UnitEnum|null $navigationGroup = '用户管理';
+    protected static string|UnitEnum|null $navigationGroup = 'User Management';
 
-    protected static ?string $navigationLabel = '用户列表';
+    protected static ?string $navigationLabel = 'Users';
 
     protected static ?int $navigationSort = 1;
 

@@ -22,8 +22,20 @@ class InstallCommandTest extends TestCase
         $this->assertFileExists($root.'/.env.testing');
         $this->assertFileExists($root.'/routes/web.php');
         $this->assertFileExists($root.'/routes/api.php');
+        $this->assertFileExists($root.'/app/Console/Commands/EnsurePassportSocialClientCommand.php');
         $this->assertFileExists($root.'/resources/views/home.blade.php');
         $this->assertFileExists($root.'/database/migrations/0001_01_01_000000_create_identity_tables.php');
+    }
+
+    public function test_template_deploys_with_passport_social_client_guardrail(): void
+    {
+        $root = realpath(__DIR__.'/../stubs/root');
+
+        $this->assertNotFalse($root);
+        $this->assertStringContainsString(
+            'php artisan passport:ensure-social-client',
+            (string) file_get_contents($root.'/scripts/deploy-production.sh'),
+        );
     }
 
     public function test_package_exposes_test_script(): void

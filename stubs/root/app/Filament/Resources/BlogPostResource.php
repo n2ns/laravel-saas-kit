@@ -41,15 +41,15 @@ class BlogPostResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-book-open';
 
-    protected static string|UnitEnum|null $navigationGroup = '内容管理';
+    protected static string|UnitEnum|null $navigationGroup = 'Content';
 
     protected static ?string $breadcrumb = 'Blog';
 
-    protected static ?string $navigationLabel = '博客';
+    protected static ?string $navigationLabel = 'Blog';
 
-    protected static ?string $modelLabel = '博客文章';
+    protected static ?string $modelLabel = 'Blog post';
 
-    protected static ?string $pluralModelLabel = '博客文章';
+    protected static ?string $pluralModelLabel = 'Blog post';
 
     protected static ?int $navigationSort = 1;
 
@@ -61,10 +61,10 @@ class BlogPostResource extends Resource
                 'xl' => 4,
             ])
             ->components([
-                Section::make('博客文章内容')
+                Section::make('Blog post content')
                     ->schema([
                         TextInput::make('title')
-                            ->label('标题')
+                            ->label('Title')
                             ->live(onBlur: true)
                             ->afterStateUpdated(function (string $operation, $state, Set $set) {
                                 if ($operation === 'create') {
@@ -76,16 +76,16 @@ class BlogPostResource extends Resource
                             }),
 
                         TextInput::make('slug')
-                            ->label('固定链接 (Slug)')
+                            ->label('Slug')
                             ->required()
                             ->unique(BlogPost::class, 'slug', ignoreRecord: true),
 
                         Textarea::make('excerpt')
-                            ->label('摘要')
+                            ->label('Excerpt')
                             ->rows(4),
 
                         MarkdownEditor::make('content')
-                            ->label('正文内容')
+                            ->label('Body content')
                             ->minHeight('36rem')
                             ->columnSpanFull(),
                     ])
@@ -94,67 +94,67 @@ class BlogPostResource extends Resource
                         'xl' => 3,
                     ]),
 
-                Section::make('设置')
+                Section::make('Settings')
                     ->schema([
                         Select::make('type')
-                            ->label('文章类型')
-                            ->options(BlogPost::typeOptions('zh_CN'))
+                            ->label('Post type')
+                            ->options(BlogPost::typeOptions('en'))
                             ->required()
                             ->default(BlogPost::defaultType()),
 
                         Select::make('status')
-                            ->label('发布状态')
+                            ->label('Publication status')
                             ->options([
-                                'draft' => '草稿',
-                                'published' => '已发布',
+                                'draft' => 'Draft',
+                                'published' => 'Published',
                             ])
                             ->required()
                             ->default('draft'),
 
                         DateTimePicker::make('published_at')
-                            ->label('发布时间')
+                            ->label('Published at')
                             ->native(false)
                             ->displayFormat('Y-m-d H:i:s'),
 
                         Toggle::make('is_pinned')
-                            ->label('置顶')
+                            ->label('Pinned')
                             ->default(false),
 
                         TextInput::make('pin_order')
-                            ->label('置顶排序')
+                            ->label('Pin order')
                             ->numeric()
                             ->minValue(0)
                             ->default(0)
-                            ->helperText('数字越小越靠前，仅对置顶文章生效。'),
+                            ->helperText('Lower numbers appear first; only applies to pinned posts.'),
 
                         DateTimePicker::make('pinned_until')
-                            ->label('置顶截止时间')
+                            ->label('Pinned until')
                             ->native(false)
                             ->displayFormat('Y-m-d H:i:s'),
 
                         TagsInput::make('topics')
-                            ->label('主题标签')
-                            ->suggestions(BlogPost::topicOptions('zh_CN'))
-                            ->placeholder('输入或选择主题标签'),
+                            ->label('Topics')
+                            ->suggestions(BlogPost::topicOptions('en'))
+                            ->placeholder('Enter or choose topics'),
 
                         TagsInput::make('geo_tags')
-                            ->label('地区代码')
-                            ->placeholder('例如 US、GB、SG')
-                            ->helperText('可选 ISO 3166-1 alpha-2 国家/地区代码，用于 SEO 和相关推荐。'),
+                            ->label('Region codes')
+                            ->placeholder('For example US, GB, SG')
+                            ->helperText('Optional ISO 3166-1 alpha-2 country or region codes for SEO and related recommendations.'),
 
                         TagsInput::make('seo_keywords')
-                            ->label('SEO 关键词')
-                            ->placeholder('输入关键词'),
+                            ->label('SEO keywords')
+                            ->placeholder('Enter keywords'),
 
                         TagsInput::make('related_slugs')
-                            ->label('相关文章 Slug')
-                            ->placeholder('输入相关文章 slug'),
+                            ->label('Related post slugs')
+                            ->placeholder('Enter related post slugs'),
 
                         FileUpload::make('thumbnail')
-                            ->label('封面图片')
+                            ->label('Cover image')
                             ->image()
                             ->disk('public')
-                            ->helperText('建议上传 16:9 横向图片，例如 1200x675 或 1600x900。正方形图片会在前端封面区域被裁切。')
+                            ->helperText('Use a 16:9 landscape image such as 1200x675 or 1600x900. Square images will be cropped in frontend cover areas.')
                             ->directory('blog-post-thumbnails'),
                     ])
                     ->columnSpan([
@@ -171,17 +171,17 @@ class BlogPostResource extends Resource
             ->recordAction(null)
             ->columns([
                 ImageColumn::make('thumbnail')
-                    ->label('封面')
+                    ->label('Cover')
                     ->disk('public')
                     ->circular(),
                 TextColumn::make('title')
-                    ->label('标题')
+                    ->label('Title')
                     ->searchable()
                     ->sortable()
                     ->limit(50)
                     ->url(fn (BlogPost $record): ?string => static::getPublishedArticleUrl($record), true),
                 TextColumn::make('type')
-                    ->label('类型')
+                    ->label('Type')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'guide' => 'primary',
@@ -189,42 +189,42 @@ class BlogPostResource extends Resource
                         'changelog' => 'warning',
                         default => 'gray',
                     })
-                    ->formatStateUsing(fn (string $state): string => BlogPost::typeOptions('zh_CN')[$state] ?? $state),
+                    ->formatStateUsing(fn (string $state): string => BlogPost::typeOptions('en')[$state] ?? $state),
                 TextColumn::make('status')
-                    ->label('状态')
+                    ->label('Status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'draft' => 'gray',
                         'published' => 'success',
                     })
                     ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'draft' => '草稿',
-                        'published' => '已发布',
+                        'draft' => 'Draft',
+                        'published' => 'Published',
                     }),
                 IconColumn::make('is_pinned')
-                    ->label('置顶')
+                    ->label('Pinned')
                     ->boolean()
                     ->sortable(),
                 TextColumn::make('pin_order')
-                    ->label('置顶排序')
+                    ->label('Pin order')
                     ->sortable(),
                 TextColumn::make('published_at')
-                    ->label('发布时间')
+                    ->label('Published at')
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('views_total')
-                    ->label('阅读')
+                    ->label('Views')
                     ->formatStateUsing(fn ($state): string => number_format((int) $state))
                     ->sortable(),
                 TextColumn::make('views_7d')
-                    ->label('7天')
+                    ->label('7 days')
                     ->formatStateUsing(fn ($state): string => number_format((int) $state))
                     ->sortable(),
             ])
             ->filters([])
             ->recordActions([
                 Action::make('publish')
-                    ->label('发布')
+                    ->label('Publish')
                     ->icon('heroicon-o-paper-airplane')
                     ->color('success')
                     ->visible(fn (BlogPost $record): bool => $record->status === 'draft')
@@ -235,18 +235,18 @@ class BlogPostResource extends Resource
                         ]);
 
                         Notification::make()
-                            ->title('文章已发布')
+                            ->title('Post published')
                             ->success()
                             ->send();
                     }),
                 EditAction::make()
-                    ->label('编辑')
+                    ->label('Edit')
                     ->url(fn (BlogPost $record): string => static::getUrl('edit', ['record' => $record]))
                     ->openUrlInNewTab(),
                 DeleteAction::make()
-                    ->label('删除'),
+                    ->label('Delete'),
                 Action::make('preview')
-                    ->label('预览')
+                    ->label('Preview')
                     ->icon('heroicon-o-eye')
                     ->color('gray')
                     ->url(fn (BlogPost $record): string => route('admin.blog-posts.preview', [
@@ -258,8 +258,8 @@ class BlogPostResource extends Resource
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make()
-                        ->label('批量删除'),
-                ])->label('批量操作'),
+                        ->label('Delete selected'),
+                ])->label('Bulk actions'),
             ]);
     }
 

@@ -27,9 +27,9 @@ class OrderResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-shopping-bag';
 
-    protected static string|UnitEnum|null $navigationGroup = '商业运营';
+    protected static string|UnitEnum|null $navigationGroup = 'Commerce';
 
-    protected static ?string $navigationLabel = '订单记录';
+    protected static ?string $navigationLabel = 'Orders';
 
     protected static ?int $navigationSort = 2;
 

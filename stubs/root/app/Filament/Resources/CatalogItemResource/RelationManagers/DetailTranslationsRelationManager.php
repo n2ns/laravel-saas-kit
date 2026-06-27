@@ -13,7 +13,7 @@ class DetailTranslationsRelationManager extends RelationManager
 {
     protected static string $relationship = 'detailTranslations';
 
-    protected static ?string $title = '详情正文';
+    protected static ?string $title = 'Detail content';
 
     protected static ?string $recordTitleAttribute = 'locale';
 
@@ -22,14 +22,14 @@ class DetailTranslationsRelationManager extends RelationManager
         return $schema
             ->components([
                 Textarea::make('detail_sections')
-                    ->label('详情正文 JSON')
+                    ->label('Detail content JSON')
                     ->rows(14)
                     ->formatStateUsing(fn ($state): ?string => self::formatJson($state))
                     ->dehydrateStateUsing(fn ($state): ?array => self::decodeJson($state))
                     ->rules(['nullable', 'json'])
                     ->columnSpanFull(),
                 Textarea::make('localized_payload')
-                    ->label('本地化 Payload JSON')
+                    ->label('Localized payload JSON')
                     ->rows(14)
                     ->formatStateUsing(fn ($state): ?string => self::formatJson($state))
                     ->dehydrateStateUsing(fn ($state): ?array => self::decodeJson($state))
@@ -45,10 +45,10 @@ class DetailTranslationsRelationManager extends RelationManager
             ->recordAction(null)
             ->columns([
                 TextColumn::make('locale')
-                    ->label('语言')
+                    ->label('Language')
                     ->badge(),
                 TextColumn::make('updated_at')
-                    ->label('最后更新')
+                    ->label('Last updated')
                     ->dateTime()
                     ->sortable(),
             ])

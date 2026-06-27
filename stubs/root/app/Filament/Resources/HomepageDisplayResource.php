@@ -29,13 +29,13 @@ class HomepageDisplayResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-home';
 
-    protected static string|UnitEnum|null $navigationGroup = '产品管理';
+    protected static string|UnitEnum|null $navigationGroup = 'Product Management';
 
-    protected static ?string $navigationLabel = '首页展示';
+    protected static ?string $navigationLabel = 'Homepage display';
 
-    protected static ?string $modelLabel = '首页展示';
+    protected static ?string $modelLabel = 'Homepage display';
 
-    protected static ?string $pluralModelLabel = '首页展示';
+    protected static ?string $pluralModelLabel = 'Homepage display';
 
     protected static ?int $navigationSort = 2;
 
@@ -43,23 +43,23 @@ class HomepageDisplayResource extends Resource
     {
         return $schema
             ->components([
-                Section::make('首页展示')
+                Section::make('Homepage display')
                     ->schema([
                         Placeholder::make('code')
-                            ->label('资料编码')
+                            ->label('Item code')
                             ->content(fn (?CatalogItem $record): string => $record?->code ?? '-'),
                         Placeholder::make('display_name')
-                            ->label('名称')
+                            ->label('Name')
                             ->content(fn (?CatalogItem $record): string => self::displayName($record)),
                         Toggle::make('show_on_homepage')
-                            ->label('首页展示'),
+                            ->label('Homepage display'),
                         TextInput::make('homepage_sort_order')
-                            ->label('首页排序')
+                            ->label('Homepage order')
                             ->numeric()
-                            ->helperText('数字越小越靠前；为空时作为兜底排序。'),
+                            ->helperText('Lower numbers appear first; blank values are used as fallback order.'),
                         Toggle::make('is_visible')
-                            ->label('公开可见')
-                            ->helperText('首页只读取公开且已发布的产品资料。'),
+                            ->label('Public')
+                            ->helperText('The homepage only reads public, published catalog items.'),
                     ])
                     ->columns(2),
             ]);
@@ -72,31 +72,31 @@ class HomepageDisplayResource extends Resource
             ->recordAction(null)
             ->columns([
                 TextColumn::make('code')
-                    ->label('资料编码')
+                    ->label('Item code')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('display_name')
-                    ->label('名称')
+                    ->label('Name')
                     ->getStateUsing(fn (CatalogItem $record): string => self::displayName($record)),
                 TextColumn::make('primary_group')
-                    ->label('一级分类')
+                    ->label('Primary category')
                     ->badge()
                     ->getStateUsing(fn (CatalogItem $record): string => self::primaryGroupLabel($record)),
                 IconColumn::make('is_visible')
-                    ->label('公开')
+                    ->label('Public')
                     ->boolean(),
                 IconColumn::make('status')
-                    ->label('已发布')
+                    ->label('Published')
                     ->boolean()
                     ->getStateUsing(fn (CatalogItem $record): bool => $record->status === CatalogItem::STATUS_PUBLISHED),
                 ToggleColumn::make('show_on_homepage')
-                    ->label('首页展示'),
+                    ->label('Homepage display'),
                 TextInputColumn::make('homepage_sort_order')
-                    ->label('首页排序')
+                    ->label('Homepage order')
                     ->type('number')
                     ->sortable(),
                 TextColumn::make('sort_order')
-                    ->label('列表排序')
+                    ->label('List order')
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -104,13 +104,13 @@ class HomepageDisplayResource extends Resource
             ->defaultSort('homepage_sort_order')
             ->filters([
                 TernaryFilter::make('show_on_homepage')
-                    ->label('首页展示'),
+                    ->label('Homepage display'),
                 TernaryFilter::make('is_visible')
-                    ->label('公开可见'),
+                    ->label('Public'),
             ])
             ->recordActions([
                 EditAction::make()
-                    ->label('编辑'),
+                    ->label('Edit'),
             ]);
     }
 

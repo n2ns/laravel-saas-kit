@@ -39,6 +39,7 @@ php artisan passport:keys
 
 touch database/database.sqlite
 php artisan migrate:fresh --force
+php artisan passport:ensure-social-client --create
 php artisan db:seed --class=ReferenceDataSeeder --force
 npm run build
 php artisan serve
@@ -49,7 +50,8 @@ Configure these before a real launch:
 ```dotenv
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=https://your-site.com/auth/google/callback
+# Optional override. Defaults to APP_URL/auth/google/callback.
+# GOOGLE_REDIRECT_URI=https://your-site.com/auth/google/callback
 
 STRIPE_KEY=
 STRIPE_SECRET=
@@ -59,7 +61,14 @@ STRIPE_PORTAL_CONFIGURATION=
 STARTER_STRIPE_PRODUCT_ID=
 STARTER_PLUS_MONTHLY_STRIPE_PRICE_ID=
 STARTER_CREDITS_10_STRIPE_PRICE_ID=
+
+PASSPORT_PASSWORD_CLIENT_ID=
+PASSPORT_PASSWORD_CLIENT_SECRET=
 ```
+
+Copy the Passport client values printed by
+`php artisan passport:ensure-social-client --create` into `.env` before using
+external-client API login. See [API_AUTH.md](API_AUTH.md).
 
 ## Verification
 
@@ -85,6 +94,7 @@ Production deployment notes, the deployment script, nginx example, and systemd
 queue worker example are in [DEPLOYMENT.md](DEPLOYMENT.md).
 
 Script behavior and options are documented in [SCRIPTS.md](SCRIPTS.md).
+External-client API login setup is documented in [API_AUTH.md](API_AUTH.md).
 
 ## Operating Model
 

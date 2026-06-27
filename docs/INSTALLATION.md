@@ -30,7 +30,12 @@ Run database setup:
 ```bash
 php artisan migrate:fresh --force
 php artisan passport:keys --force
+php artisan passport:ensure-social-client --create
 ```
+
+Copy the generated `PASSPORT_PASSWORD_CLIENT_ID` and
+`PASSPORT_PASSWORD_CLIENT_SECRET` values into `.env` before using external
+client API login. See [API Google Authentication](API_AUTH.md).
 
 Build frontend assets:
 
@@ -104,7 +109,8 @@ PRIVACY_EMAIL=
 
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=https://example.com/auth/google/callback
+# Optional override. Defaults to APP_URL/auth/google/callback.
+# GOOGLE_REDIRECT_URI=https://example.com/auth/google/callback
 
 STRIPE_KEY=
 STRIPE_SECRET=

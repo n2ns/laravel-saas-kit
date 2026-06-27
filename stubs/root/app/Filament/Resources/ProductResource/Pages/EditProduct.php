@@ -19,11 +19,11 @@ class EditProduct extends EditRecord
 
     protected function getSavedNotificationTitle(): ?string
     {
-        return '产品更新成功';
+        return 'Product updated';
     }
 
     protected function getValidationErrorNotificationTitle(): ?string
     {
-        return '保存失败：表单内容有误';
+        return 'Save failed: the form contains errors';
     }
 }

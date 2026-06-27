@@ -19,6 +19,6 @@ class EditUser extends EditRecord
 
     protected function getSavedNotificationTitle(): ?string
     {
-        return '用户信息更新成功';
+        return 'User updated';
     }
 }

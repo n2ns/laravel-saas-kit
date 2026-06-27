@@ -52,8 +52,8 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             // Navigation organization
             ->navigationGroups([
-                '数据中心' => NavigationGroup::make()
-                    ->label('数据中心')
+                'Data Center' => NavigationGroup::make()
+                    ->label('Data Center')
                     ->icon('heroicon-o-chart-bar'),
                 'System' => NavigationGroup::make()
                     ->label('System')
@@ -61,20 +61,20 @@ class AdminPanelProvider extends PanelProvider
                 'Products' => NavigationGroup::make()
                     ->label('Products')
                     ->icon('heroicon-o-language'),
-                '用户管理' => NavigationGroup::make()
-                    ->label('用户管理')
+                'User Management' => NavigationGroup::make()
+                    ->label('User Management')
                     ->icon('heroicon-o-users'),
-                '产品管理' => NavigationGroup::make()
-                    ->label('产品管理')
+                'Product Management' => NavigationGroup::make()
+                    ->label('Product Management')
                     ->icon('heroicon-o-rectangle-stack'),
-                '商业运营' => NavigationGroup::make()
-                    ->label('商业运营')
+                'Commerce' => NavigationGroup::make()
+                    ->label('Commerce')
                     ->icon('heroicon-o-currency-dollar'),
-                '内容管理' => NavigationGroup::make()
-                    ->label('内容管理')
+                'Content' => NavigationGroup::make()
+                    ->label('Content')
                     ->icon('heroicon-o-document-text'),
-                '系统配置' => NavigationGroup::make()
-                    ->label('系统配置')
+                'System Configuration' => NavigationGroup::make()
+                    ->label('System Configuration')
                     ->icon('heroicon-o-cog-6-tooth')
                     ->collapsed(),
             ])
@@ -134,8 +134,8 @@ class AdminPanelProvider extends PanelProvider
                     document.addEventListener("livewire:init", () => {
                         window.Livewire.on("form-validation-error", () => {
                             new FilamentNotification()
-                                .title("验证失败")
-                                .body("请检查表单输入")
+                                .title("Validation failed")
+                                .body("Please check the form input")
                                 .danger()
                                 .send()
                         })

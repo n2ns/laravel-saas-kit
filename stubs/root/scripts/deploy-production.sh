@@ -94,6 +94,8 @@ if [[ "$skip_migrate" != "1" ]]; then
     php artisan migrate --force
 fi
 
+php artisan passport:ensure-social-client
+
 if [[ "$seed_reference" == "1" ]]; then
     php artisan db:seed --class=ReferenceDataSeeder --force
 fi

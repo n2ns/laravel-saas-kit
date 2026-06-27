@@ -28,9 +28,9 @@ class PlanResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-squares-2x2';
 
-    protected static string|UnitEnum|null $navigationGroup = '商业运营';
+    protected static string|UnitEnum|null $navigationGroup = 'Commerce';
 
-    protected static ?string $navigationLabel = '套餐方案';
+    protected static ?string $navigationLabel = 'Plans';
 
     protected static ?int $navigationSort = 4;
 

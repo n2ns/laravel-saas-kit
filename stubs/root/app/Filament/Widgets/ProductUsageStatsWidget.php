@@ -38,13 +38,13 @@ class ProductUsageStatsWidget extends StatsOverviewWidget
             $weekEvents = (int) $aggregate->week_events;
             $weekUsers = (int) $aggregate->week_users;
 
-            $description = "本周: {$weekEvents} 事件, {$weekUsers} 用户";
+            $description = "This week: {} events, {} users";
 
             if (($config['track_tokens'] ?? false) === true) {
                 $description .= ' | Tokens: '.number_format((int) $aggregate->tokens_in + (int) $aggregate->tokens_out);
             }
 
-            $stats[] = Stat::make(strtoupper($clientId).' 今日', number_format($todayEvents))
+            $stats[] = Stat::make(strtoupper($clientId).' today', number_format($todayEvents))
                 ->description($description)
                 ->descriptionIcon('heroicon-m-chart-bar')
                 ->color($this->getColorForClient($clientId));

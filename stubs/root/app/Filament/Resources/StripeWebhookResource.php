@@ -22,7 +22,7 @@ class StripeWebhookResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-shield-check';
 
-    protected static string|UnitEnum|null $navigationGroup = '商业运营';
+    protected static string|UnitEnum|null $navigationGroup = 'Commerce';
 
     protected static ?string $navigationLabel = 'Stripe Webhooks';
 

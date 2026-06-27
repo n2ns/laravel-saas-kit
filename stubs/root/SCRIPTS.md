@@ -12,9 +12,10 @@ updating dependencies and brings the site back up at the end:
 4. `php artisan storage:link` when `public/storage` does not exist
 5. `php artisan optimize:clear`
 6. `php artisan migrate --force`
-7. Optional `php artisan db:seed --class=ReferenceDataSeeder --force`
-8. `php artisan optimize`
-9. `php artisan reload`
+7. `php artisan passport:ensure-social-client`
+8. Optional `php artisan db:seed --class=ReferenceDataSeeder --force`
+9. `php artisan optimize`
+10. `php artisan reload`
 
 Usage:
 
@@ -47,10 +48,11 @@ bash scripts/deploy-production.sh --skip-npm
 bash scripts/deploy-production.sh --skip-migrate
 ```
 
-The script requires `.env` to exist. It does not create Google OAuth clients,
-Stripe products, Stripe webhooks, cron entries, nginx configs, or systemd
-services. Those are one-time server/provider setup tasks documented in
-`DEPLOYMENT.md`.
+The script requires `.env` to exist. It does not create `APP_KEY`, Passport
+keys, the initial Passport social grant client, Google OAuth clients, Stripe
+products, Stripe webhooks, cron entries, nginx configs, or systemd services.
+Those are one-time server/provider setup tasks documented in `DEPLOYMENT.md`
+and `API_AUTH.md`.
 
 ## `scripts/run-local-tests.sh`
 
