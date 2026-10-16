@@ -6,37 +6,34 @@
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.3-8892bf.svg)](https://www.php.net)
 [![Laravel Version Support](https://img.shields.io/badge/Laravel-12-red)](https://laravel.com)
 
-Installable Laravel 12 starter kit for SaaS and product websites.
+Launch a complete SaaS or product website on Laravel 12 in minutes.
 
-This package installs a complete editable Laravel application into a fresh Laravel 12 project. It does not start from an empty skeleton: the installer copies proven application files for authentication, billing, content, SEO, analytics, and admin workflows, then the new product site owns those files.
+SaaS Kit installs a ready-to-run product site into a fresh Laravel 12 app: marketing pages, product catalog and pricing, Google sign-in, Stripe billing, a blog, an admin panel, and visitor analytics. You get the full source code, so you can change anything to fit your product.
 
-## What This Package Is
+## What You Get
 
-`n2ns/laravel-saas-kit` is a Composer starter-kit package:
+- **Marketing site**: home, about, support, privacy, terms, and refund pages, with a header, footer, and error pages.
+- **Products and pricing**: a product catalog with detail pages, per-product pricing and privacy pages.
+- **Sign-in**: Google sign-in and Google One Tap on the web, plus token-based login for desktop apps, browser extensions, and other external clients.
+- **Billing**: Stripe Checkout, subscriptions, one-time purchases, credits, and the Stripe Customer Portal.
+- **Customer dashboard**: customers can see their subscriptions, orders, and account settings.
+- **Blog**: multilingual posts with types, topics, search, related posts, and featured posts on the home page.
+- **Admin panel**: manage users, products, plans, orders, subscriptions, blog posts, API keys, and analytics.
+- **Analytics**: built-in page visit and event statistics, no third-party tracker required.
+- **SEO**: sitemap, canonical URLs, alternate-language links, and structured data.
+- **Languages**: English, Spanish, German, and Simplified Chinese out of the box.
+- **Deployment**: production deploy script and Nginx and systemd examples.
 
-```bash
-composer require n2ns/laravel-saas-kit
-php artisan saas-kit:install --force
-```
+See [Features](docs/FEATURES.md) for the technical details of each area.
 
-It is intentionally closer to Laravel Breeze / Jetstream installer behavior than to a runtime-only package. The package's job is to create a complete editable product-site codebase quickly.
+## Requirements
 
-## What It Installs
-
-- Marketing site pages, header, footer, policy pages, 404, and 503.
-- Blog, product catalog, product detail pages, pricing pages, SEO, and sitemap commands.
-- Google OAuth, Google One Tap, OTT login, Passport API auth, refresh tokens, device sessions, and API keys.
-- Stripe Checkout, webhook handling, Customer Portal, plans, orders, subscriptions, and credits.
-- Filament admin resources for users, sessions, products, plans, orders, subscriptions, content, API keys, Stripe webhooks, and analytics.
-- Site visit and event analytics.
-- Starter seed data for one product, Free / Plus / Credits plans, and a Stripe gateway.
-- Deployment, test, and maintenance scripts from the template app.
-
-Product-specific business workflows, provider integrations, and customer-specific data belong in the host application after installation.
+- PHP 8.3 or newer and Composer 2
+- Node.js 24 and npm
+- A fresh Laravel 12 application
+- MySQL or MariaDB for production (SQLite works for local testing)
 
 ## Quick Start
-
-Use a Laravel 12 application. Pinning `laravel/laravel:^12.0` avoids accidentally creating a Laravel 13 app when that is the current default.
 
 ```bash
 composer create-project laravel/laravel:^12.0 my-site
@@ -55,42 +52,29 @@ npm install
 npm run build
 ```
 
-`migrate:fresh --force` is intentional for a brand-new Laravel application. The kit replaces Laravel's default identity tables with the template site's identity, billing, content, analytics, and API tables. `ReferenceDataSeeder` creates the starter product, plans, and Stripe gateway records.
+Run these commands only in a brand-new Laravel app: `--force` replaces Laravel's default application files, and `migrate:fresh` drops all existing tables. The seeder adds a starter product and plans that you can edit in the admin panel.
+
+Next, configure your app URL, Google, Stripe, and mail settings in `.env`. The [Installation guide](docs/INSTALLATION.md) walks through every step, and the installed site's `NEW_SITE_CHECKLIST.md` covers launching your own product.
 
 ## Documentation
 
-- [Installation](docs/INSTALLATION.md)
-- [Package Structure](docs/PACKAGE_STRUCTURE.md)
-- [API Google Authentication](docs/API_AUTH.md)
-- [Template Maintenance](docs/TEMPLATE_MAINTENANCE.md)
-- [Verification](docs/VERIFICATION.md)
+- [Installation](docs/INSTALLATION.md): install the kit and configure a new site.
+- [Features](docs/FEATURES.md): what is installed, with routes, commands, and settings.
+- [API Google Authentication](docs/API_AUTH.md): sign in desktop apps, extensions, and other clients.
+- [Package Structure](docs/PACKAGE_STRUCTURE.md): how the package and installer are organized.
+- [Template Maintenance](docs/TEMPLATE_MAINTENANCE.md): maintain the kit and update existing sites.
+- [Verification](docs/VERIFICATION.md): test the kit before a release.
+- [Changelog](CHANGELOG.md)
 
-After installation, the generated product site also contains its own docs:
-
-- `README.md`
-- `NEW_SITE_CHECKLIST.md`
-- `DEPLOYMENT.md`
-- `SCRIPTS.md`
-
-## Operating Model
-
-For each new product site:
-
-1. Create a fresh Laravel 12 app.
-2. Install this package.
-3. Run `saas-kit:install --force`.
-4. Configure environment variables for Google, Stripe, mail, storage, database, queue, and the app URL.
-5. Replace branding, legal copy, default product data, and assets.
-6. Publish products, plans, and blog posts through the admin panel.
-7. Add product-specific code in the host app.
-
-This kit does not need a separate blog package. Its own content tables, public routes, SEO helpers, sitemap commands, and Filament resources are the supported publishing surface for generated product sites.
-
-Shared improvements should be made in this package's installer stubs so future product sites inherit the same implementation.
+The installed site also includes its own guides: `README.md`, `NEW_SITE_CHECKLIST.md`, `DEPLOYMENT.md`, `SCRIPTS.md`, `API_AUTH.md`, and `BLOG_GUIDELINES.md`.
 
 ## Optional: AI-Assisted Publishing
 
 If you want AI assistants to draft and publish blog posts for your site, consider [`n2ns/laravel-post2site`](https://github.com/n2ns/laravel-post2site). Together with the [`n2n-post2site`](https://github.com/n2ns/n2n-post2site) MCP bridge, it lets an AI client prepare, preview, and publish content to a Laravel 12+ site after your explicit confirmation. It is a separate project and is not required by this kit; follow its documentation to connect it to your site.
+
+## License
+
+SaaS Kit is open-source software licensed under the [MIT license](LICENSE).
 
 ---
 
