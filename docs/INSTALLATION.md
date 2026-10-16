@@ -1,16 +1,18 @@
 # Installation
 
-This package is for fresh Laravel 12 applications.
+This package is for fresh Laravel 12 applications. It copies a complete product-site application into the new project; it is not meant to be added to an existing site.
 
 ## Requirements
 
 - PHP 8.3 or newer.
 - Composer 2.
-- Node.js 24 and npm.
-- Laravel 12.
-- MySQL or MariaDB for production. SQLite is fine for local smoke testing.
+- Laravel 12 (`laravel/framework` `^12.69.3`, required by the package).
+- Node.js and npm for the Vite frontend build. CI builds with Node.js 24.
+- MySQL or MariaDB for production. SQLite is fine for local smoke testing; the kit's `.env.example` defaults to `database/database.sqlite`.
 
 ## Create a New Site
+
+Pin the Laravel version so `composer create-project` does not create a Laravel 13 app when that is the current default:
 
 ```bash
 composer create-project laravel/laravel:^12.0 my-site
@@ -25,6 +27,17 @@ php artisan saas-kit:install --force
 composer dump-autoload
 ```
 
+The installer already runs `composer dump-autoload` after merging Composer metadata. Running it again is harmless, and it is required if the installer printed `composer dump-autoload did not complete`.
+
+Set up the environment file. `composer create-project` creates `.env` from Laravel's default `.env.example`, which does not contain the kit's variables. For a brand-new site, replace it with the kit's file and generate a new key:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+See [Environment Setup](#environment-setup) for the values to fill in. Configure the database connection before migrating if you are not using the default SQLite file.
+
 Run database setup:
 
 ```bash
@@ -38,8 +51,8 @@ php artisan passport:ensure-social-client --create
 and Stripe gateway records. Run it once for a new site; re-running it re-applies
 the starter defaults.
 
-Copy the generated `PASSPORT_PASSWORD_CLIENT_ID` and
-`PASSPORT_PASSWORD_CLIENT_SECRET` values into `.env` before using external
+`passport:ensure-social-client --create` prints `PASSPORT_PASSWORD_CLIENT_ID` and
+`PASSPORT_PASSWORD_CLIENT_SECRET`. Copy them into `.env` before using external
 client API login. See [API Google Authentication](API_AUTH.md).
 
 Build frontend assets:
@@ -49,11 +62,19 @@ npm install
 npm run build
 ```
 
+## What the Installer Does
+
+`php artisan saas-kit:install` copies every file under the package's `stubs/root` directory, including dotfiles, into the application root. It never copies `composer.json`, `composer.lock`, `vendor`, `node_modules`, or `.git`. Instead of replacing the host `composer.json`, it merges the autoload and plugin settings the template needs. See [Package Structure](PACKAGE_STRUCTURE.md) for the exact steps.
+
+After installation, the product site owns the copied files. They are ordinary application code that you edit directly; later releases of this package do not update them. See [Template Maintenance](TEMPLATE_MAINTENANCE.md#updating-existing-product-sites) for how shared fixes reach existing sites.
+
 ## Why `--force`
 
 The kit installs a complete product-site application, not a small optional feature.
 
-`--force` lets the installer replace Laravel's default application skeleton with the kit's application files:
+Without `--force`, the installer refuses to run if any template file already exists in the target. It prints up to 20 of the conflicting paths and exits with a failure. A fresh Laravel app always conflicts (for example `routes/web.php`, `config/app.php`, and `README.md`), so the first installation needs `--force`.
+
+With `--force`, the installer first deletes these paths, which belong to the kit, from the Laravel skeleton:
 
 - `app`
 - `bootstrap/app.php`
@@ -80,11 +101,13 @@ The kit installs a complete product-site application, not a small optional featu
 - `phpunit.xml`
 - `vite.config.js`
 
-Without this replacement, Laravel's default migrations and routes can conflict with the kit's identity, billing, content, and analytics tables.
+It then copies the template files and overwrites any other files with the same path, such as `artisan`, `.gitignore`, `.gitattributes`, and `.editorconfig`. Host files that the template does not contain, such as `.env`, `composer.json`, `composer.lock`, `vendor`, and the rest of `storage`, are left in place.
+
+Without this replacement, Laravel's default migrations, routes, controllers, and tests would sit next to the kit's own. Those defaults conflict with the kit's identity, billing, content, and analytics tables.
 
 ## Why `migrate:fresh`
 
-Laravel's project installer may run the default migrations while creating the fresh app. After the kit replaces the migrations, the old default tables must be dropped.
+`composer create-project` for Laravel 12 may already have run Laravel's default migrations, for example against the default SQLite database. Those migrations created tables such as `users`, `cache`, `jobs`, and `sessions`. The kit's migrations (`0001_01_01_000000_create_identity_tables.php`, `0001_01_01_000001_create_core_runtime_tables.php`, and the rest) create the same tables with the kit's schema under different file names, plus the Passport `oauth_*` tables. A plain `migrate` would fail on tables that already exist.
 
 Use:
 
@@ -92,18 +115,11 @@ Use:
 php artisan migrate:fresh --force
 ```
 
-Do not use ordinary `php artisan migrate` for the first kit installation.
+`migrate:fresh` drops all tables. Use it only for the first installation of a brand-new site, and do not use ordinary `php artisan migrate` for that first installation. Routine deployments of an existing site use `php artisan migrate --force` (see the generated site's `SCRIPTS.md`).
 
 ## Environment Setup
 
-Copy `.env.example` to `.env` if the project does not already have `.env`:
-
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
-Configure at least:
+Configure at least these values, which are all present in the kit's `.env.example`:
 
 ```dotenv
 APP_NAME=
@@ -126,7 +142,14 @@ STRIPE_PORTAL_CONFIGURATION=
 STARTER_STRIPE_PRODUCT_ID=
 STARTER_PLUS_MONTHLY_STRIPE_PRICE_ID=
 STARTER_CREDITS_10_STRIPE_PRICE_ID=
+
+PASSPORT_PASSWORD_CLIENT_ID=
+PASSPORT_PASSWORD_CLIENT_SECRET=
 ```
+
+`ReferenceDataSeeder` reads the `STARTER_*` Stripe IDs when it creates the starter product and plans, so set them before seeding if you already have them.
+
+`APP_URL` must be reachable from the server itself, because API login sends an internal HTTP request to `APP_URL/oauth/token` (see [API Google Authentication](API_AUTH.md#request-flow)).
 
 For production, set database, queue, cache, and session drivers explicitly:
 
@@ -149,15 +172,17 @@ SESSION_DRIVER=database
 
 The kit does not grant admin access merely because an email address looks like `admin@example.com`.
 
-Set the intended admin email in `.env`:
+A user can open the Filament admin panel (at `/admin` by default, set with `ADMIN_PATH`) when their `users.is_admin` flag is true or their email is listed in `ADMIN_EMAILS`. `ADMIN_EMAILS` is comma-separated and falls back to `ADMIN_EMAIL` when it is empty:
 
 ```dotenv
 ADMIN_EMAIL=owner@example.com
 ADMIN_EMAILS=owner@example.com
 ```
 
-Then log in with Google using that verified email, or create/update the user through a trusted console/database operation.
+Then log in with Google using that address (Google sign-in requires a verified email), or set `is_admin` on the user through a trusted console or database operation.
 
 ## Next Steps
 
-After installation, use the generated site's `NEW_SITE_CHECKLIST.md` to replace starter product data, assets, legal copy, Stripe IDs, OAuth credentials, and deployment paths.
+The installed site contains its own handoff docs: `README.md`, `NEW_SITE_CHECKLIST.md`, `DEPLOYMENT.md`, `SCRIPTS.md`, `API_AUTH.md`, and `BLOG_GUIDELINES.md`.
+
+Use `NEW_SITE_CHECKLIST.md` to replace starter product data, assets, legal copy, Stripe IDs, OAuth credentials, and deployment paths.
