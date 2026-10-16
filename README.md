@@ -24,7 +24,7 @@ It is intentionally closer to Laravel Breeze / Jetstream installer behavior than
 ## What It Installs
 
 - Marketing site pages, header, footer, policy pages, 404, and 503.
-- Blog, product catalog, product detail pages, pricing pages, product articles, SEO, and sitemap commands.
+- Blog, product catalog, product detail pages, pricing pages, SEO, and sitemap commands.
 - Google OAuth, Google One Tap, OTT login, Passport API auth, refresh tokens, device sessions, and API keys.
 - Stripe Checkout, webhook handling, Customer Portal, plans, orders, subscriptions, and credits.
 - Filament admin resources for users, sessions, products, plans, orders, subscriptions, content, API keys, Stripe webhooks, and analytics.
@@ -47,6 +47,7 @@ php artisan saas-kit:install --force
 composer dump-autoload
 
 php artisan migrate:fresh --force
+php artisan db:seed --class=ReferenceDataSeeder --force
 php artisan passport:keys --force
 php artisan passport:ensure-social-client --create
 
@@ -54,7 +55,7 @@ npm install
 npm run build
 ```
 
-`migrate:fresh --force` is intentional for a brand-new Laravel application. The kit replaces Laravel's default identity tables with the template site's identity, billing, content, analytics, and API tables.
+`migrate:fresh --force` is intentional for a brand-new Laravel application. The kit replaces Laravel's default identity tables with the template site's identity, billing, content, analytics, and API tables. `ReferenceDataSeeder` creates the starter product, plans, and Stripe gateway records.
 
 ## Documentation
 
@@ -62,7 +63,6 @@ npm run build
 - [Package Structure](docs/PACKAGE_STRUCTURE.md)
 - [API Google Authentication](docs/API_AUTH.md)
 - [Template Maintenance](docs/TEMPLATE_MAINTENANCE.md)
-- [Post2Site Integration](docs/POST2SITE.md)
 - [Verification](docs/VERIFICATION.md)
 
 After installation, the generated product site also contains its own docs:
@@ -81,16 +81,16 @@ For each new product site:
 3. Run `saas-kit:install --force`.
 4. Configure environment variables for Google, Stripe, mail, storage, database, queue, and the app URL.
 5. Replace branding, legal copy, default product data, and assets.
-6. Publish products, plans, blog posts, and product articles through the admin panel.
+6. Publish products, plans, and blog posts through the admin panel.
 7. Add product-specific code in the host app.
-
-Optional automated content publishing is handled by `n2ns/laravel-post2site` with `POST2SITE_PRESET=laravel_saas_kit`. That integration writes to this kit's `blog_posts` and `blog_post_translations` tables and supports product guides at `/{productCode}/guides/{slug}`.
 
 This kit does not need a separate blog package. Its own content tables, public routes, SEO helpers, sitemap commands, and Filament resources are the supported publishing surface for generated product sites.
 
-The older template MCP routes are disabled by default with `SAAS_KIT_LEGACY_MCP_ROUTES=false` so Post2Site can own `/api/v1/mcp`.
-
 Shared improvements should be made in this package's installer stubs so future product sites inherit the same implementation.
+
+## Optional: AI-Assisted Publishing
+
+If you want AI assistants to draft and publish blog posts for your site, consider [`n2ns/laravel-post2site`](https://github.com/n2ns/laravel-post2site). Together with the [`n2n-post2site`](https://github.com/n2ns/n2n-post2site) MCP bridge, it lets an AI client prepare, preview, and publish content to a Laravel 12+ site after your explicit confirmation. It is a separate project and is not required by this kit; follow its documentation to connect it to your site.
 
 ---
 

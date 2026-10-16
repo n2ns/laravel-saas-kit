@@ -55,7 +55,7 @@ return [
             ],
             'publish' => [
                 'title' => 'Publish guides',
-                'description' => 'Run blog posts, sitemap generation, and Post2Site content automation from one workflow.',
+                'description' => 'Run blog posts, translations, and sitemap generation from one content workflow.',
             ],
         ],
 

@@ -149,7 +149,7 @@ class SiteAccessAnalytics extends Page
 
     private function rangeLabel(int $days): string
     {
-        return $days === 1 ? 'Last 24 hours' : "Last {} days";
+        return $days === 1 ? 'Last 24 hours' : "Last {$days} days";
     }
 
     /** @return Collection<int, SiteVisitDailyStat> */

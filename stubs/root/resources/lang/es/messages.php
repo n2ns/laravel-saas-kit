@@ -55,7 +55,7 @@ return [
             ],
             'publish' => [
                 'title' => 'Publicar guías',
-                'description' => 'Gestione blog, sitemap y automatización Post2Site desde un mismo flujo de contenido.',
+                'description' => 'Gestione blog, traducciones y sitemap desde un mismo flujo de contenido.',
             ],
         ],
 

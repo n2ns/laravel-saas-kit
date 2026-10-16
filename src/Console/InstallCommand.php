@@ -71,9 +71,10 @@ class InstallCommand extends Command
         $this->line('Next steps:');
         $this->line('  1. Review .env.example and configure Google, Stripe, mail, storage, and app URLs.');
         $this->line('  2. In a brand-new app, run php artisan migrate:fresh --force.');
-        $this->line('  3. Run php artisan passport:keys if Passport keys are not present.');
-        $this->line('  4. Run php artisan passport:ensure-social-client --create and copy the printed client values into .env.');
-        $this->line('  5. Run npm install && npm run build for frontend assets.');
+        $this->line('  3. Run php artisan db:seed --class=ReferenceDataSeeder --force for the starter product and plans.');
+        $this->line('  4. Run php artisan passport:keys if Passport keys are not present.');
+        $this->line('  5. Run php artisan passport:ensure-social-client --create and copy the printed client values into .env.');
+        $this->line('  6. Run npm install && npm run build for frontend assets.');
 
         return self::SUCCESS;
     }

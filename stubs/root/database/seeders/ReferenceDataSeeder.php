@@ -45,7 +45,7 @@ class ReferenceDataSeeder extends Seeder
             [
                 'name' => 'Starter Product',
                 'short_description' => 'A configurable starter product for a new Laravel SaaS site.',
-                'long_description' => 'Replace this starter product with your own product copy, media, pricing, and articles from the admin panel.',
+                'long_description' => 'Replace this starter product with your own product copy, media, and pricing from the admin panel.',
                 'seo_title' => 'Starter Product',
                 'seo_description' => 'A configurable starter product for a Laravel SaaS site.',
                 'card_tag' => 'Starter',

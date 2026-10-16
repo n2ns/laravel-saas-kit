@@ -187,21 +187,7 @@ Open:
 - `/login`
 - `/{ADMIN_PATH}`
 
-## 8. Optional Automated Publishing
-
-The site can publish blog posts and product guides manually through Filament.
-For automated publishing, install `n2ns/laravel-post2site` and use the SaaS Kit
-preset:
-
-```env
-POST2SITE_PRESET=laravel_saas_kit
-POST2SITE_PUBLISHING_MODE=adapter
-POST2SITE_SAAS_KIT_AUTHOR_ID=1
-```
-
-Keep `SAAS_KIT_LEGACY_MCP_ROUTES=false` when Post2Site owns `/api/v1/mcp`.
-
-## 9. Production Deploy
+## 8. Production Deploy
 
 Read `DEPLOYMENT.md` before first deploy.
 
@@ -236,7 +222,7 @@ deploy/systemd/app-worker.service.example
 Install it under a product-specific service name such as
 `/etc/systemd/system/<app>-worker.service`.
 
-## 10. Launch Verification
+## 9. Launch Verification
 
 Before public launch, verify:
 

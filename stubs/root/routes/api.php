@@ -80,17 +80,4 @@ Route::prefix('v1')->group(function () {
         Route::delete('/{blogPost:slug}', [BlogPostController::class, 'destroy']);
     });
 
-    if (filter_var(env('SAAS_KIT_LEGACY_MCP_ROUTES', false), FILTER_VALIDATE_BOOLEAN)) {
-        // ========== Legacy MCP Management API ==========
-        Route::middleware(['api_key'])->prefix('mcp')->group(function () {
-            Route::get('/capabilities', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'capabilities']);
-            Route::get('/posts', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'index']);
-            Route::post('/posts', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'store']);
-            Route::get('/posts/{id}', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'show']);
-            Route::put('/posts/{id}', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'update']);
-            Route::patch('/posts/{id}', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'update']);
-            Route::post('/posts/{id}/publish', [App\Http\Controllers\Api\Mcp\BlogPostController::class, 'publish']);
-        });
-    }
-
 });

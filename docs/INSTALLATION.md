@@ -29,9 +29,14 @@ Run database setup:
 
 ```bash
 php artisan migrate:fresh --force
+php artisan db:seed --class=ReferenceDataSeeder --force
 php artisan passport:keys --force
 php artisan passport:ensure-social-client --create
 ```
+
+`ReferenceDataSeeder` creates the starter product, Free / Plus / Credits plans,
+and Stripe gateway records. Run it once for a new site; re-running it re-applies
+the starter defaults.
 
 Copy the generated `PASSPORT_PASSWORD_CLIENT_ID` and
 `PASSPORT_PASSWORD_CLIENT_SECRET` values into `.env` before using external
@@ -57,6 +62,7 @@ The kit installs a complete product-site application, not a small optional featu
 - `database/factories`
 - `database/migrations`
 - `database/seeders`
+- `deploy`
 - `public`
 - `resources`
 - `routes`

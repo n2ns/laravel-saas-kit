@@ -178,7 +178,7 @@ class UserSessionResource extends Resource
                 $count = app(UserSessionRevoker::class)->revokeMany($records, 'admin_bulk_revoked');
 
                 Notification::make()
-                    ->title("Revoked {} sessions")
+                    ->title("Revoked {$count} sessions")
                     ->success()
                     ->send();
             });

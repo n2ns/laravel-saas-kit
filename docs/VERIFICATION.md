@@ -48,6 +48,7 @@ cp .env.example .env
 php artisan key:generate
 touch database/database.sqlite
 php artisan migrate:fresh --force
+php artisan db:seed --class=ReferenceDataSeeder --force
 php artisan passport:keys --force
 php artisan passport:ensure-social-client --create
 ```
@@ -68,37 +69,23 @@ npm ci
 npm run build
 ```
 
-## Post2Site Integration Smoke Test
-
-After package checks pass, verify the generated site can install Post2Site and publish through the SaaS Kit preset:
-
-```bash
-bash scripts/smoke-post2site.sh
-```
-
-By default, the script uses a sibling `../laravel-post2site` checkout when present; otherwise it installs `n2ns/laravel-post2site:^0.2` from Composer. A successful run publishes:
-
-- a normal blog post at `/blog/smoke-blog`
-- a product guide at `/starter/guides/smoke-guide`
-
 Expected result:
 
 ```text
 Laravel tests pass
 PHP syntax checks pass
 vite build succeeds
-Post2Site smoke publishes blog and guide posts
 ```
 
 ## Current Verified Baseline
 
 The package has been verified with:
 
-- Laravel framework 12.62.0 in the smoke app.
-- Filament 5.6.7.
-- Passport 13.7.5.
-- Cashier 16.6.0.
-- PHP 8.3.6.
+- Laravel framework 12.70.0 in the smoke app.
+- Filament 5.10.2.
+- Passport 13.10.0.
+- Cashier 16.9.0.
+- PHP 8.5.10 (Windows); CI runs PHP 8.3.
 
 The smoke test confirms:
 
@@ -106,6 +93,7 @@ The smoke test confirms:
 - `saas-kit:install --force` runs;
 - root dotfiles such as `.env.example` and `.env.testing` are copied;
 - kit migrations create the full schema;
+- the reference seeder creates the starter product, plans, and Stripe gateway;
 - route registration works;
 - Passport keys can be generated;
 - the Passport social grant client can be created for external API login;

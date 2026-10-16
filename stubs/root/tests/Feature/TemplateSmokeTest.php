@@ -586,12 +586,12 @@ class TemplateSmokeTest extends TestCase
         $page->dateRange = '1';
 
         $this->assertSame(1, $range->invoke($page));
-        $this->assertSame('最近 24 小时', $label->invoke($page, 1));
+        $this->assertSame('Last 24 hours', $label->invoke($page, 1));
 
         $page->dateRange = '15';
 
         $this->assertSame(15, $range->invoke($page));
-        $this->assertSame('最近 15 天', $label->invoke($page, 15));
+        $this->assertSame('Last 15 days', $label->invoke($page, 15));
     }
 
     public function test_site_access_top_pages_merge_historical_route_types_for_same_path(): void
@@ -686,10 +686,10 @@ class TemplateSmokeTest extends TestCase
         $admin = User::factory()->create(['is_admin' => true]);
         $this->actingAs($admin);
 
-        $this->assertSame('产品管理', CatalogItemResource::getNavigationGroup());
-        $this->assertSame('产品资料', CatalogItemResource::getNavigationLabel());
-        $this->assertSame('产品管理', HomepageDisplayResource::getNavigationGroup());
-        $this->assertSame('首页展示', HomepageDisplayResource::getNavigationLabel());
+        $this->assertSame('Product Management', CatalogItemResource::getNavigationGroup());
+        $this->assertSame('Catalog Items', CatalogItemResource::getNavigationLabel());
+        $this->assertSame('Product Management', HomepageDisplayResource::getNavigationGroup());
+        $this->assertSame('Homepage display', HomepageDisplayResource::getNavigationLabel());
 
         $records = CatalogItem::query()
             ->orderBy('homepage_sort_order')

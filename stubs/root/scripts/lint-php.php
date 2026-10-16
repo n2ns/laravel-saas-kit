@@ -7,6 +7,8 @@ if ($root === false) {
     exit(1);
 }
 
+$root = str_replace('\\', '/', $root);
+
 $skip = [
     $root.'/vendor',
     $root.'/node_modules',
@@ -24,7 +26,7 @@ foreach ($iterator as $file) {
         continue;
     }
 
-    $path = $file->getPathname();
+    $path = str_replace('\\', '/', $file->getPathname());
 
     foreach ($skip as $prefix) {
         if (str_starts_with($path, $prefix.'/') || $path === $prefix) {

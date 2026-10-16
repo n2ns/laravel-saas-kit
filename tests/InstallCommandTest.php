@@ -50,16 +50,11 @@ class InstallCommandTest extends TestCase
         $this->assertArrayNotHasKey('version', $composer);
     }
 
-    public function test_legacy_mcp_routes_are_disabled_by_default(): void
+    public function test_template_has_no_built_in_mcp_routes(): void
     {
         $routes = (string) file_get_contents(__DIR__.'/../stubs/root/routes/api.php');
 
-        $this->assertStringContainsString("env('SAAS_KIT_LEGACY_MCP_ROUTES', false)", $routes);
-        $this->assertStringContainsString("prefix('mcp')->group", $routes);
-    }
-
-    public function test_post2site_documentation_is_packaged(): void
-    {
-        $this->assertFileExists(__DIR__.'/../docs/POST2SITE.md');
+        $this->assertStringNotContainsString("prefix('mcp')", $routes);
+        $this->assertFileDoesNotExist(__DIR__.'/../stubs/root/app/Http/Controllers/Api/Mcp/BlogPostController.php');
     }
 }

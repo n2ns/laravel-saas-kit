@@ -18,7 +18,6 @@ This is intentionally a template application. The goal is to reuse a proven impl
 - Product catalog, product pages, pricing pages, blog, preview routes, sitemap, canonical/structured-data helpers.
 - Filament admin for users, sessions, products, plans, subscriptions, orders, blog posts, API keys, and access analytics.
 - Site visit/event tracking through `TrackSiteVisit`, `SiteAnalyticsTracker`, and the site analytics tables.
-- Automated content publishing through `n2ns/laravel-post2site`; the older template MCP routes stay disabled unless `SAAS_KIT_LEGACY_MCP_ROUTES=true`.
 - Starter seed data for one product, Free/Plus/Credits plans, and Stripe gateway.
 
 ## Not Included
@@ -99,7 +98,5 @@ External-client API login setup is documented in [API_AUTH.md](API_AUTH.md).
 ## Operating Model
 
 Use the admin panel to replace the starter product, plans, blog posts, SEO fields, and legal pages with the new product site's own content.
-
-For automated publishing, use `n2ns/laravel-post2site` with `POST2SITE_PRESET=laravel_saas_kit`. The site publishes through its built-in `blog_posts` and `blog_post_translations` tables; it does not need another blog package.
 
 Product-specific code belongs in the product site after the template is copied. Shared improvements that apply to every product site should be backported into this template.

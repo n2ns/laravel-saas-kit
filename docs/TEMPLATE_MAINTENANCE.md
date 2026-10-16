@@ -12,7 +12,7 @@ Keep generic SaaS/product-site behavior in `stubs/root`:
 - API auth
 - subscriptions and billing
 - product catalog
-- blog and product articles
+- blog
 - SEO
 - Filament admin
 - analytics
@@ -78,11 +78,9 @@ Keep generic SaaS/product-site capability in `stubs/root`:
 - Stripe plans/orders/subscriptions/credits
 - Blog
 - product catalog
-- product articles
 - SEO
 - analytics
 - admin resources
-- the SaaS Kit content model used by the `laravel_saas_kit` Post2Site preset
 - deployment scripts
 
 Do not add product-specific business logic to the kit:

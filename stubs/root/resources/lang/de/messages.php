@@ -55,7 +55,7 @@ return [
             ],
             'publish' => [
                 'title' => 'Leitfäden veröffentlichen',
-                'description' => 'Betreiben Sie Blogbeiträge, Sitemap und Post2Site-Automation über einen gemeinsamen Workflow.',
+                'description' => 'Betreiben Sie Blogbeiträge, Übersetzungen und Sitemap über einen gemeinsamen Workflow.',
             ],
         ],
 

@@ -55,7 +55,7 @@ return [
             ],
             'publish' => [
                 'title' => '发布指南',
-                'description' => '用同一套内容流程管理博客、网站地图和 Post2Site 自动发布。',
+                'description' => '用同一套内容流程管理博客、多语言翻译和网站地图。',
             ],
         ],
 

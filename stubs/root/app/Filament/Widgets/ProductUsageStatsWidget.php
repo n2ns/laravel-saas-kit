@@ -38,7 +38,7 @@ class ProductUsageStatsWidget extends StatsOverviewWidget
             $weekEvents = (int) $aggregate->week_events;
             $weekUsers = (int) $aggregate->week_users;
 
-            $description = "This week: {} events, {} users";
+            $description = "This week: {$weekEvents} events, {$weekUsers} users";
 
             if (($config['track_tokens'] ?? false) === true) {
                 $description .= ' | Tokens: '.number_format((int) $aggregate->tokens_in + (int) $aggregate->tokens_out);
