@@ -69,7 +69,6 @@ CORS_ALLOWED_ORIGINS=
 - Admin emails are read from `ADMIN_EMAILS` (comma-separated). `ADMIN_EMAIL` is
   used only when `ADMIN_EMAILS` is absent, so fill in `ADMIN_EMAILS` or delete
   that line.
-- `ADMIN_PASSWORD` in `.env.example` is not read by any code.
 - `CORS_ALLOWED_ORIGINS` applies to `api/*` and `auth/google/one-tap`; keep
   `https://accounts.google.com` and add the site's origin.
 
@@ -114,8 +113,8 @@ Replace visible starter identity ("SaaS Starter" and starter copy):
 - `resources/views/errors/503.blade.php`
 - `resources/views/emails/subscription-activated.blade.php`
 - `public/llms.txt`
-- `public/robots.txt` (also update the `Sitemap:` URL, which ships as
-  `http://localhost:8000/sitemap.xml`)
+- `resources/views/robots.blade.php` (served at `/robots.txt`; its `Sitemap:`
+  URL follows `APP_URL`)
 
 Locales are `de`, `en`, `es`, and `zh_CN`.
 
@@ -224,7 +223,7 @@ STARTER_PLUS_MONTHLY_STRIPE_PRICE_ID=
 STARTER_CREDITS_10_STRIPE_PRICE_ID=
 ```
 
-The `STARTER_*` values are only read by `ReferenceDataSeeder` when it seeds the
+The `STARTER_*` values are only used by `ReferenceDataSeeder` when it seeds the
 `starter` product and plans. Checkout uses the `stripe_price_id` stored on each
 plan, so after the first seed, update plan names and price IDs in the admin panel
 (Commerce > Plans, Commerce > Product Listings), or edit
@@ -351,4 +350,4 @@ Before public launch, verify:
 - Access analytics write rows after page visits (Data Center > Access analytics).
 - Legal pages contain the new site's real owner/support contacts.
 - `php artisan sitemap:generate` has written `public/sitemap.xml`, and
-  `public/robots.txt` points to the production sitemap URL.
+  `/robots.txt` points to the production sitemap URL.

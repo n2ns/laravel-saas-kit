@@ -17,6 +17,10 @@ All notable changes to Laravel SaaS Kit are documented in this file.
 - Restored the day count, revoked-session count, and weekly usage numbers in admin messages that rendered as `{}`.
 - Updated template tests to the English admin labels, so the installed test suite passes again.
 - `scripts/lint-php.php` now skips `vendor` and `node_modules` on Windows.
+- `ReferenceDataSeeder` reads the starter Stripe IDs from `config/services.php`, so they are no longer stored as empty values when the configuration is cached.
+- `/robots.txt` is now rendered with a `Sitemap:` URL based on `APP_URL` instead of a static file pointing to `http://localhost:8000`; the Nginx example passes it to Laravel.
+- The admin panel uses the site's default locale instead of forcing `zh_CN` alongside English admin labels.
+- Removed the unused `ADMIN_PASSWORD` entry from `.env.example`.
 
 ## [0.1.0] - 2026-06-24
 

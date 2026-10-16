@@ -93,7 +93,6 @@ Notes:
   in `ADMIN_EMAILS` or delete that line when you use `ADMIN_EMAIL`.
 - `ADMIN_PATH` sets the Filament admin URL (`/{ADMIN_PATH}`) and is also
   excluded from access analytics.
-- `.env.example` contains `ADMIN_PASSWORD`, but no application code reads it.
 
 Generate and keep `APP_KEY` once:
 
@@ -152,16 +151,14 @@ Stripe payment gateway, the `starter` catalog item and product, and the
 `starter_free`, `starter_plus_monthly`, and `starter_credits_10` plans, and it
 assigns catalog taxonomy terms that the migrations create.
 
-The seeder reads `STARTER_STRIPE_PRODUCT_ID`,
-`STARTER_PLUS_MONTHLY_STRIPE_PRICE_ID`, and `STARTER_CREDITS_10_STRIPE_PRICE_ID`
-with `env()`. If you seed manually instead of using `--seed-reference`, run it
-while the configuration is not cached (after `php artisan optimize:clear`, before
-`php artisan optimize`), otherwise those Stripe IDs are stored as empty values:
+The seeder reads the starter Stripe IDs from `config/services.php`
+(`services.stripe.products.starter`), which maps `STARTER_STRIPE_PRODUCT_ID`,
+`STARTER_PLUS_MONTHLY_STRIPE_PRICE_ID`, and `STARTER_CREDITS_10_STRIPE_PRICE_ID`.
+It works with or without a cached configuration. If you seed manually instead of
+using `--seed-reference`:
 
 ```bash
-php artisan optimize:clear
 php artisan db:seed --class=ReferenceDataSeeder --force
-php artisan optimize
 ```
 
 Re-running the seeder overwrites those starter records with the seeder's values.
@@ -270,8 +267,9 @@ deployment or content changes:
 php artisan sitemap:generate
 ```
 
-`public/sitemap.xml` is ignored by git. Update the `Sitemap:` line in
-`public/robots.txt`, which ships as `http://localhost:8000/sitemap.xml`.
+`public/sitemap.xml` is ignored by git. `/robots.txt` is rendered from
+`resources/views/robots.blade.php`, and its `Sitemap:` line uses `APP_URL`, so
+set `APP_URL` to the production URL.
 
 ## Stripe Setup
 
@@ -288,7 +286,7 @@ Configure Stripe with:
   configuration is used.
 
 Checkout uses the `stripe_price_id` stored on each `plans` record, and products
-store `stripe_product_id`. The `STARTER_*` environment values are only read by
+store `stripe_product_id`. The `STARTER_*` environment values are only used by
 `ReferenceDataSeeder` when it seeds those records. After the initial seed,
 change Stripe product and price IDs in the admin panel (Commerce > Product
 Listings and Commerce > Plans).

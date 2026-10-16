@@ -172,8 +172,8 @@ Details: [BLOG_GUIDELINES.md](../stubs/root/BLOG_GUIDELINES.md).
   `refund`, `terms`) and `resources/lang/{de,es,zh_CN}.json`.
 - Catalog and blog content are translated in the database; pages fall back to
   the default locale when a locale has no content.
-- The Filament panel runs with the `zh_CN` app locale (`SetFilamentLocale`)
-  and uses the Spatie Translatable plugin with all supported locales.
+- The Filament panel runs with the default locale (`SetFilamentLocale` uses
+  `LocaleProfile::default()`) and uses the Spatie Translatable plugin with all supported locales.
 
 ## SEO and Sitemap
 
@@ -190,8 +190,8 @@ Details: [BLOG_GUIDELINES.md](../stubs/root/BLOG_GUIDELINES.md).
   pricing pages, and published blog posts, each with `hreflang` alternates.
   Catalog items can opt out or set priority/frequency through
   `seo_payload.indexable` and `seo_payload.sitemap.*`.
-- `public/robots.txt` (allows AI crawlers; its `Sitemap:` line points to
-  `http://localhost:8000/sitemap.xml` and must be edited) and
+- `/robots.txt`, rendered from `resources/views/robots.blade.php` (allows AI
+  crawlers; its `Sitemap:` line is `APP_URL/sitemap.xml`), and
   `public/llms.txt`.
 - No task is scheduled in `routes/console.php`; run `sitemap:generate` after
   content changes or add it to the scheduler.

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\LocaleProfile;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -16,8 +17,8 @@ class SetFilamentLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Force zh_CN for any requests entering the Filament admin panel
-        App::setLocale('zh_CN');
+        // The admin panel always uses the application's default locale.
+        App::setLocale(LocaleProfile::default());
 
         return $next($request);
     }

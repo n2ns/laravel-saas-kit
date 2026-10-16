@@ -158,7 +158,7 @@ class ReferenceDataSeeder extends Seeder
                 'is_active' => true,
                 'pause_reason' => null,
                 'sort_order' => 10,
-                'stripe_product_id' => env('STARTER_STRIPE_PRODUCT_ID'),
+                'stripe_product_id' => config('services.stripe.products.starter.product_id'),
                 'pricing_page_url' => null,
                 'mcp_server_url' => null,
                 'mcp_api_key' => null,
@@ -190,7 +190,7 @@ class ReferenceDataSeeder extends Seeder
                 'billing_cycle' => 'monthly',
                 'price' => 29,
                 'features' => ['starter_access' => true, 'support' => 'priority'],
-                'stripe_price_id' => env('STARTER_PLUS_MONTHLY_STRIPE_PRICE_ID'),
+                'stripe_price_id' => config('services.stripe.products.starter.prices.plus_monthly'),
                 'sort_order' => 20,
             ],
             [
@@ -201,7 +201,7 @@ class ReferenceDataSeeder extends Seeder
                 'billing_cycle' => 'one_time',
                 'price' => 2,
                 'features' => ['credits' => 10],
-                'stripe_price_id' => env('STARTER_CREDITS_10_STRIPE_PRICE_ID'),
+                'stripe_price_id' => config('services.stripe.products.starter.prices.credits_10'),
                 'sort_order' => 30,
             ],
         ];

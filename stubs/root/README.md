@@ -21,7 +21,7 @@ legal copy, assets, OAuth credentials, and Stripe IDs with its own.
   and `/cn` (`zh_CN`) prefixes configured in `config/app.php`
   (`supported_locales`).
 - **SEO**: canonical URLs, `hreflang` alternates, Open Graph/Twitter tags,
-  JSON-LD structured data, `public/robots.txt`, `public/llms.txt`, and
+  JSON-LD structured data, a `/robots.txt` route, `public/llms.txt`, and
   `php artisan sitemap:generate`.
 - **Authentication**: Google web login (Socialite), Google One Tap, external
   client API login with Google ID tokens through Passport, refresh tokens,

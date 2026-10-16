@@ -29,6 +29,12 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 |
 */
 
+// robots.txt is rendered so its sitemap URL follows APP_URL.
+Route::get('/robots.txt', fn () => response()
+    ->view('robots', ['sitemapUrl' => rtrim((string) config('app.url'), '/').'/sitemap.xml'])
+    ->header('Content-Type', 'text/plain; charset=UTF-8'))
+    ->name('robots');
+
 // 1. SEO 301 Redirects: Redirect '/en' and '/en/*' to un-prefixed versions
 Route::redirect('/en', '/', 301);
 Route::get('/en/{any}', function (Request $request, $any) {

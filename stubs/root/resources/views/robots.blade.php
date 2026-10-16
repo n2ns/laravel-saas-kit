@@ -32,7 +32,7 @@ User-agent: Bytespider
 Allow: /
 
 # Sitemap location
-Sitemap: http://localhost:8000/sitemap.xml
+Sitemap: {{ $sitemapUrl }}
 
 # Crawl-delay (optional, be nice to the server)
 Crawl-delay: 1

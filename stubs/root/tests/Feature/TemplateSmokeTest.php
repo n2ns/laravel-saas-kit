@@ -7,6 +7,7 @@ use App\Filament\Resources\CatalogItemResource;
 use App\Filament\Resources\HomepageDisplayResource;
 use App\Filament\Resources\HomepageDisplayResource\Pages\EditHomepageDisplay;
 use App\Filament\Resources\HomepageDisplayResource\Pages\ListHomepageDisplays;
+use App\Http\Middleware\SetFilamentLocale;
 use App\Models\ApiKey;
 use App\Models\BlogPost;
 use App\Models\CatalogItem;
@@ -20,7 +21,9 @@ use App\Services\StripeService;
 use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use Livewire\Livewire;
@@ -28,6 +31,7 @@ use Mockery;
 use ReflectionClass;
 use ReflectionMethod;
 use RuntimeException;
+use Database\Seeders\ReferenceDataSeeder;
 use Tests\TestCase;
 
 class TemplateSmokeTest extends TestCase
@@ -717,5 +721,38 @@ class TemplateSmokeTest extends TestCase
             'homepage_sort_order' => 3,
             'is_visible' => true,
         ]);
+    }
+
+    public function test_reference_seeder_reads_starter_stripe_ids_from_config(): void
+    {
+        config()->set('services.stripe.products.starter.product_id', 'prod_config_test');
+        config()->set('services.stripe.products.starter.prices.plus_monthly', 'price_plus_config_test');
+        config()->set('services.stripe.products.starter.prices.credits_10', 'price_credits_config_test');
+
+        $this->seed(ReferenceDataSeeder::class);
+
+        $this->assertSame('prod_config_test', DB::table('products')->where('code', 'starter')->value('stripe_product_id'));
+        $this->assertSame('price_plus_config_test', DB::table('plans')->where('code', 'starter_plus_monthly')->value('stripe_price_id'));
+        $this->assertSame('price_credits_config_test', DB::table('plans')->where('code', 'starter_credits_10')->value('stripe_price_id'));
+    }
+
+    public function test_robots_txt_points_to_the_app_url_sitemap(): void
+    {
+        config()->set('app.url', 'https://example.test');
+
+        $this->get('/robots.txt')
+            ->assertOk()
+            ->assertHeader('Content-Type', 'text/plain; charset=UTF-8')
+            ->assertSee('Sitemap: https://example.test/sitemap.xml', false)
+            ->assertDontSee('localhost', false);
+    }
+
+    public function test_admin_panel_uses_the_application_locale(): void
+    {
+        App::setLocale('de');
+
+        (new SetFilamentLocale)->handle(Request::create('/admin'), fn () => response('ok'));
+
+        $this->assertSame('en', App::getLocale());
     }
 }
