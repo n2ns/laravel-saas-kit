@@ -9,7 +9,7 @@
         "product-site",
         "template"
     ],
-    "license": "MIT",
+    "license": "Apache-2.0",
     "require": {
         "php": "^8.3",
         "carbonphp/carbon-doctrine-types": "^3.2.1",

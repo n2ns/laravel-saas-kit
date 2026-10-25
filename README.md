@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/n2ns/laravel-saas-kit.svg)](https://packagist.org/packages/n2ns/laravel-saas-kit)
 [![Total Downloads](https://img.shields.io/packagist/dt/n2ns/laravel-saas-kit.svg)](https://packagist.org/packages/n2ns/laravel-saas-kit)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](./LICENSE)
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.3-8892bf.svg)](https://www.php.net)
 [![Laravel Version Support](https://img.shields.io/badge/Laravel-12-red)](https://laravel.com)
 
@@ -74,7 +74,7 @@ If you want AI assistants to draft and publish blog posts for your site, conside
 
 ## License
 
-SaaS Kit is open-source software licensed under the [MIT license](LICENSE).
+SaaS Kit is open-source software licensed under the [Apache-2.0 license](LICENSE).
 
 ---
 

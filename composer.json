@@ -9,7 +9,7 @@
         "starter-kit",
         "product-site"
     ],
-    "license": "MIT",
+    "license": "Apache-2.0",
     "funding": [
         {
             "type": "github",
