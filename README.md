@@ -1,8 +1,7 @@
 # SaaS Kit
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/n2ns/laravel-saas-kit.svg)](https://packagist.org/packages/n2ns/laravel-saas-kit)
-[![Total Downloads](https://img.shields.io/packagist/dt/n2ns/laravel-saas-kit.svg)](https://packagist.org/packages/n2ns/laravel-saas-kit)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](./LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/n2ns/laravel-saas-kit/ci.yml?branch=main&label=CI)](https://github.com/n2ns/laravel-saas-kit/actions/workflows/ci.yml)
+[![license](https://img.shields.io/github/license/n2ns/laravel-saas-kit)](https://github.com/n2ns/laravel-saas-kit/blob/main/LICENSE)
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.3-8892bf.svg)](https://www.php.net)
 [![Laravel Version Support](https://img.shields.io/badge/Laravel-12-red)](https://laravel.com)
 
