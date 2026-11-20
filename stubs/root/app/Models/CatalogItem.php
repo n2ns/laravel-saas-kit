@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasLocalizedAttributes;
+use App\Support\FullTextSearch;
 use App\Support\LocaleProfile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -225,42 +226,73 @@ class CatalogItem extends Model
         $like = self::likePattern($keyword);
 
         return $query->where(function (Builder $q) use ($keyword, $like): void {
-            $q->where('code', 'like', $like)
-                ->orWhereHas('translations', function (Builder $translationQuery) use ($keyword): void {
-                    $translationQuery->whereFullText(self::TRANSLATION_TEXT_COLUMNS, $keyword);
+            $q->whereLike('code', $like);
+
+            if (FullTextSearch::isSupported($q)) {
+                $q->orWhereHas('translations', function (Builder $translationQuery) use ($keyword): void {
+                    FullTextSearch::where($translationQuery, self::TRANSLATION_TEXT_COLUMNS, $keyword);
                 });
+            }
 
             $q->orWhereHas('profile', function (Builder $profileQuery) use ($like): void {
                 $profileQuery
-                    ->where('product_type', 'like', $like)
-                    ->orWhere('segment', 'like', $like)
-                    ->orWhere('theme_profile', 'like', $like)
-                    ->orWhereRaw('CAST(`facts` AS CHAR) LIKE ?', [$like])
-                    ->orWhereRaw('CAST(`aliases` AS CHAR) LIKE ?', [$like])
-                    ->orWhereRaw('CAST(`links` AS CHAR) LIKE ?', [$like]);
+                    ->whereLike('product_type', $like)
+                    ->orWhereLike('segment', $like)
+                    ->orWhereLike('theme_profile', $like);
+
+                foreach (['facts', 'aliases', 'links'] as $column) {
+                    self::orWhereJsonTextLike($profileQuery, $column, $like);
+                }
             });
 
             $q->orWhereHas('translations', function (Builder $translationQuery) use ($like): void {
                 $translationQuery
-                    ->where('name', 'like', $like)
-                    ->orWhere('short_description', 'like', $like)
-                    ->orWhere('long_description', 'like', $like)
-                    ->orWhere('seo_title', 'like', $like)
-                    ->orWhere('seo_description', 'like', $like)
-                    ->orWhere('card_tag', 'like', $like)
-                    ->orWhere('cta_label', 'like', $like);
+                    ->whereLike('name', $like)
+                    ->orWhereLike('short_description', $like)
+                    ->orWhereLike('long_description', $like)
+                    ->orWhereLike('seo_title', $like)
+                    ->orWhereLike('seo_description', $like)
+                    ->orWhereLike('card_tag', $like)
+                    ->orWhereLike('cta_label', $like);
 
                 foreach (self::TRANSLATION_JSON_SEARCH_COLUMNS as $column) {
-                    $translationQuery->orWhereRaw("CAST(`{$column}` AS CHAR) LIKE ?", [$like]);
+                    self::orWhereJsonTextLike($translationQuery, $column, $like);
                 }
             });
 
             $q->orWhereHas('detail.translations', function (Builder $detailTranslationQuery) use ($like): void {
-                $detailTranslationQuery
-                    ->whereRaw('CAST(`detail_sections` AS CHAR) LIKE ?', [$like])
-                    ->orWhereRaw('CAST(`localized_payload` AS CHAR) LIKE ?', [$like]);
+                $detailTranslationQuery->where(function (Builder $jsonQuery) use ($like): void {
+                    foreach (['detail_sections', 'localized_payload'] as $column) {
+                        self::orWhereJsonTextLike($jsonQuery, $column, $like);
+                    }
+                });
             });
         });
+    }
+
+    /**
+     * Case-insensitive LIKE over the text form of a JSON column.
+     *
+     * PostgreSQL goes through jsonb so stored \u escapes compare as characters,
+     * as they do in MySQL's JSON-to-CHAR cast. jsonb rejects \u0000, so such a
+     * value is matched on its raw text instead of failing the whole query.
+     *
+     * @param  Builder<covariant Model>  $query
+     */
+    private static function orWhereJsonTextLike(Builder $query, string $column, string $like): void
+    {
+        $wrapped = $query->getQuery()->getGrammar()->wrap($column);
+
+        if ($query->getConnection()->getDriverName() === 'pgsql') {
+            $query->orWhereRaw(
+                "(CASE WHEN POSITION('\\u0000' IN CAST({$wrapped} AS TEXT)) > 0 THEN CAST({$wrapped} AS TEXT) ELSE CAST({$wrapped} AS JSONB)::TEXT END) ILIKE ?",
+                [$like]
+            );
+
+            return;
+        }
+
+        $query->orWhereRaw("CAST({$wrapped} AS CHAR) LIKE ?", [$like]);
     }
 
     public function isInDevelopment(): bool

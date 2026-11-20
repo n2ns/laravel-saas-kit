@@ -106,6 +106,7 @@ The package has been verified with:
 - Passport 13.12.0.
 - Cashier 16.11.0.
 - PHP 8.5.4 locally; CI runs PHP 8.3.
+- SQLite and PostgreSQL 18: the installed template tests pass on both, and a `seed-data:export` / `database:restore-local` round trip on PostgreSQL restores identical rows. MySQL and MariaDB were not run in this verification.
 
 The smoke test confirms:
 

@@ -88,8 +88,12 @@ class ExportSeedDataCommand extends Command
     {
         $driver = DB::connection()->getDriverName();
 
+        if ($driver === 'pgsql') {
+            return Schema::getTableListing(Schema::getCurrentSchemaName(), false);
+        }
+
         if (! in_array($driver, ['mysql', 'mariadb'], true)) {
-            throw new RuntimeException('seed-data:export requires a MySQL connection.');
+            throw new RuntimeException('seed-data:export requires a MySQL, MariaDB, or PostgreSQL connection.');
         }
 
         return collect(DB::select("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'"))

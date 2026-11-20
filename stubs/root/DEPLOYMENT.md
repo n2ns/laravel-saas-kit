@@ -19,7 +19,9 @@ Official references:
 - PHP 8.3 or newer.
 - Composer 2.
 - Node.js 24 and npm for `npm ci` and `npm run build`.
-- MySQL or MariaDB for production. SQLite is only the local starter default.
+- MySQL, MariaDB, or PostgreSQL for production. SQLite is only the local starter default.
+  The examples below use MySQL; for PostgreSQL set `DB_CONNECTION=pgsql` and
+  `DB_PORT=5432`.
 - systemd for queue workers.
 - A web server that points the document root to `public`.
 - A cron entry for Laravel's scheduler only if you add scheduled tasks (see

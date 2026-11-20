@@ -376,8 +376,9 @@ Details: [DEPLOYMENT.md](../stubs/root/DEPLOYMENT.md) and
   `database/seeders/data` (or `DATABASE_SEED_DATA_PATH`).
   `php artisan database:restore-local` (local only) and
   `php artisan database:restore-seed-data` (local/testing, or production with
-  `--allow-production`) rebuild the database through `SeedDataSeeder`, which
-  requires MySQL or MariaDB.
+  `--allow-production`) rebuild the database through `SeedDataSeeder`. Export
+  and restore require MySQL, MariaDB, or PostgreSQL; restore seed data on the
+  same database type it was exported from.
 - `spatie/laravel-backup` is configured in `config/backup.php`; a `google`
   filesystem disk (`GOOGLE_DRIVE_*`) is available for off-site storage.
 - Tests: PHPUnit feature tests in `tests/Feature` run on in-memory SQLite

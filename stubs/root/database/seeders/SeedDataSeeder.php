@@ -17,7 +17,7 @@ class SeedDataSeeder extends Seeder
     public function run(): void
     {
         $this->ensureSafeEnvironment();
-        $this->ensureMySqlConnection();
+        $this->ensureSupportedConnection();
 
         $path = $this->seedDataPath();
 
@@ -25,7 +25,7 @@ class SeedDataSeeder extends Seeder
             throw new RuntimeException("Seed data directory does not exist: {$path}");
         }
 
-        $tables = $this->tables($path);
+        $tables = $this->inDependencyOrder($this->tables($path));
 
         $this->disableForeignKeys();
 
@@ -111,6 +111,8 @@ class SeedDataSeeder extends Seeder
             DB::table($name)->insert($chunk);
         }
 
+        $this->syncIdSequence($name);
+
         $this->command?->line('Seeded '.$name.' ('.count($rows).' rows).');
     }
 
@@ -131,20 +133,103 @@ class SeedDataSeeder extends Seeder
 
     private function disableForeignKeys(): void
     {
+        if ($this->isPostgres()) {
+            return;
+        }
+
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
     }
 
     private function enableForeignKeys(): void
     {
+        if ($this->isPostgres()) {
+            return;
+        }
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 
-    private function ensureMySqlConnection(): void
+    /**
+     * PostgreSQL cannot switch foreign key checks off for an ordinary user, so
+     * tables are seeded after the tables they reference and cleared in reverse.
+     *
+     * @param  list<array{name: string, file: string, row_count?: int}>  $tables
+     * @return list<array{name: string, file: string, row_count?: int}>
+     */
+    private function inDependencyOrder(array $tables): array
+    {
+        if (! $this->isPostgres()) {
+            return $tables;
+        }
+
+        $byName = collect($tables)->keyBy('name')->all();
+        $dependencies = [];
+
+        foreach ($byName as $name => $table) {
+            $dependencies[$name] = collect(Schema::hasTable($name) ? Schema::getForeignKeys($name) : [])
+                ->pluck('foreign_table')
+                ->filter(fn (string $foreign): bool => $foreign !== $name && isset($byName[$foreign]))
+                ->unique()
+                ->values()
+                ->all();
+        }
+
+        $ordered = [];
+
+        while ($dependencies !== []) {
+            $ready = array_keys(array_filter($dependencies, fn (array $references): bool => $references === []));
+
+            if ($ready === []) {
+                throw new RuntimeException('Seed data tables have circular foreign keys: '.implode(', ', array_keys($dependencies)));
+            }
+
+            foreach ($ready as $name) {
+                $ordered[] = $byName[$name];
+                unset($dependencies[$name]);
+            }
+
+            foreach ($dependencies as $name => $references) {
+                $dependencies[$name] = array_values(array_diff($references, $ready));
+            }
+        }
+
+        return $ordered;
+    }
+
+    /**
+     * Rows keep their exported ids, so move the PostgreSQL sequence past them.
+     */
+    private function syncIdSequence(string $table): void
+    {
+        if (! $this->isPostgres() || ! Schema::hasColumn($table, 'id')) {
+            return;
+        }
+
+        $sequence = DB::scalar('select pg_get_serial_sequence(?, ?)', [$table, 'id']);
+
+        if ($sequence === null) {
+            return;
+        }
+
+        $wrappedTable = DB::getQueryGrammar()->wrapTable($table);
+
+        DB::statement(
+            "select setval(?, coalesce((select max(id) from {$wrappedTable}), 0) + 1, false)",
+            [$sequence]
+        );
+    }
+
+    private function isPostgres(): bool
+    {
+        return DB::connection()->getDriverName() === 'pgsql';
+    }
+
+    private function ensureSupportedConnection(): void
     {
         $driver = DB::connection()->getDriverName();
 
-        if (! in_array($driver, ['mysql', 'mariadb'], true)) {
-            throw new RuntimeException('SeedDataSeeder requires a MySQL connection.');
+        if (! in_array($driver, ['mysql', 'mariadb', 'pgsql'], true)) {
+            throw new RuntimeException('SeedDataSeeder requires a MySQL, MariaDB, or PostgreSQL connection.');
         }
     }
 

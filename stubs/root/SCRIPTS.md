@@ -161,7 +161,9 @@ The site adds these console commands in `app/Console/Commands`:
 | `database:restore-local [--force]` | Local environment only: run `migrate:fresh` and seed from `SeedDataSeeder`. |
 | `database:restore-seed-data [--force] [--allow-production]` | Rebuild the current database from migrations and seed data; production requires `--allow-production`. |
 
-`SeedDataSeeder` requires a MySQL or MariaDB connection and reads from
+`seed-data:export` and `SeedDataSeeder` require a MySQL, MariaDB, or PostgreSQL
+connection; restore seed data on the same database type it was exported from.
+`SeedDataSeeder` reads from
 `database/seeders/data` (override with `DATABASE_SEED_DATA_PATH`). It expects
 exported table data there, so run `seed-data:export` before using the restore
 commands.

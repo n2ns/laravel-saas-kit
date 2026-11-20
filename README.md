@@ -30,7 +30,7 @@ See [Features](docs/FEATURES.md) for the technical details of each area.
 - PHP 8.3 or newer and Composer 2
 - Node.js 24 and npm
 - A fresh Laravel 12 application
-- MySQL or MariaDB for production (SQLite works for local testing)
+- MySQL, MariaDB, or PostgreSQL for production (SQLite works for local testing)
 
 ## Quick Start
 

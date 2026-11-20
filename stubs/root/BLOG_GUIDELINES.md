@@ -102,7 +102,8 @@ hardcode taxonomy codes in controllers, views, or seeders.
 - Optional filters: `q` (search, truncated to 120 characters), `type`, and
   `topic`. Unknown `type` or `topic` values are ignored.
 - Search matches title, excerpt, and content in the main table and
-  translations with `LIKE`, plus fulltext indexes on MySQL/MariaDB.
+  translations with case-insensitive `LIKE`, plus fulltext indexes on MySQL,
+  MariaDB, and PostgreSQL.
 
 Pinned posts get no priority on `/blog`, which keeps the archive predictable.
 

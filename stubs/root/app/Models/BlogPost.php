@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Models\Concerns\HasLocalizedAttributes;
 use App\Support\BlogContentVocabulary;
+use App\Support\FullTextSearch;
 use App\Support\LocaleProfile;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -302,10 +303,10 @@ class BlogPost extends Model implements Sitemapable
     public function scopeApplyPinnedListingOrder($query, string $sort = 'latest')
     {
         $query->orderByRaw(
-            'case when is_pinned = 1 and (pinned_until is null or pinned_until > ?) then 0 else 1 end',
+            'case when is_pinned and (pinned_until is null or pinned_until > ?) then 0 else 1 end',
             [now()]
         )->orderByRaw(
-            'case when is_pinned = 1 and (pinned_until is null or pinned_until > ?) then pin_order else 0 end',
+            'case when is_pinned and (pinned_until is null or pinned_until > ?) then pin_order else 0 end',
             [now()]
         );
 
@@ -338,21 +339,21 @@ class BlogPost extends Model implements Sitemapable
         $supportsFullText = DB::connection()->getDriverName() !== 'sqlite';
 
         return $query->where(function ($q) use ($keyword, $like, $supportsFullText) {
-            $q->where('title', 'like', $like)
-                ->orWhere('excerpt', 'like', $like)
-                ->orWhere('content', 'like', $like);
+            $q->whereLike('title', $like)
+                ->orWhereLike('excerpt', $like)
+                ->orWhereLike('content', $like);
 
             if ($supportsFullText) {
-                $q->orWhereFullText(self::FULL_TEXT_COLUMNS, $keyword)
+                FullTextSearch::where($q, self::FULL_TEXT_COLUMNS, $keyword, 'or')
                     ->orWhereHas('translations', function ($tq) use ($keyword) {
-                        $tq->whereFullText(self::FULL_TEXT_COLUMNS, $keyword);
+                        FullTextSearch::where($tq, self::FULL_TEXT_COLUMNS, $keyword);
                     });
             }
 
             $q->orWhereHas('translations', function ($tq) use ($like) {
-                $tq->where('title', 'like', $like)
-                    ->orWhere('excerpt', 'like', $like)
-                    ->orWhere('content', 'like', $like);
+                $tq->whereLike('title', $like)
+                    ->orWhereLike('excerpt', $like)
+                    ->orWhereLike('content', $like);
             });
         });
     }

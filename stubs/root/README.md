@@ -143,16 +143,16 @@ Composer scripts.
 | `php artisan passport:ensure-social-client` | Verify the Passport API client grant types. |
 | `php artisan app:sync-product-stats` | Refresh GitHub/npm/VS Code stats stored in product metadata. |
 | `php artisan seed-data:export` | Export database rows to `database/seeders/data` for `SeedDataSeeder`. |
-| `php artisan database:restore-local --force` | Rebuild the local MySQL database from migrations and exported seed data. |
+| `php artisan database:restore-local --force` | Rebuild the local MySQL, MariaDB, or PostgreSQL database from migrations and exported seed data. |
 | `php artisan database:restore-seed-data` | Same rebuild for local/testing, or production with `--allow-production`. |
 | `bash scripts/deploy-production.sh` | Routine production deployment. |
 
 `routes/console.php` defines no scheduled tasks. Run `sitemap:generate` and
 `app:sync-product-stats` manually or add them to the scheduler.
 
-Tests use in-memory SQLite (`phpunit.xml`). Migrations create MySQL/MariaDB
-fulltext indexes only on non-SQLite connections, and blog search falls back to
-`LIKE` matching on SQLite.
+Tests use in-memory SQLite (`phpunit.xml`). Migrations create fulltext indexes
+only on non-SQLite connections (MySQL, MariaDB, PostgreSQL), and blog search
+falls back to `LIKE` matching on SQLite.
 
 ## Documentation
 
