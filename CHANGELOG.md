@@ -4,6 +4,10 @@ All notable changes to Laravel SaaS Kit are documented in this file.
 
 ## [Unreleased]
 
+### Security
+
+- The template's `package.json` overrides `postcss-selector-parser` for `@tailwindcss/typography` to `^6.1.6`, fixing GHSA-rj75-hqrm-r3gf; `npm audit` now reports no vulnerabilities, and the built CSS is unchanged.
+
 ## [0.2.0] - 2026-11-20
 
 ### Added
@@ -35,10 +39,6 @@ All notable changes to Laravel SaaS Kit are documented in this file.
 - Catalog search no longer throws on SQLite; it skips the fulltext branch there, as blog search already did.
 - `config/database.php` uses `Pdo\Mysql::ATTR_SSL_CA` instead of the `PDO::MYSQL_ATTR_SSL_CA` constant deprecated in PHP 8.5.
 - `scripts/check-template-sync.sh` now anchors its exclusions to the template root, so `config/services.php` is compared instead of being skipped along with `bootstrap/cache/services.php`.
-
-### Security
-
-- The template's `package.json` overrides `postcss-selector-parser` for `@tailwindcss/typography` to `^6.1.6`, fixing GHSA-rj75-hqrm-r3gf; `npm audit` now reports no vulnerabilities, and the built CSS is unchanged.
 
 ## [0.1.0] - 2026-06-24
 
