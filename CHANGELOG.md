@@ -4,6 +4,8 @@ All notable changes to Laravel SaaS Kit are documented in this file.
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-20
+
 ### Added
 
 - The template ships `public/favicon.svg` and declares it, with `favicon.ico`, in the main layout and the 404 and 503 pages.
