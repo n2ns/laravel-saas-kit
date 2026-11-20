@@ -35,12 +35,6 @@
                             {{ __('messages.nav.blog') }}
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ asset('sitemap.xml') }}" target="_blank"
-                            class="text-white/85 hover:text-[#fca85a] transition-colors text-sm">
-                            {{ __('messages.footer.sitemap') }}
-                        </a>
-                    </li>
                 </ul>
             </div>
 
@@ -113,8 +107,12 @@
         <!-- Bottom Bar -->
         <div class="pt-8 border-t border-white/10">
             <!-- Copyright -->
-            <div class="text-center text-white/70 text-xs">
+            <div class="flex flex-col items-center gap-2 text-center text-white/70 text-xs sm:flex-row sm:justify-between sm:text-left">
                 <p>&copy; {{ date('Y') }} {{ config('app.company_name', config('app.name')) }}. {{ __('messages.footer.rights_reserved') }}</p>
+                <p>{!! __('messages.footer.built_with', [
+                    'kit' => '<a href="https://github.com/n2ns/laravel-saas-kit" target="_blank" rel="noopener" class="text-white/85 hover:text-[#fca85a] transition-colors">Laravel SaaS Kit</a>',
+                    'lab' => '<a href="https://n2ns.com" target="_blank" rel="noopener" class="text-white/85 hover:text-[#fca85a] transition-colors">N2NS Lab</a>',
+                ]) !!}</p>
             </div>
         </div>
     </div>

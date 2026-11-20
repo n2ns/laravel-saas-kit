@@ -8,7 +8,7 @@
  */
 
 return [
-    'title' => '联系我们 - SaaS Starter',
+    'title' => '联系我们 - SaaS Kit',
     'hero_title' => '联系我们',
     'hero_subtitle' => '我们期待您的来信，请随时与我们的团队联系。',
     'send_message' => '发送消息',

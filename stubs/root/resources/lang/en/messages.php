@@ -3,7 +3,6 @@
 return [
     // Navigation
     'nav' => [
-        'home' => 'Home',
         'about' => 'About',
         'products' => 'Products',
         'pricing' => 'Pricing',
@@ -19,15 +18,14 @@ return [
 
     // Meta
     'meta' => [
-        'description' => 'SaaS Starter is a Laravel product-site template for launching SaaS products with authentication, billing, product pages, blog publishing, SEO, and admin workflows.',
+        'description' => 'SaaS Kit is a Laravel product-site template for launching SaaS products with authentication, billing, product pages, blog publishing, SEO, and admin workflows.',
         'keywords' => 'SaaS, Laravel, product site, subscription billing, blog publishing, product catalog, SEO, admin dashboard',
-        'title' => 'SaaS Starter - Laravel Product Site Template',
-        'site_name' => 'SaaS Starter',
+        'title' => 'SaaS Kit - Laravel Product Site Template',
     ],
 
     // Home Page
     'home' => [
-        'title' => 'SaaS Starter - Laravel Product Site Template',
+        'title' => 'SaaS Kit - Laravel Product Site Template',
         'hero_title' => 'Launch a focused SaaS product site',
         'hero_subtitle' => 'A Laravel starter for product pages, subscriptions, account access, blog publishing, SEO, and admin workflows.',
         'hero_pricing_cta' => 'View pricing',
@@ -73,14 +71,14 @@ return [
     'footer' => [
         'company_desc' => 'A configurable SaaS product-site starter.',
         'rights_reserved' => 'All rights reserved.',
-        'sitemap' => 'Sitemap',
         'disclaimer' => 'Replace starter content, legal details, and product copy before publishing.',
+        'built_with' => 'Built with :kit by :lab.',
     ],
 
     // Blog
     'blog' => [
         'subtitle' => 'Product updates, guides, and company notes.',
-        'meta_keywords' => 'SaaS Starter blog, product updates, guides, company notes',
+        'meta_keywords' => 'SaaS Kit blog, product updates, guides, company notes',
         'back_to_list' => 'Back to Blog',
         'no_blog_posts' => 'No blog posts yet. Product updates and guides are coming soon.',
         'author_tagline' => 'Notes from the site team.',

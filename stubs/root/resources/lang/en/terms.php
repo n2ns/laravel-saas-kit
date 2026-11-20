@@ -13,9 +13,9 @@ return [
     'subtitle' => 'Please read these terms carefully before using our services',
     'sections' => [
         'acceptance_title' => '1. Acceptance of Terms',
-        'acceptance_body' => 'By accessing and using SaaS Starter\'s services, you accept and agree to be bound by the terms and provisions of this agreement.',
+        'acceptance_body' => 'By accessing and using SaaS Kit\'s services, you accept and agree to be bound by the terms and provisions of this agreement.',
         'services_title' => '2. Description of Services',
-        'services_body' => 'SaaS Starter provides product-site, account, subscription, content, and related software services. Replace this placeholder with the actual services offered by your site.',
+        'services_body' => 'SaaS Kit provides product-site, account, subscription, content, and related software services. Replace this placeholder with the actual services offered by your site.',
         'accounts_title' => '3. User Accounts',
         'accounts_body' => 'Some services may require you to create an account. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.',
 
@@ -31,7 +31,7 @@ return [
         'ip_title' => '7. Intellectual Property',
         'ip_body' => 'All content, features, and functionality of our services are owned by the site operator and are protected by international copyright, trademark, and other intellectual property laws.',
         'liability_title' => '8. Limitation of Liability',
-        'liability_body' => 'SaaS Starter shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service.',
+        'liability_body' => 'SaaS Kit shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service.',
         'termination_title' => '9. Termination',
         'termination_body' => 'We may terminate or suspend your access to our services immediately, without prior notice, for conduct that we believe violates these terms or is harmful to other users.',
 

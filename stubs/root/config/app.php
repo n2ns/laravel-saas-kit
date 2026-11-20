@@ -57,7 +57,7 @@ return [
 
     'admin_path' => trim((string) env('ADMIN_PATH', 'admin'), '/'),
 
-    'company_name' => env('COMPANY_NAME', env('APP_NAME', 'SaaS Starter')),
+    'company_name' => env('COMPANY_NAME', env('APP_NAME', 'SaaS Kit')),
 
     'company_email' => env('COMPANY_EMAIL', 'hello@example.com'),
 

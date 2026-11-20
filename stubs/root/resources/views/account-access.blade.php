@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'SaaS Starter Account Access')
-@section('meta_description', 'SaaS Starter account access for products, licenses, subscriptions, support, and Google Sign-In authentication.')
+@section('title', config('app.name').' Account Access')
+@section('meta_description', config('app.name').' account access for products, licenses, subscriptions, support, and Google Sign-In authentication.')
 
 @section('content')
 <section class="py-10 bg-gradient-to-br from-[#fff4e8] to-[#fff9f2] border-b border-black/10 relative overflow-hidden">
@@ -10,10 +10,10 @@
         <div class="max-w-3xl">
             <p class="section-label mb-4">Account access</p>
             <h1 class="text-2xl md:text-5xl font-bold text-slate-950 mb-6 leading-tight tracking-tight">
-                SaaS Starter Account Access
+                {{ config('app.name') }} Account Access
             </h1>
             <p class="text-base md:text-lg text-text-tertiary max-w-2xl leading-relaxed">
-                SaaS Starter provides account-based access for products, licenses, subscriptions, purchased services, and support. Replace this starter copy with the exact account-access scope for your site.
+                {{ config('app.name') }} provides account-based access for products, licenses, subscriptions, purchased services, and support. Replace this starter copy with the exact account-access scope for your site.
             </p>
         </div>
     </div>
@@ -28,7 +28,7 @@
                         What This App Does
                     </h2>
                     <p class="text-slate-600 leading-relaxed text-base md:text-lg">
-                        SaaS Starter provides account-based access to products, subscriptions, and license management for this site.
+                        {{ config('app.name') }} provides account-based access to products, subscriptions, and license management for this site.
                     </p>
                 </div>
 
@@ -37,7 +37,7 @@
                         Why Google Sign-In Is Used
                     </h2>
                     <p class="text-slate-600 leading-relaxed text-base md:text-lg">
-                        Google Sign-In lets users create or access a SaaS Starter account without a separate password. After signing in, users can manage product licenses and subscriptions, open purchased product services, view account information, and receive product support.
+                        Google Sign-In lets users create or access a {{ config('app.name') }} account without a separate password. After signing in, users can manage product licenses and subscriptions, open purchased product services, view account information, and receive product support.
                     </p>
                 </div>
 
@@ -46,7 +46,7 @@
                         Google Data Requested
                     </h2>
                     <p class="text-slate-600 leading-relaxed text-base md:text-lg">
-                        SaaS Starter requests only basic Google Sign-In information: your Google account identifier, email address, name, and profile picture. This information is used for authentication, account access, fraud prevention, license lookup, subscription status, and support.
+                        {{ config('app.name') }} requests only basic Google Sign-In information: your Google account identifier, email address, name, and profile picture. This information is used for authentication, account access, fraud prevention, license lookup, subscription status, and support.
                     </p>
                 </div>
 
@@ -55,7 +55,7 @@
                         Google Data Not Accessed
                     </h2>
                     <p class="text-slate-600 leading-relaxed text-base md:text-lg">
-                        SaaS Starter does not request access to Gmail, Google Drive, Google Calendar, Contacts, Photos, payment data, or other Google user content. We do not sell Google user data or use it for advertising.
+                        {{ config('app.name') }} does not request access to Gmail, Google Drive, Google Calendar, Contacts, Photos, payment data, or other Google user content. We do not sell Google user data or use it for advertising.
                     </p>
                 </div>
 

@@ -8,7 +8,7 @@
  */
 
 return [
-    'title' => 'Contacto - SaaS Starter',
+    'title' => 'Contacto - SaaS Kit',
     'hero_title' => 'Contáctenos',
     'hero_subtitle' => 'Nos encantaría saber de usted. Póngase en contacto con nuestro equipo.',
     'send_message' => 'Envíenos un Mensaje',

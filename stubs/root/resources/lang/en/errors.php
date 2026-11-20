@@ -2,7 +2,7 @@
 
 return [
     '404' => [
-        'meta_title' => 'Page not found - SaaS Starter',
+        'meta_title' => 'Page not found - SaaS Kit',
         'eyebrow' => 'Page not found',
         'title' => 'This page moved or does not exist.',
         'description' => 'The link may be outdated, or the product material may now live under a different canonical page. Start from the product catalog or return home.',

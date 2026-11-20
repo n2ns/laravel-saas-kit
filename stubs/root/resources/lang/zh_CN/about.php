@@ -8,7 +8,7 @@
  */
 
 return [
-    'title' => '关于 - SaaS Starter',
+    'title' => '关于 - SaaS Kit',
     'template_label' => '关于页模板',
     'hero_title' => '关于此产品',
     'hero_subtitle' => '发布前，请将这个空白起始页替换为你的产品介绍。',

@@ -4,6 +4,22 @@ All notable changes to Laravel SaaS Kit are documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- The template ships `public/favicon.svg` and declares it, with `favicon.ico`, in the main layout and the 404 and 503 pages.
+- The footer credits Laravel SaaS Kit (GitHub repository) and N2NS Lab (n2ns.com), translated in all four locales.
+
+### Changed
+
+- New orange layered icon and logo (`favicon.ico`, `favicon-512.png`, `favicon-120.png`).
+- The header shows the site name (`APP_NAME`) next to the logo, drops the Home link (the logo already links home), and moves About to the end of the menu.
+- `.env.example` now defaults `APP_NAME` and `COMPANY_NAME` to `SaaS Kit`.
+- Views, the subscription email, the 503 and 404 pages, Open Graph `og:site_name`, and the structured data organization name now use `APP_NAME` instead of a hard-coded "SaaS Starter"; the unused `messages.meta.site_name` translation was removed. Starter copy in translations, `llms.txt`, badges, and seed data now says "SaaS Kit".
+
+### Removed
+
+- Removed the Sitemap link from the footer; `php artisan sitemap:generate` still writes `public/sitemap.xml`, and `/robots.txt` still points to it.
+
 ## [0.2.1] - 2026-11-20
 
 ### Security

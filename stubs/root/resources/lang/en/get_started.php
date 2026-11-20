@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'Get Started with SaaS Starter',
+    'title' => 'Get Started with SaaS Kit',
     'subtitle' => 'Pick the path that fits what you\'re looking for.',
 
     'paths' => [

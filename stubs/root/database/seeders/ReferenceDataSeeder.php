@@ -52,7 +52,7 @@ class ReferenceDataSeeder extends Seeder
                 'cta_label' => 'View Product',
                 'tags' => json_encode(['Starter', 'SaaS']),
                 'key_points' => json_encode([
-                    ['title' => 'Google login', 'description' => 'Uses the same Socialite and Google ID token flow as the SaaS Starter main site.'],
+                    ['title' => 'Google login', 'description' => 'Uses the same Socialite and Google ID token flow as the SaaS Kit main site.'],
                     ['title' => 'Stripe billing', 'description' => 'Includes Checkout, webhooks, orders, subscriptions, and customer portal wiring.'],
                     ['title' => 'Content ready', 'description' => 'Includes blog, sitemap, and admin publishing workflows.'],
                 ]),

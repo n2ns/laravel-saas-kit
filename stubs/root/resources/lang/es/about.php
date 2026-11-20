@@ -8,7 +8,7 @@
  */
 
 return [
-    'title' => 'Acerca de - SaaS Starter',
+    'title' => 'Acerca de - SaaS Kit',
     'template_label' => 'Plantilla About',
     'hero_title' => 'Acerca de Este Producto',
     'hero_subtitle' => 'Reemplace esta página inicial vacía con su propia historia de producto antes del lanzamiento.',

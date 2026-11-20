@@ -8,7 +8,7 @@
  */
 
 return [
-    'title' => 'Über - SaaS Starter',
+    'title' => 'Über - SaaS Kit',
     'template_label' => 'About-Vorlage',
     'hero_title' => 'Über Dieses Produkt',
     'hero_subtitle' => 'Ersetzen Sie diese leere Startseite vor dem Launch durch Ihre eigene Produktbeschreibung.',

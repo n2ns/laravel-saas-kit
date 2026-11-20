@@ -11,7 +11,7 @@ return [
     // Product Index Page - Generic UI
     'title' => '我们的解决方案',
     'subtitle' => '浏览本站点发布的产品和套餐。',
-    'seo_title' => '产品 | SaaS Starter',
+    'seo_title' => '产品 | SaaS Kit',
     'seo_description' => '浏览此 SaaS 产品站的产品、价格和账户访问入口。',
     'view_details' => '查看详情',
     'view_github' => 'GitHub',

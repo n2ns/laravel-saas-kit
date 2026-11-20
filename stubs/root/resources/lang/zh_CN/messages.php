@@ -3,7 +3,6 @@
 return [
     // Navigation
     'nav' => [
-        'home' => '首页',
         'about' => '关于我们',
         'products' => '产品',
         'pricing' => '价格',
@@ -19,15 +18,14 @@ return [
 
     // Meta
     'meta' => [
-        'description' => 'SaaS Starter 是一个 Laravel 产品站模板，内置登录认证、订阅支付、产品页面、博客发布、SEO 和管理后台。',
+        'description' => 'SaaS Kit 是一个 Laravel 产品站模板，内置登录认证、订阅支付、产品页面、博客发布、SEO 和管理后台。',
         'keywords' => 'SaaS, Laravel, 产品站, 订阅支付, 博客发布, 产品目录, SEO, 管理后台',
-        'title' => 'SaaS Starter - Laravel 产品站模板',
-        'site_name' => 'SaaS Starter',
+        'title' => 'SaaS Kit - Laravel 产品站模板',
     ],
 
     // Home Page
     'home' => [
-        'title' => 'SaaS Starter - Laravel 产品站模板',
+        'title' => 'SaaS Kit - Laravel 产品站模板',
         'hero_title' => '快速搭建聚焦的 SaaS 产品站',
         'hero_subtitle' => '一个 Laravel 产品站骨架，包含产品页、订阅、账户访问、博客发布、SEO 和管理后台。',
         'hero_pricing_cta' => '查看价格',
@@ -73,14 +71,14 @@ return [
     'footer' => [
         'company_desc' => '一个可配置的 SaaS 产品站模板。',
         'rights_reserved' => '版权所有。',
-        'sitemap' => '网站地图',
         'disclaimer' => '发布前请替换模板内容、法律信息和产品文案。',
+        'built_with' => '基于 :lab 的 :kit 构建。',
     ],
 
     // Blog
     'blog' => [
         'subtitle' => '产品更新、指南和公司动态。',
-        'meta_keywords' => 'SaaS Starter 博客, 产品更新, 指南, 公司动态',
+        'meta_keywords' => 'SaaS Kit 博客, 产品更新, 指南, 公司动态',
         'back_to_list' => '返回博客列表',
         'no_blog_posts' => '暂无博客文章。产品更新和指南即将发布。',
         'author_tagline' => '来自站点团队的记录。',

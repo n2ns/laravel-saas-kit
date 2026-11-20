@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'Comienza con SaaS Starter',
+    'title' => 'Comienza con SaaS Kit',
     'subtitle' => 'Elige el camino que se ajuste a lo que buscas.',
 
     'paths' => [

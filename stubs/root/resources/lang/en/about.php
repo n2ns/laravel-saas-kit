@@ -8,7 +8,7 @@
  */
 
 return [
-    'title' => 'About - SaaS Starter',
+    'title' => 'About - SaaS Kit',
     'template_label' => 'About Template',
     'hero_title' => 'About This Product',
     'hero_subtitle' => 'Replace this blank starter page with your own product story before launch.',

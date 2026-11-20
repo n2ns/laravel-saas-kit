@@ -14,7 +14,7 @@ return [
     'last_updated' => 'Última Actualización: Diciembre 2025',
     'sections' => [
         'intro_title' => '1. Introducción',
-        'intro_body' => 'the site operator ("SaaS Starter", "nosotros" o "nuestro") está comprometido a proteger su privacidad. Esta Política de Privacidad explica cómo recopilamos, usamos, divulgamos y protegemos sus datos personales cuando usa nuestros sitios web, productos y servicios.',
+        'intro_body' => 'the site operator ("SaaS Kit", "nosotros" o "nuestro") está comprometido a proteger su privacidad. Esta Política de Privacidad explica cómo recopilamos, usamos, divulgamos y protegemos sus datos personales cuando usa nuestros sitios web, productos y servicios.',
         'collection_title' => '2. Información que Recopilamos',
         'collection_body' => 'Recopilamos información que usted nos proporciona directamente, como cuando crea una cuenta, realiza una compra, contacta soporte o se comunica con nosotros.',
         'use_title' => '3. Cómo Usamos Su Información',

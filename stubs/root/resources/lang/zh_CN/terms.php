@@ -13,9 +13,9 @@ return [
     'subtitle' => '使用我们的服务前请仔细阅读这些条款',
     'sections' => [
         'acceptance_title' => '1. 接受条款',
-        'acceptance_body' => '访问和使用 SaaS Starter 的服务即表示您接受并同意受本协议条款和条款的约束。',
+        'acceptance_body' => '访问和使用 SaaS Kit 的服务即表示您接受并同意受本协议条款和条款的约束。',
         'services_title' => '2. 服务说明',
-        'services_body' => 'SaaS Starter 提供产品站、账户、订阅、内容发布及相关软件服务。请将这里替换为本站点实际提供的服务。',
+        'services_body' => 'SaaS Kit 提供产品站、账户、订阅、内容发布及相关软件服务。请将这里替换为本站点实际提供的服务。',
         'accounts_title' => '3. 用户账户',
         'accounts_body' => '某些服务可能需要您创建账户。您有责任维护账户凭证的保密性，并对账户下发生的所有活动负责。',
 
@@ -31,7 +31,7 @@ return [
         'ip_title' => '7. 知识产权',
         'ip_body' => '我们服务的所有内容、功能均归 the site operator 所有，并受国际版权、商标和其他知识产权法律保护。',
         'liability_title' => '8. 责任限制',
-        'liability_body' => 'SaaS Starter 不对因您使用或无法使用服务而导致的任何间接、附带、特殊、后果性或惩罚性损害负责。',
+        'liability_body' => 'SaaS Kit 不对因您使用或无法使用服务而导致的任何间接、附带、特殊、后果性或惩罚性损害负责。',
         'termination_title' => '9. 终止',
         'termination_body' => '如果我们认为您的行为违反这些条款或对其他用户有害，我们可以立即终止或暂停您对服务的访问，无需事先通知。',
 

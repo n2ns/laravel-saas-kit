@@ -11,7 +11,7 @@ return [
     // Product Index Page - Generic UI
     'title' => 'Nuestras Soluciones',
     'subtitle' => 'Explore los productos y planes publicados en este sitio.',
-    'seo_title' => 'Productos | SaaS Starter',
+    'seo_title' => 'Productos | SaaS Kit',
     'seo_description' => 'Explore productos, precios y acceso de cuenta para este sitio SaaS.',
     'view_details' => 'Ver Detalles',
     'view_github' => 'GitHub',

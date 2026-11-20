@@ -1,6 +1,6 @@
-# SaaS Starter
+# SaaS Kit
 
-SaaS Starter is a Laravel product-site template extracted from the current main-site implementation.
+SaaS Kit is a Laravel product-site template extracted from the current main-site implementation.
 
 ## Included capabilities
 

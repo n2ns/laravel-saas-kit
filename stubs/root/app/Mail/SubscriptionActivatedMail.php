@@ -32,7 +32,7 @@ class SubscriptionActivatedMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your SaaS Starter subscription is active',
+            subject: 'Your '.config('app.name').' subscription is active',
         );
     }
 

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" role="img" aria-labelledby="title desc">
   <title id="title">Team member placeholder</title>
-  <desc id="desc">Abstract placeholder portrait for SaaS Starter templates.</desc>
+  <desc id="desc">Abstract placeholder portrait for SaaS Kit templates.</desc>
   <defs>
     <linearGradient id="bg" x1="1" x2="0" y1="0" y2="1">
       <stop offset="0" stop-color="#111827"/>

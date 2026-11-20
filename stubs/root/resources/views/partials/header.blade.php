@@ -30,22 +30,13 @@
         <div class="flex justify-between items-center h-20">
             <div class="flex items-center gap-12">
                 <!-- Logo -->
-                <a href="{{ localized_route('home') }}" class="flex items-center group">
+                <a href="{{ localized_route('home') }}" class="flex items-center gap-3 group">
                     <img src="{{ asset('favicon-512.png') }}" alt="{{ config('app.name') }}" class="h-10 w-10 group-hover:opacity-80 transition-opacity">
+                    <span class="text-lg font-bold tracking-tight text-slate-950 group-hover:opacity-80 transition-opacity">{{ config('app.name') }}</span>
                 </a>
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="{{ localized_route('home') }}"
-                       class="relative px-2 py-2 font-normal text-[15px] leading-6 {{ request()->routeIs('home', 'localized.home') ? 'text-slate-950' : 'text-slate-600 hover:text-slate-950' }} transition-colors group">
-                        {{ __('messages.nav.home') }}
-                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#a34f1f] transform {{ request()->routeIs('home', 'localized.home') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }} transition-transform origin-left"></span>
-                    </a>
-                    <a href="{{ localized_route('about') }}"
-                       class="relative px-2 py-2 font-normal text-[15px] leading-6 {{ request()->routeIs('about', 'localized.about') ? 'text-slate-950' : 'text-slate-600 hover:text-slate-950' }} transition-colors group">
-                        {{ __('messages.nav.about') }}
-                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#a34f1f] transform {{ request()->routeIs('about', 'localized.about') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }} transition-transform origin-left"></span>
-                    </a>
                     <a href="{{ $productNavUrl }}"
                        class="relative px-2 py-2 font-normal text-[15px] leading-6 {{ $productNavActive ? 'text-slate-950' : 'text-slate-600 hover:text-slate-950' }} transition-colors group">
                         {{ $productNavLabel }}
@@ -55,6 +46,11 @@
                        class="relative px-2 py-2 font-normal text-[15px] leading-6 {{ request()->routeIs('blog.*', 'localized.blog.*') ? 'text-slate-950' : 'text-slate-600 hover:text-slate-950' }} transition-colors group">
                         {{ __('messages.nav.blog') }}
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#a34f1f] transform {{ request()->routeIs('blog.*', 'localized.blog.*') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }} transition-transform origin-left"></span>
+                    </a>
+                    <a href="{{ localized_route('about') }}"
+                       class="relative px-2 py-2 font-normal text-[15px] leading-6 {{ request()->routeIs('about', 'localized.about') ? 'text-slate-950' : 'text-slate-600 hover:text-slate-950' }} transition-colors group">
+                        {{ __('messages.nav.about') }}
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#a34f1f] transform {{ request()->routeIs('about', 'localized.about') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }} transition-transform origin-left"></span>
                     </a>
                 </div>
             </div>
@@ -145,14 +141,6 @@
              x-transition:enter-end="opacity-100 translate-y-0"
              class="md:hidden pt-1 pb-4 border-t border-black/10 bg-white">
             <div class="flex flex-col space-y-1">
-                <a href="{{ localized_route('home') }}"
-                   class="font-normal text-[15px] leading-[22px] px-4 py-2 rounded-lg {{ request()->routeIs('home', 'localized.home') ? 'bg-orange-100 text-[#a34f1f]' : 'text-slate-700 hover:text-slate-950' }}">
-                    {{ __('messages.nav.home') }}
-                </a>
-                <a href="{{ localized_route('about') }}"
-                   class="font-normal text-[15px] leading-[22px] px-4 py-2 rounded-lg {{ request()->routeIs('about', 'localized.about') ? 'bg-orange-100 text-[#a34f1f]' : 'text-slate-700 hover:text-slate-950' }}">
-                    {{ __('messages.nav.about') }}
-                </a>
                 <a href="{{ $productNavUrl }}"
                    class="font-normal text-[15px] leading-[22px] px-4 py-2 rounded-lg {{ $productNavActive ? 'bg-orange-100 text-[#a34f1f]' : 'text-slate-700 hover:text-slate-950' }}">
                     {{ $productNavLabel }}
@@ -160,6 +148,10 @@
                 <a href="{{ localized_route('blog.index') }}"
                    class="font-normal text-[15px] leading-[22px] px-4 py-2 rounded-lg {{ request()->routeIs('blog.*', 'localized.blog.*') ? 'bg-orange-100 text-[#a34f1f]' : 'text-slate-700 hover:text-slate-950' }}">
                     {{ __('messages.nav.blog') }}
+                </a>
+                <a href="{{ localized_route('about') }}"
+                   class="font-normal text-[15px] leading-[22px] px-4 py-2 rounded-lg {{ request()->routeIs('about', 'localized.about') ? 'bg-orange-100 text-[#a34f1f]' : 'text-slate-700 hover:text-slate-950' }}">
+                    {{ __('messages.nav.about') }}
                 </a>
                 <div class="grid grid-cols-4 gap-2 px-4 pt-4 border-t border-black/10">
                     @foreach($langMap as $locale => $info)

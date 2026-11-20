@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => '开始使用 SaaS Starter',
+    'title' => '开始使用 SaaS Kit',
     'subtitle' => '选择最适合你需求的路径。',
 
     'paths' => [

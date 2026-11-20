@@ -2,7 +2,7 @@
 
 return [
     '404' => [
-        'meta_title' => 'Seite nicht gefunden - SaaS Starter',
+        'meta_title' => 'Seite nicht gefunden - SaaS Kit',
         'eyebrow' => 'Seite nicht gefunden',
         'title' => 'Diese Seite wurde verschoben oder existiert nicht.',
         'description' => 'Der Link ist moeglicherweise veraltet, oder das Produktmaterial liegt jetzt auf einer anderen kanonischen Seite. Starte im Produktkatalog oder kehre zur Startseite zurueck.',

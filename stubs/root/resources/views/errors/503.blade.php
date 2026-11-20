@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>SaaS Starter is temporarily unavailable</title>
+    <title>{{ config('app.name') }} is temporarily unavailable</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <style>
         :root {
             color-scheme: dark;
@@ -122,12 +124,12 @@
 <body>
     <main class="content" role="main">
         <div class="brand">
-            <img src="{{ asset('badges/site-badge.svg') }}" alt="SaaS Starter">
+            <img src="{{ asset('badges/site-badge.svg') }}" alt="{{ config('app.name') }}">
         </div>
 
         <div class="pill"><span class="dot"></span> Maintenance in progress</div>
 
-        <h1>We are updating SaaS Starter.</h1>
+        <h1>We are updating {{ config('app.name') }}.</h1>
 
         <p>
             The site is temporarily unavailable while a deployment is being completed.

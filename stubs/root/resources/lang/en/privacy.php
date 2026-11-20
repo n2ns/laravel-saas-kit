@@ -14,7 +14,7 @@ return [
     'last_updated' => 'Last Updated: December 2025',
     'sections' => [
         'intro_title' => '1. Introduction',
-        'intro_body' => 'the site operator ("SaaS Starter", "we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal data when you use our websites, products, and services (collectively, the "Services"). By using our Services, you consent to the practices described in this policy.',
+        'intro_body' => 'the site operator ("SaaS Kit", "we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal data when you use our websites, products, and services (collectively, the "Services"). By using our Services, you consent to the practices described in this policy.',
 
         'collection_title' => '2. Information We Collect',
         'collection_body' => 'We collect information you provide directly to us, such as when you create an account, make a purchase, contact support, or communicate with us. This may include: (a) Contact information (name, email address); (b) Account credentials; (c) Payment information (processed securely by our payment partners); (d) Communications and feedback you send to us. We also automatically collect certain information when you use our Services, including device information, IP address, browser type, and usage data through cookies and similar technologies.',

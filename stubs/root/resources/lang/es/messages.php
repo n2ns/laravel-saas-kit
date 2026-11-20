@@ -3,7 +3,6 @@
 return [
     // Navigation
     'nav' => [
-        'home' => 'Inicio',
         'about' => 'Nosotros',
         'products' => 'Productos',
         'pricing' => 'Precios',
@@ -19,15 +18,14 @@ return [
 
     // Meta
     'meta' => [
-        'description' => 'SaaS Starter es una plantilla Laravel para sitios de productos SaaS con autenticación, pagos, páginas de producto, blog, SEO y administración.',
+        'description' => 'SaaS Kit es una plantilla Laravel para sitios de productos SaaS con autenticación, pagos, páginas de producto, blog, SEO y administración.',
         'keywords' => 'SaaS, Laravel, sitio de producto, suscripciones, blog, catálogo de productos, SEO, panel de administración',
-        'title' => 'SaaS Starter - Plantilla Laravel para sitios de producto',
-        'site_name' => 'SaaS Starter',
+        'title' => 'SaaS Kit - Plantilla Laravel para sitios de producto',
     ],
 
     // Home Page
     'home' => [
-        'title' => 'SaaS Starter - Plantilla Laravel para sitios de producto',
+        'title' => 'SaaS Kit - Plantilla Laravel para sitios de producto',
         'hero_title' => 'Lance un sitio SaaS enfocado',
         'hero_subtitle' => 'Una plantilla Laravel para páginas de producto, suscripciones, acceso de cuenta, blog, SEO y flujos de administración.',
         'hero_pricing_cta' => 'Ver precios',
@@ -73,14 +71,14 @@ return [
     'footer' => [
         'company_desc' => 'Una plantilla configurable de sitio de producto SaaS.',
         'rights_reserved' => 'Todos los derechos reservados.',
-        'sitemap' => 'Mapa del Sitio',
         'disclaimer' => 'Reemplace el contenido inicial, los datos legales y el texto del producto antes de publicar.',
+        'built_with' => 'Creado con :kit de :lab.',
     ],
 
     // Blog
     'blog' => [
         'subtitle' => 'Actualizaciones de producto, guías y notas de la empresa.',
-        'meta_keywords' => 'SaaS Starter blog, actualizaciones de producto, guías, notas de empresa',
+        'meta_keywords' => 'SaaS Kit blog, actualizaciones de producto, guías, notas de empresa',
         'back_to_list' => 'Volver al Blog',
         'no_blog_posts' => 'Aún no hay entradas de blog. Mantente atento.',
         'author_tagline' => 'Notas del equipo del sitio.',

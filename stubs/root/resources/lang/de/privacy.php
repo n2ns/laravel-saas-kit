@@ -14,7 +14,7 @@ return [
     'last_updated' => 'Letzte Aktualisierung: Dezember 2025',
     'sections' => [
         'intro_title' => '1. Einleitung',
-        'intro_body' => 'the site operator ("SaaS Starter", "wir" oder "unser") ist dem Schutz Ihrer Privatsphäre verpflichtet. Diese Datenschutzrichtlinie erklärt, wie wir Ihre persönlichen Daten sammeln, verwenden, offenlegen und schützen.',
+        'intro_body' => 'the site operator ("SaaS Kit", "wir" oder "unser") ist dem Schutz Ihrer Privatsphäre verpflichtet. Diese Datenschutzrichtlinie erklärt, wie wir Ihre persönlichen Daten sammeln, verwenden, offenlegen und schützen.',
         'collection_title' => '2. Informationen, die Wir Sammeln',
         'collection_body' => 'Wir sammeln Informationen, die Sie uns direkt zur Verfügung stellen, wie wenn Sie ein Konto erstellen, einen Kauf tätigen oder uns kontaktieren.',
         'use_title' => '3. Wie Wir Ihre Informationen Verwenden',

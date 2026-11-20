@@ -8,7 +8,7 @@
  */
 
 return [
-    'title' => 'Contact Us - SaaS Starter',
+    'title' => 'Contact Us - SaaS Kit',
     'hero_title' => 'Contact Us',
     'hero_subtitle' => 'We\'d love to hear from you. Get in touch with our team.',
     'send_message' => 'Send Us a Message',

@@ -104,11 +104,11 @@
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-neon-cyan flex items-center justify-center p-0.5">
                     <div class="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
-                        <img src="{{ asset('favicon-512.png') }}" alt="SaaS Starter" class="w-8 h-8 opacity-90">
+                        <img src="{{ asset('favicon-512.png') }}" alt="{{ config('app.name') }}" class="w-8 h-8 opacity-90">
                     </div>
                 </div>
                 <div>
-                    <p class="text-slate-950 font-semibold">{{ $blogPost->author->name ?? 'SaaS Starter' }}</p>
+                    <p class="text-slate-950 font-semibold">{{ $blogPost->author->name ?? config('app.name') }}</p>
                     <p class="text-slate-600 text-sm">{{ __('messages.blog.author_tagline') }}</p>
                 </div>
             </div>

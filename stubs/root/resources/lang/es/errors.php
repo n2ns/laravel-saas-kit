@@ -2,7 +2,7 @@
 
 return [
     '404' => [
-        'meta_title' => 'Página no encontrada - SaaS Starter',
+        'meta_title' => 'Página no encontrada - SaaS Kit',
         'eyebrow' => 'Página no encontrada',
         'title' => 'Esta página se movió o no existe.',
         'description' => 'El enlace puede estar desactualizado, o el material del producto puede estar ahora en una página canónica diferente. Empieza desde el catálogo de productos o vuelve al inicio.',

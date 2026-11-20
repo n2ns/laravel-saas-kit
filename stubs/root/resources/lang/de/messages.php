@@ -3,7 +3,6 @@
 return [
     // Navigation
     'nav' => [
-        'home' => 'Startseite',
         'about' => 'Über Uns',
         'products' => 'Produkte',
         'pricing' => 'Preise',
@@ -19,15 +18,14 @@ return [
 
     // Meta
     'meta' => [
-        'description' => 'SaaS Starter ist eine Laravel-Vorlage für Produkt-Websites mit Anmeldung, Abrechnung, Produktseiten, Blog, SEO und Admin-Workflows.',
+        'description' => 'SaaS Kit ist eine Laravel-Vorlage für Produkt-Websites mit Anmeldung, Abrechnung, Produktseiten, Blog, SEO und Admin-Workflows.',
         'keywords' => 'SaaS, Laravel, Produktseite, Abonnement, Blog, Produktkatalog, SEO, Admin-Dashboard',
-        'title' => 'SaaS Starter - Laravel Produktseiten-Vorlage',
-        'site_name' => 'SaaS Starter',
+        'title' => 'SaaS Kit - Laravel Produktseiten-Vorlage',
     ],
 
     // Home Page
     'home' => [
-        'title' => 'SaaS Starter - Laravel Produktseiten-Vorlage',
+        'title' => 'SaaS Kit - Laravel Produktseiten-Vorlage',
         'hero_title' => 'Eine fokussierte SaaS-Produktseite starten',
         'hero_subtitle' => 'Eine Laravel-Vorlage für Produktseiten, Abonnements, Konto-Zugriff, Blog-Veröffentlichung, SEO und Admin-Workflows.',
         'hero_pricing_cta' => 'Preise ansehen',
@@ -73,14 +71,14 @@ return [
     'footer' => [
         'company_desc' => 'Eine konfigurierbare SaaS-Produktseiten-Vorlage.',
         'rights_reserved' => 'Alle Rechte vorbehalten.',
-        'sitemap' => 'Sitemap',
         'disclaimer' => 'Ersetzen Sie Starterinhalte, rechtliche Angaben und Produkttexte vor der Veröffentlichung.',
+        'built_with' => 'Erstellt mit :kit von :lab.',
     ],
 
     // Blog
     'blog' => [
         'subtitle' => 'Produktupdates, Leitfäden und Unternehmensnotizen.',
-        'meta_keywords' => 'SaaS Starter Blog, Produktupdates, Leitfäden, Unternehmensnotizen',
+        'meta_keywords' => 'SaaS Kit Blog, Produktupdates, Leitfäden, Unternehmensnotizen',
         'back_to_list' => 'Zurück zum Blog',
         'no_blog_posts' => 'Noch keine Blogbeiträge gefunden. Bleiben Sie dran!',
         'author_tagline' => 'Notizen vom Website-Team.',

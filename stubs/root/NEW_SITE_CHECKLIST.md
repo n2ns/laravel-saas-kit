@@ -94,7 +94,7 @@ MAIL_MAILER=
 
 ## 3. Brand and Public Copy
 
-Replace visible starter identity ("SaaS Starter" and starter copy):
+Replace visible starter identity ("SaaS Kit" and starter copy):
 
 - `resources/lang/*/messages.php`
 - `resources/lang/*/about.php`
@@ -121,8 +121,12 @@ Locales are `de`, `en`, `es`, and `zh_CN`.
 Replace starter assets:
 
 - `public/favicon.ico`
+- `public/favicon.svg` (browser tab icon in modern browsers)
 - `public/favicon-512.png` (header, footer, login page, blog author block, and
   the structured data logo)
+- The "Built with Laravel SaaS Kit by N2NS Lab" line in
+  `resources/views/partials/footer.blade.php` (`messages.footer.built_with`);
+  keep or remove it
 - `public/badges/site-badge.svg` (404 and 503 pages)
 - `public/images/products/starter_banner.svg` (default product image when a
   catalog item has no image)

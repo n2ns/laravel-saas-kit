@@ -21,6 +21,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $pageTitle }}</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <meta name="description" content="{{ $pageDescription }}">
     <meta name="keywords" content="{{ $pageKeywords }}">
     <meta name="author" content="{{ config('app.company_name', config('app.name')) }}">
@@ -62,7 +64,7 @@
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:type" content="{{ $pageType }}">
-    <meta property="og:site_name" content="{{ __('messages.meta.site_name') }}">
+    <meta property="og:site_name" content="{{ config('app.name') }}">
     <meta property="og:url" content="{{ $pageCanonicalUrl }}">
     <meta property="og:locale" content="{{ $pageOgLocale }}">
         @foreach ($supportedLocales as $supportedLocale)

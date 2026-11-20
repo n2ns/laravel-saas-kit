@@ -30,7 +30,7 @@ class StructuredData
             '@context' => 'https://schema.org',
             '@type' => 'WebSite',
             '@id' => url('/#website'),
-            'name' => __('messages.meta.site_name'),
+            'name' => config('app.name'),
             'url' => url('/'),
             'publisher' => [
                 '@id' => url('/#organization'),

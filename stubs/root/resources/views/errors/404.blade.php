@@ -12,6 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, follow">
     <title>{{ __('errors.404.meta_title') }}</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <style>
         :root {
             color-scheme: dark;
@@ -178,7 +180,7 @@
 <body>
     <main class="shell" role="main">
         <div class="brand">
-            <img src="{{ asset('badges/site-badge.svg') }}" alt="SaaS Starter">
+            <img src="{{ asset('badges/site-badge.svg') }}" alt="{{ config('app.name') }}">
         </div>
 
         <section class="panel" aria-labelledby="page-title">
