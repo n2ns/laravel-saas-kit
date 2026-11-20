@@ -22,19 +22,45 @@ if [[ ! -d "$stub_path" ]]; then
     exit 2
 fi
 
-diff -qr \
-    -x '.git' \
-    -x 'vendor' \
-    -x 'node_modules' \
-    -x 'bootstrap/cache' \
-    -x 'packages.php' \
-    -x 'services.php' \
-    -x 'storage' \
-    -x 'composer.lock' \
-    -x '.env' \
-    -x '.phpunit.result.cache' \
-    -x '.phpunit.cache' \
-    -x 'build' \
-    -x 'public/build' \
-    -x 'public/storage' \
-    "$template_path" "$stub_path"
+# Exclusions are anchored to the template root. `diff -x` matches base names
+# only, which also hid same-named files elsewhere (such as config/services.php).
+list_files() {
+    (
+        cd "$1"
+        find . \
+            \( -path ./.git -o -path ./vendor -o -path ./node_modules -o -path ./storage \
+               -o -path ./public/build -o -path ./public/storage -o -path ./.phpunit.cache \) -prune \
+            -o \( -type f -o -type l \) \
+            ! -path './bootstrap/cache/*.php' \
+            ! -path ./composer.lock \
+            ! -path ./.env \
+            ! -path ./.phpunit.result.cache \
+            -print
+    ) | sed 's|^\./||' | LC_ALL=C sort
+}
+
+template_files="$(list_files "$template_path")"
+stub_files="$(list_files "$stub_path")"
+status=0
+
+while IFS= read -r file; do
+    [[ -z "$file" ]] && continue
+    echo "Only in $template_path: $file"
+    status=1
+done < <(LC_ALL=C comm -23 <(printf '%s\n' "$template_files") <(printf '%s\n' "$stub_files"))
+
+while IFS= read -r file; do
+    [[ -z "$file" ]] && continue
+    echo "Only in $stub_path: $file"
+    status=1
+done < <(LC_ALL=C comm -13 <(printf '%s\n' "$template_files") <(printf '%s\n' "$stub_files"))
+
+while IFS= read -r file; do
+    [[ -z "$file" ]] && continue
+    if ! cmp -s "$template_path/$file" "$stub_path/$file"; then
+        echo "Files $template_path/$file and $stub_path/$file differ"
+        status=1
+    fi
+done < <(LC_ALL=C comm -12 <(printf '%s\n' "$template_files") <(printf '%s\n' "$stub_files"))
+
+exit "$status"

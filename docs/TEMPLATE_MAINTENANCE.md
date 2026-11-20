@@ -56,7 +56,7 @@ Check that the packaged stubs have not drifted from that working source:
 bash scripts/check-template-sync.sh /path/to/source-template
 ```
 
-The script also reads the source path from `SAAS_KIT_TEMPLATE_PATH` when no argument is given. It runs `diff -qr`, which lists differing or missing files and exits non-zero when anything differs. It ignores `.git`, `vendor`, `node_modules`, `bootstrap/cache`, `storage`, `composer.lock`, `.env`, PHPUnit caches, and build output.
+The script also reads the source path from `SAAS_KIT_TEMPLATE_PATH` when no argument is given. It lists files that differ or exist on only one side, and exits non-zero when anything differs. Exclusions are paths from the template root, so a file with the same name elsewhere (such as `config/services.php`) is still compared. It ignores `.git`, `vendor`, `node_modules`, `storage`, `public/build`, `public/storage`, `bootstrap/cache/*.php`, `composer.lock`, `.env`, `.phpunit.cache`, and `.phpunit.result.cache`.
 
 Keep package-only files in this repository, outside `stubs/root`:
 
