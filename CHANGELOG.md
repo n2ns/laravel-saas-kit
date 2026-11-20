@@ -4,6 +4,8 @@ All notable changes to Laravel SaaS Kit are documented in this file.
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-20
+
 ### Security
 
 - The template's `package.json` overrides `postcss-selector-parser` for `@tailwindcss/typography` to `^6.1.6`, fixing GHSA-rj75-hqrm-r3gf; `npm audit` now reports no vulnerabilities, and the built CSS is unchanged.
