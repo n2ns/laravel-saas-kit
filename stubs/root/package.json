@@ -10,17 +10,17 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.20",
-    "@tailwindcss/vite": "^4.3.3",
-    "alpinejs": "^3.17.4",
-    "axios": "^1.20.0",
-    "concurrently": "^10.0.6",
-    "laravel-vite-plugin": "^3.2.0",
-    "lucide": "^1.55.0",
-    "tailwindcss": "^4.3.3",
-    "vite": "^8.3.4"
+    "@tailwindcss/vite": "^4.3.5",
+    "alpinejs": "^3.17.5",
+    "axios": "^1.21.1",
+    "concurrently": "^10.0.7",
+    "laravel-vite-plugin": "^3.2.1",
+    "lucide": "^1.77.0",
+    "tailwindcss": "^4.3.5",
+    "vite": "^8.3.8"
   },
   "dependencies": {
-    "@alpinejs/collapse": "^3.17.4",
+    "@alpinejs/collapse": "^3.17.5",
     "@fortawesome/fontawesome-free": "^7.3.1"
   }
 }

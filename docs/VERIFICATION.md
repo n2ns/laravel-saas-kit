@@ -101,11 +101,11 @@ CI does not run `composer audit`, `scripts/check-template-sync.sh`, or `passport
 
 The package has been verified with:
 
-- Laravel framework 12.70.0 in the smoke app.
-- Filament 5.10.2.
-- Passport 13.10.0.
-- Cashier 16.9.0.
-- PHP 8.5.10 (Windows); CI runs PHP 8.3.
+- Laravel framework 12.73.0 in the smoke app.
+- Filament 5.11.4.
+- Passport 13.12.0.
+- Cashier 16.11.0.
+- PHP 8.5.4 locally; CI runs PHP 8.3.
 
 The smoke test confirms:
 

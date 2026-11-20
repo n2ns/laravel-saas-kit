@@ -6,9 +6,9 @@ This package is for fresh Laravel 12 applications. It copies a complete product-
 
 - PHP 8.3 or newer.
 - Composer 2.
-- Laravel 12 (`laravel/framework` `^12.69.3`, required by the package).
+- Laravel 12 (`laravel/framework` `^12.73.0`, required by the package).
 - Node.js and npm for the Vite frontend build. CI builds with Node.js 24.
-- MySQL or MariaDB for production. SQLite is fine for local smoke testing; the kit's `.env.example` defaults to `database/database.sqlite`.
+- MySQL, MariaDB, or PostgreSQL for production. SQLite is fine for local smoke testing; the kit's `.env.example` defaults to `database/database.sqlite`.
 
 ## Create a New Site
 
